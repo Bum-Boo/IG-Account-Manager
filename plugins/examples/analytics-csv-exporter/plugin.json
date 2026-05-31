@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "analytics.csv-exporter",
+  "name": "Analytics CSV Exporter",
+  "version": "0.1.0",
+  "description": "An analytics exporter example that writes official metrics into a CSV artifact.",
+  "type": "analytics",
+  "distribution": "community",
+  "private": false,
+  "entry": "./dist/index.js",
+  "permissions": ["account:read", "concept:read", "analytics:read", "analytics:export"],
+  "capabilities": [
+    {
+      "id": "analytics.export.csv",
+      "description": "Exports analytics rows as CSV."
+    }
+  ],
+  "dryRun": {
+    "supported": true,
+    "modes": ["validate_only", "preview"]
+  },
+  "author": {
+    "name": "IG Manager"
+  },
+  "metadata": {
+    "example": true
+  }
+}
+

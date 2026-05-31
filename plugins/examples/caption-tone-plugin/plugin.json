@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "caption.tone",
+  "name": "Caption Tone Plugin",
+  "version": "0.1.0",
+  "description": "A copy generator example that proposes caption variants for a selected concept tone.",
+  "type": "copy_generator",
+  "distribution": "community",
+  "private": false,
+  "entry": "./dist/index.js",
+  "permissions": ["concept:read", "asset:read", "copy:generate", "candidate:write"],
+  "capabilities": [
+    {
+      "id": "copy.caption.variants",
+      "description": "Generates caption variants from concept voice and prompt context."
+    }
+  ],
+  "dryRun": {
+    "supported": true,
+    "modes": ["preview", "no_write"]
+  },
+  "author": {
+    "name": "IG Manager"
+  },
+  "metadata": {
+    "example": true
+  }
+}
+

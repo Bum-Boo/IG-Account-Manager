@@ -1,0 +1,18 @@
+id: asset_background_soft_gray_studio
+title: Soft gray studio wall
+type: image
+uri: file://content-library/assets/backgrounds/soft-gray-studio.png
+description: Neutral gray studio wall for product and portrait compositions.
+tags:
+  - background
+  - studio
+  - neutral
+compatibleWith:
+  - outfits:minimal
+  - camera:portrait
+avoidWith:
+  - makeup:high-gloss
+promptFragment: soft gray studio wall, subtle texture, clean negative space
+weight: 1.2
+rights:
+  usage: owned

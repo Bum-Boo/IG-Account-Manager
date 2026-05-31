@@ -1,0 +1,45 @@
+node_modules/
+dist/
+coverage/
+.turbo/
+data/
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.DS_Store
+
+# Environment and local runtime configuration
+.env
+.env.*
+!.env.example
+
+# Local generated media and private working outputs
+generated-media/
+media/generated/
+exports/generated-media/
+content-library/generated/
+content-library/outputs/
+content-library/assets/generated/
+*.generated.png
+*.generated.jpg
+*.generated.jpeg
+*.generated.webp
+*.generated.mp4
+
+# Private plugins are developed and distributed outside this Core repo.
+private-plugins/
+
+# Token vaults, local secret stores, and credential material
+.token-vault/
+token-vault/
+vault/
+secrets/
+*.vault
+*.vault.json
+*.tokens.json
+*.token.json
+*.credentials.json
+*.secret.json
+*.key
+*.pem

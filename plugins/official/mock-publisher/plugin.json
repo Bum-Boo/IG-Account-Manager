@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "official.mock-publisher",
+  "name": "Official Mock Publisher",
+  "version": "0.1.0",
+  "description": "Official MVP publisher that simulates publishing locally without external API calls.",
+  "type": "publisher",
+  "distribution": "official",
+  "private": false,
+  "officialApiOnly": true,
+  "entry": "./dist/index.js",
+  "permissions": ["candidate:read", "publish:validate", "publish:approved"],
+  "capabilities": [
+    {
+      "id": "publish.mock",
+      "description": "Validate and simulate publish requests."
+    }
+  ],
+  "uiExtensionPoints": [],
+  "dryRun": {
+    "supported": true,
+    "modes": ["validate_only", "preview", "no_write"]
+  },
+  "author": {
+    "name": "IG Manager"
+  },
+  "metadata": {
+    "officialMvp": true
+  }
+}

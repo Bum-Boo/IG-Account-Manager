@@ -1,0 +1,18 @@
+id: asset_outfit_black_linen_shirt
+title: Black linen shirt
+type: image
+uri: file://content-library/assets/outfits/black-linen-shirt.png
+description: Simple black linen shirt for clean lifestyle and creator portraits.
+tags:
+  - outfit
+  - linen
+  - black
+compatibleWith:
+  - backgrounds:neutral
+  - makeup:matte
+avoidWith:
+  - backgrounds:dark
+promptFragment: black linen shirt, relaxed fit, minimal styling
+weight: 1
+rights:
+  usage: owned

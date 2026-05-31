@@ -1,0 +1,18 @@
+id: asset_makeup_soft_matte_skin
+title: Soft matte skin
+type: image
+uri: file://content-library/assets/makeup/soft-matte-skin.png
+description: Soft matte makeup direction with natural texture retained.
+tags:
+  - makeup
+  - matte
+  - natural
+compatibleWith:
+  - camera:soft-light
+  - outfits:minimal
+avoidWith:
+  - lighting:harsh-flash
+promptFragment: soft matte skin finish, natural texture, understated makeup
+weight: 0.9
+rights:
+  usage: owned

@@ -1,0 +1,18 @@
+id: asset_pose_three_quarter_turn
+title: Three-quarter turn
+type: image
+uri: file://content-library/assets/poses/three-quarter-turn.png
+description: Relaxed three-quarter pose with face and shoulders angled toward camera.
+tags:
+  - pose
+  - portrait
+  - three-quarter
+compatibleWith:
+  - camera:portrait
+  - outfits:structured
+avoidWith:
+  - camera:wide-angle-close
+promptFragment: relaxed three-quarter turn, shoulders angled, direct but natural expression
+weight: 1
+rights:
+  usage: owned

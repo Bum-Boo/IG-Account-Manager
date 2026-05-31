@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "official.local-asset-source",
+  "name": "Official Local Asset Source",
+  "version": "0.1.0",
+  "description": "Official MVP source importer for YAML-described local content assets.",
+  "type": "source_importer",
+  "distribution": "official",
+  "private": false,
+  "officialApiOnly": true,
+  "entry": "./dist/index.js",
+  "permissions": ["source:import", "asset:write"],
+  "capabilities": [
+    {
+      "id": "asset.import.local-yaml",
+      "description": "Import ContentAsset records from content-library YAML files."
+    }
+  ],
+  "uiExtensionPoints": [],
+  "dryRun": {
+    "supported": true,
+    "modes": ["validate_only", "preview", "no_write"]
+  },
+  "author": {
+    "name": "IG Manager"
+  },
+  "metadata": {
+    "officialMvp": true,
+    "categories": ["backgrounds", "outfits", "makeup", "camera", "poses"]
+  }
+}

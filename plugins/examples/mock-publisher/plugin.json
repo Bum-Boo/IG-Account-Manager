@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "mock.publisher",
+  "name": "Mock Publisher",
+  "version": "0.1.0",
+  "description": "A local dry-run publisher example for testing publish validation and publish result handling.",
+  "type": "publisher",
+  "distribution": "community",
+  "private": false,
+  "officialApiOnly": true,
+  "entry": "./dist/index.js",
+  "permissions": ["candidate:read", "publish:validate", "publish:approved", "audit:write"],
+  "capabilities": [
+    {
+      "id": "publish.validate",
+      "description": "Validates approved candidates before publish."
+    },
+    {
+      "id": "publish.mock",
+      "description": "Returns a mock publish result without contacting an external platform."
+    }
+  ],
+  "dryRun": {
+    "supported": true,
+    "modes": ["validate_only", "preview", "no_write"]
+  },
+  "author": {
+    "name": "IG Manager"
+  },
+  "metadata": {
+    "example": true
+  }
+}
+

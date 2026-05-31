@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "community.basic-validator",
+  "name": "Basic Validator",
+  "version": "0.1.0",
+  "description": "Template validator plugin for IG Manager.",
+  "type": "validator",
+  "distribution": "community",
+  "private": false,
+  "officialApiOnly": false,
+  "entry": "./dist/index.js",
+  "permissions": ["validator:run"],
+  "capabilities": [
+    {
+      "id": "validate.basic",
+      "description": "Validate that a candidate has a caption and media asset references."
+    }
+  ],
+  "dryRun": {
+    "supported": true,
+    "modes": ["validate_only", "preview", "no_write"]
+  },
+  "author": {
+    "name": "Your Name"
+  },
+  "metadata": {}
+}

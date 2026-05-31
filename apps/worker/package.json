@@ -1,0 +1,22 @@
+{
+  "name": "@ig-manager/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ig-manager/db": "workspace:*",
+    "@ig-manager/domain": "workspace:*",
+    "@ig-manager/logger": "workspace:*",
+    "@ig-manager/scheduler-core": "workspace:*",
+    "@ig-manager/workflow-engine": "workspace:*"
+  }
+}

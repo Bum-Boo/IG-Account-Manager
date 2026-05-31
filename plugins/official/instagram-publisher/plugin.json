@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "ig-manager.plugin.v1",
+  "id": "official.instagram-publisher",
+  "name": "Official Instagram Publisher",
+  "version": "0.1.0",
+  "description": "Official Instagram publisher skeleton using only official Instagram APIs. Live API calls are intentionally behind interfaces.",
+  "type": "publisher",
+  "distribution": "official",
+  "private": false,
+  "officialApiOnly": true,
+  "entry": "./dist/index.js",
+  "permissions": ["candidate:read", "publish:validate", "publish:approved"],
+  "capabilities": [
+    {
+      "id": "instagram.publish.media",
+      "description": "Publish approved, scheduled media through official Instagram APIs."
+    },
+    {
+      "id": "instagram.publish.first-comment",
+      "description": "Optionally create a first comment after media publish through official Instagram APIs."
+    },
+    {
+      "id": "instagram.publish.mock",
+      "description": "Simulate Instagram publishing locally without external network calls."
+    }
+  ],
+  "uiExtensionPoints": [],
+  "dryRun": {
+    "supported": true,
+    "modes": ["validate_only", "preview", "no_write"]
+  },
+  "author": {
+    "name": "IG Manager"
+  },
+  "metadata": {
+    "officialMvp": true,
+    "modes": ["dry_run", "mock", "live"],
+    "networkCallsBehindInterface": true
+  }
+}

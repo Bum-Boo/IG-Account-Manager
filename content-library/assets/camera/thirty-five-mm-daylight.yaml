@@ -1,0 +1,18 @@
+id: asset_camera_35mm_daylight
+title: 35mm daylight portrait
+type: image
+uri: file://content-library/assets/camera/thirty-five-mm-daylight.png
+description: Camera direction for natural-light portraits with modest background context.
+tags:
+  - camera
+  - daylight
+  - portrait
+compatibleWith:
+  - poses:three-quarter
+  - backgrounds:studio
+avoidWith:
+  - lighting:low-key
+promptFragment: 35mm natural daylight portrait, gentle depth, clear subject separation
+weight: 1.1
+rights:
+  usage: owned

@@ -1,0 +1,61 @@
+import type { FastifyInstance } from "fastify";
+import { z } from "zod";
+import { DomainValidationError, InvalidStateTransitionError } from "@ig-manager/domain";
+import { WorkflowNotFoundError, WorkflowRuleViolationError } from "@ig-manager/workflow-engine";
+
+export class ApiNotFoundError extends Error {
+  constructor(entity: string, id: string) {
+    super(`${entity} '${id}' was not found.`);
+    this.name = "ApiNotFoundError";
+  }
+}
+
+export function registerErrorHandler(server: FastifyInstance): void {
+  server.setErrorHandler((error, _request, reply) => {
+    if (error instanceof z.ZodError) {
+      return reply.code(400).send({
+        error: {
+          code: "validation_failed",
+          message: "Request validation failed.",
+          details: error.flatten()
+        }
+      });
+    }
+
+    if (error instanceof ApiNotFoundError || error instanceof WorkflowNotFoundError) {
+      return reply.code(404).send({
+        error: {
+          code: "not_found",
+          message: error.message
+        }
+      });
+    }
+
+    if (error instanceof WorkflowRuleViolationError || error instanceof InvalidStateTransitionError) {
+      return reply.code(409).send({
+        error: {
+          code: "workflow_rule_violation",
+          message: error.message
+        }
+      });
+    }
+
+    if (error instanceof DomainValidationError) {
+      return reply.code(400).send({
+        error: {
+          code: "domain_validation_failed",
+          message: error.message
+        }
+      });
+    }
+
+    server.log.error(error);
+
+    return reply.code(500).send({
+      error: {
+        code: "internal_error",
+        message: "Unexpected local API error."
+      }
+    });
+  });
+}
