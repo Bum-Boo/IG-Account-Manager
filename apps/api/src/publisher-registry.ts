@@ -7,7 +7,14 @@ export interface PluginLookupRepository {
   getById(id: string): PluginRegistration | undefined | Promise<PluginRegistration | undefined>;
 }
 
-export function createApiPublisherRegistry(plugins: PluginLookupRepository): PublisherPluginRegistry {
+export interface ApiPublisherRegistryOptions {
+  createInstagramPublisher?: () => PublisherPlugin;
+}
+
+export function createApiPublisherRegistry(
+  plugins: PluginLookupRepository,
+  options: ApiPublisherRegistryOptions = {}
+): PublisherPluginRegistry {
   const cache = new Map<string, PublisherPlugin>();
 
   return {
@@ -24,7 +31,10 @@ export function createApiPublisherRegistry(plugins: PluginLookupRepository): Pub
         return cached;
       }
 
-      const publisher = createMockPublisher(registration.pluginId);
+      const publisher =
+        registration.pluginId === "official.instagram-publisher" && options.createInstagramPublisher
+          ? options.createInstagramPublisher()
+          : createMockPublisher(registration.pluginId);
       cache.set(registration.id, publisher);
       return publisher;
     }

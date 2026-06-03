@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pose reference asset",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "source_folder",
+    "visual_summary",
+    "usable_prompt",
+    "pose_type",
+    "body_logic",
+    "difficulty",
+    "best_for",
+    "style_tags",
+    "avoid",
+    "source_note"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "category": { "const": "pose" },
+    "source_folder": { "type": "string", "minLength": 1 },
+    "source_file": { "type": "string" },
+    "visual_summary": { "type": "string", "minLength": 1 },
+    "usable_prompt": { "type": "string", "minLength": 1 },
+    "pose_type": { "type": "string", "minLength": 1 },
+    "body_logic": { "type": "object" },
+    "difficulty": { "enum": ["low", "medium", "high"] },
+    "hands_visible": { "type": "boolean" },
+    "best_for": { "type": "array", "items": { "type": "string" } },
+    "style_tags": { "type": "array", "items": { "type": "string" } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "source_note": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

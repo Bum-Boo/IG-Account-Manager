@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Background reference asset",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "source_folder",
+    "visual_summary",
+    "usable_prompt",
+    "elements",
+    "style_tags",
+    "avoid",
+    "source_note"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "category": { "const": "background" },
+    "source_folder": { "type": "string", "minLength": 1 },
+    "source_file": { "type": "string" },
+    "visual_summary": { "type": "string", "minLength": 1 },
+    "usable_prompt": { "type": "string", "minLength": 1 },
+    "elements": {
+      "type": "object",
+      "required": ["space_type", "main_surface", "floor", "objects", "clutter_level"],
+      "properties": {
+        "space_type": { "type": "string" },
+        "main_surface": { "type": "string" },
+        "floor": { "type": "string" },
+        "objects": { "type": "array", "items": { "type": "string" } },
+        "clutter_level": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "lighting_hint": { "type": "string" },
+    "composition_hint": { "type": "string" },
+    "style_tags": { "type": "array", "items": { "type": "string" } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "source_note": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

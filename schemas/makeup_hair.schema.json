@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Makeup and hair reference asset",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "source_folder",
+    "visual_summary",
+    "usable_prompt",
+    "style_tags",
+    "avoid",
+    "source_note"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "category": { "const": "makeup_hair" },
+    "source_folder": { "type": "string", "minLength": 1 },
+    "source_file": { "type": "string" },
+    "visual_summary": { "type": "string", "minLength": 1 },
+    "usable_prompt": { "type": "string", "minLength": 1 },
+    "finish": { "type": "string" },
+    "hair_style": { "type": "string" },
+    "makeup_style": { "type": "string" },
+    "style_tags": { "type": "array", "items": { "type": "string" } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "source_note": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

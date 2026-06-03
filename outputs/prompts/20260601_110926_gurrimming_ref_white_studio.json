@@ -1,0 +1,244 @@
+{
+  "main_prompt": "realistic full-body fashion pose reference photo, clean pure white photography studio, vertical centered composition, high-key soft studio lighting, seamless white cyc wall, professional Instagram visual reference post, one clear adult Korean female fashion model with fair light skin, good proportions, long legs, and a slim elegant editorial fashion body, clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture, standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward, soft fitted knit top, simple above-knee skirt, clean feminine silhouette, visible shoes, neat fashion catalog styling, small handheld camera prop held naturally near the torso, simple grip, prop remains secondary to the outfit and pose, high-key softbox studio lighting, even illumination, soft floor shadow, clean white balance, gentle skin detail, natural makeup, subtle skin texture, soft neutral lips, clean brows, softly styled natural hair, calm composed mood, relaxed facial expression, gentle direct gaze, quiet confidence, minimal editorial energy, full body visible from head to shoes, shoes visible, both hands visible, clean readable silhouette, realistic skin texture, natural pores, subtle makeup, detailed hair strands, believable fabric texture, clean fingers, natural joints, balanced body proportions, sharp focus, neutral white balance, professional fashion catalog photography, plain white background, no furniture, no extra objects, no text, no logos, no duplicated limbs, no distorted hands, no extra fingers, no plastic skin, no cartoon look, no CGI appearance, no overly yellow skin tone",
+  "compact_prompt": "realistic full-body fashion pose reference photo, clean pure white photography studio, vertical centered composition, high-key soft studio lighting, seamless white cyc wall, professional Instagram visual reference post, one clear adult Korean female fashion model with fair light skin, good proportions, long legs, and a slim elegant editorial fashion body, clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture, standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward, soft fitted knit top, simple above-knee skirt, clean feminine silhouette, visible shoes, neat fashion catalog styling",
+  "selected_assets": {
+    "background": {
+      "id": "bg_white_studio_001",
+      "category": "background",
+      "source_folder": "backgrounds/white_studio",
+      "visual_summary": "clean seamless white photography studio with a curved cyclorama wall and soft floor shadow",
+      "usable_prompt": "clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture",
+      "elements": {
+        "space_type": "photography studio",
+        "main_surface": "white cyclorama wall",
+        "floor": "matte white studio floor",
+        "objects": [],
+        "clutter_level": "none"
+      },
+      "lighting_hint": "soft high-key studio lighting",
+      "composition_hint": "centered full-body fashion catalog framing",
+      "style_tags": [
+        "white_studio",
+        "minimal",
+        "high_key",
+        "fashion_reference"
+      ],
+      "avoid": [
+        "furniture",
+        "visible room corner",
+        "dirty floor",
+        "logos",
+        "text"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    },
+    "pose": {
+      "id": "pose_standing_001",
+      "category": "pose",
+      "source_folder": "poses/standing",
+      "visual_summary": "relaxed full-body standing pose with clear silhouette and simple hand placement",
+      "usable_prompt": "standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward",
+      "pose_type": "standing",
+      "body_logic": {
+        "weight_distribution": "back leg",
+        "leg_position": "one leg slightly forward",
+        "arm_position": "one hand near waist, one arm relaxed",
+        "head_direction": "looking at camera"
+      },
+      "difficulty": "low",
+      "hands_visible": true,
+      "best_for": [
+        "full_body",
+        "fashion_catalog",
+        "white_studio"
+      ],
+      "style_tags": [
+        "standing",
+        "clean_silhouette",
+        "low_difficulty"
+      ],
+      "avoid": [
+        "crossed limbs",
+        "hidden hands",
+        "extreme twist"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    },
+    "outfit": {
+      "id": "outfit_knit_skirt_001",
+      "category": "outfit",
+      "source_folder": "outfits/soft_casual",
+      "visual_summary": "soft casual outfit with a fitted knit top and simple skirt shape suited to clean studio pose references",
+      "usable_prompt": "soft fitted knit top, simple above-knee skirt, clean feminine silhouette, visible shoes, neat fashion catalog styling",
+      "gender_fit": "female",
+      "style_family": "soft_casual",
+      "fabric_details": [
+        "fine knit texture",
+        "smooth skirt fabric"
+      ],
+      "silhouette": "fitted top with simple A-line skirt",
+      "silhouette_complexity": "low",
+      "visible_shoes": true,
+      "color_palette": [
+        "ivory",
+        "light gray",
+        "soft black accent"
+      ],
+      "best_backgrounds": [
+        "white_studio"
+      ],
+      "style_tags": [
+        "soft_casual",
+        "knit",
+        "skirt",
+        "clean_silhouette"
+      ],
+      "avoid": [
+        "large logos",
+        "busy prints",
+        "oversized layers hiding hands",
+        "cropped feet"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    },
+    "lighting": {
+      "id": "light_highkey_softbox_001",
+      "category": "lighting",
+      "source_folder": "lighting/softbox",
+      "visual_summary": "high-key studio softbox lighting with even skin tone and minimal background shadow",
+      "usable_prompt": "high-key softbox studio lighting, even illumination, soft floor shadow, clean white balance, gentle skin detail",
+      "light_type": "softbox",
+      "main_light": "large front-left softbox",
+      "fill_light": "soft front fill",
+      "rim_light": "none",
+      "shadow_style": "very soft minimal shadows",
+      "best_backgrounds": [
+        "white_studio"
+      ],
+      "style_tags": [
+        "high_key",
+        "softbox",
+        "clean_skin",
+        "studio"
+      ],
+      "avoid": [
+        "hard shadow",
+        "yellow color cast",
+        "dramatic low-key lighting",
+        "neon spill"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    },
+    "makeup_hair": {
+      "id": "mh_natural_001",
+      "category": "makeup_hair",
+      "source_folder": "makeup_hair/natural",
+      "visual_summary": "natural makeup and softly styled hair suitable for realistic white studio fashion references",
+      "usable_prompt": "natural makeup, subtle skin texture, soft neutral lips, clean brows, softly styled natural hair",
+      "finish": "natural",
+      "hair_style": "soft natural hair",
+      "makeup_style": "subtle natural makeup",
+      "style_tags": [
+        "natural",
+        "clean_skin",
+        "soft_hair",
+        "studio"
+      ],
+      "avoid": [
+        "heavy glitter",
+        "plastic skin",
+        "overdrawn lips",
+        "messy flyaways hiding face"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    },
+    "mood": {
+      "id": "mood_calm_001",
+      "category": "mood",
+      "source_folder": "mood/calm",
+      "visual_summary": "calm minimal fashion-reference mood with a relaxed face and composed body language",
+      "usable_prompt": "calm composed mood, relaxed facial expression, gentle direct gaze, quiet confidence, minimal editorial energy",
+      "emotion": "calm",
+      "expression_prompt": "relaxed lips, soft direct gaze, composed posture",
+      "style_tags": [
+        "calm",
+        "minimal",
+        "composed",
+        "reference"
+      ],
+      "avoid": [
+        "exaggerated smile",
+        "dramatic sadness",
+        "aggressive expression",
+        "chaotic energy"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    },
+    "prop": {
+      "id": "prop_camera_001",
+      "category": "prop",
+      "source_folder": "props/camera",
+      "visual_summary": "small handheld camera prop used as a simple fashion pose anchor",
+      "usable_prompt": "small handheld camera prop held naturally near the torso, simple grip, prop remains secondary to the outfit and pose",
+      "name": "small handheld camera",
+      "interaction_prompt": "one or both hands lightly holding a small camera near the torso",
+      "hand_complexity": "medium",
+      "requires_hand_interaction": true,
+      "best_poses": [
+        "standing",
+        "sitting",
+        "leaning"
+      ],
+      "style_tags": [
+        "camera",
+        "handheld",
+        "pose_anchor",
+        "studio_prop"
+      ],
+      "avoid": [
+        "oversized camera",
+        "lens covering face",
+        "complex finger overlap",
+        "brand logo"
+      ],
+      "source_note": "Use as abstract visual reference only, not for direct reproduction."
+    }
+  },
+  "recipe": {
+    "account_concept": "Gurrimming_ref",
+    "base_style": "white_studio_fashion_pose_reference",
+    "model_type": "female",
+    "background_id": "bg_white_studio_001",
+    "pose_id": "pose_standing_001",
+    "outfit_id": "outfit_knit_skirt_001",
+    "prop_id": "prop_camera_001",
+    "lighting_id": "light_highkey_softbox_001",
+    "makeup_hair_id": "mh_natural_001",
+    "mood_id": "mood_calm_001",
+    "output_targets": [
+      "main_prompt",
+      "compact_prompt",
+      "instagram_caption",
+      "pinned_comment_prompt",
+      "hashtags",
+      "alt_text"
+    ]
+  },
+  "compatibility_notes": [
+    "Recipe passed Gurrimming_ref compatibility rules."
+  ],
+  "z_image_turbo_prompt": "realistic full-body fashion pose reference photo, clean pure white photography studio, vertical centered composition, high-key soft studio lighting, seamless white cyc wall, professional Instagram visual reference post, one clear adult Korean female fashion model with fair light skin, good proportions, long legs, and a slim elegant editorial fashion body, clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture, standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward, soft fitted knit top, simple above-knee skirt, clean feminine silhouette, visible shoes, neat fashion catalog styling, small handheld camera prop held naturally near the torso, simple grip, prop remains secondary to the outfit and pose, high-key softbox studio lighting, even illumination, soft floor shadow, clean white balance, gentle skin detail, natural makeup, subtle skin texture, soft neutral lips, clean brows, softly styled natural hair, calm composed mood, relaxed facial expression, gentle direct gaze, quiet confidence, minimal editorial energy, full body visible from head to shoes, shoes visible, both hands visible, clean readable silhouette, realistic skin texture, natural pores, subtle makeup, detailed hair strands, believable fabric texture, clean fingers, natural joints, balanced body proportions, sharp focus, neutral white balance, professional fashion catalog photography, plain white background, no furniture, no extra objects, no text, no logos, no duplicated limbs, no distorted hands, no extra fingers, no plastic skin, no cartoon look, no CGI appearance, no overly yellow skin tone",
+  "z_image_turbo_compact_prompt": "realistic full-body fashion pose reference photo, clean pure white photography studio, vertical centered composition, high-key soft studio lighting, seamless white cyc wall, professional Instagram visual reference post, one clear adult Korean female fashion model with fair light skin, good proportions, long legs, and a slim elegant editorial fashion body, clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture, standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward, soft fitted knit top, simple above-knee skirt, clean feminine silhouette, visible shoes, neat fashion catalog styling",
+  "recommended_aspect_ratio": "vertical",
+  "recommended_use": "full-body white studio fashion pose reference",
+  "instagram_caption": "White studio fashion pose reference: soft casual outfit with a fitted knit top and simple skirt shape suited to clean studio pose references / relaxed full-body standing pose with clear silhouette and simple hand placement with small handheld camera.",
+  "pinned_comment_prompt": "Prompt reference: realistic full-body fashion pose reference photo, clean pure white photography studio, vertical centered composition, high-key soft studio lighting, seamless white cyc wall, professional Instagram visual reference post, one clear adult Korean female fashion model with fair light skin, good proportions, long legs, and a slim elegant editorial fashion body, clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture, standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward, soft fitted knit top, simple above-knee skirt, clean feminine silhouette, visible shoes, neat fashion catalog styling",
+  "hashtags": [
+    "#posereference",
+    "#fashionreference",
+    "#studiophotography",
+    "#characterdesign",
+    "#artistreference"
+  ],
+  "alt_text": "Full-body realistic Korean fashion model in a clean white studio, wearing soft casual outfit with a fitted knit top and simple skirt shape suited to clean studio pose references, relaxed full-body standing pose with clear silhouette and simple hand placement, with clean seamless white photography studio with a curved cyclorama wall and soft floor shadow and calm minimal fashion-reference mood with a relaxed face and composed body language mood."
+}

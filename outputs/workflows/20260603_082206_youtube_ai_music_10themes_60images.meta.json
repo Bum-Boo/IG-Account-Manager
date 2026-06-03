@@ -1,0 +1,726 @@
+{
+  "run_id": "20260603_082206",
+  "created_at_kst": "2026-06-03 08:22:06",
+  "purpose": "YouTube AI music background image batch, 10 concepts x 6 images.",
+  "settings": {
+    "api": "http://127.0.0.1:8188",
+    "model": "z_image_turbo_nvfp4.safetensors",
+    "text_encoder": "qwen_3_4b_fp4_mixed.safetensors",
+    "text_encoder_type": "lumina2",
+    "vae": "ae.safetensors",
+    "width": 1280,
+    "height": 720,
+    "aspect_ratio": "16:9",
+    "steps": 8,
+    "cfg": 1.0,
+    "sampler_name": "res_multistep",
+    "scheduler": "simple",
+    "model_sampling": "ModelSamplingAuraFlow",
+    "shift": 3.0,
+    "flux_used": false
+  },
+  "outputs": [
+    {
+      "theme": "animal_plush",
+      "folder": "01_animal_plush",
+      "variant_index": 1,
+      "variant": "sleepy plush bear beside a small music box on a windowsill at blue hour",
+      "seed": 1765944589,
+      "prompt_id": "51fd37d5-6274-49a1-9ed3-ffca52690702",
+      "prompt": "original plush animal music room scene, handmade soft toy protagonist, believable fabric fibers, seams, stitched details, gentle stuffing volume, cozy bedtime ambience, warm lamp light, soft blankets and wooden shelf, not a known mascot or franchise character, sleepy plush bear beside a small music box on a windowsill at blue hour, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_plush_01_16x9_1765944589_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_082206_animal_plush_01_16x9_1765944589.png"
+    },
+    {
+      "theme": "animal_plush",
+      "folder": "01_animal_plush",
+      "variant_index": 2,
+      "variant": "round plush rabbit with a knitted scarf on a soft rug near a glowing lamp",
+      "seed": 757531723,
+      "prompt_id": "76344f1c-fa4c-4ea0-bace-88c684949f0e",
+      "prompt": "original plush animal music room scene, handmade soft toy protagonist, believable fabric fibers, seams, stitched details, gentle stuffing volume, cozy bedtime ambience, warm lamp light, soft blankets and wooden shelf, not a known mascot or franchise character, round plush rabbit with a knitted scarf on a soft rug near a glowing lamp, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_plush_02_16x9_757531723_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_082206_animal_plush_02_16x9_757531723.png"
+    },
+    {
+      "theme": "animal_plush",
+      "folder": "01_animal_plush",
+      "variant_index": 3,
+      "variant": "tiny plush fox sitting on a pillow fort with warm fairy lights",
+      "seed": 1931870480,
+      "prompt_id": "8339b244-9e66-4a9d-9e64-9b6172b78af9",
+      "prompt": "original plush animal music room scene, handmade soft toy protagonist, believable fabric fibers, seams, stitched details, gentle stuffing volume, cozy bedtime ambience, warm lamp light, soft blankets and wooden shelf, not a known mascot or franchise character, tiny plush fox sitting on a pillow fort with warm fairy lights, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_plush_03_16x9_1931870480_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_082206_animal_plush_03_16x9_1931870480.png"
+    },
+    {
+      "theme": "animal_plush",
+      "folder": "01_animal_plush",
+      "variant_index": 4,
+      "variant": "plush penguin in a snowy bedroom scene with soft moonlight through window",
+      "seed": 351908445,
+      "prompt_id": "ead4182f-2c2e-418a-8815-ea1c35967d2e",
+      "prompt": "original plush animal music room scene, handmade soft toy protagonist, believable fabric fibers, seams, stitched details, gentle stuffing volume, cozy bedtime ambience, warm lamp light, soft blankets and wooden shelf, not a known mascot or franchise character, plush penguin in a snowy bedroom scene with soft moonlight through window, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_plush_04_16x9_351908445_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_082206_animal_plush_04_16x9_351908445.png"
+    },
+    {
+      "theme": "animal_plush",
+      "folder": "01_animal_plush",
+      "variant_index": 5,
+      "variant": "plush puppy curled beside a record player and folded blanket",
+      "seed": 1145432482,
+      "prompt_id": "bfe475f8-824b-4e10-8548-3462a8da2913",
+      "prompt": "original plush animal music room scene, handmade soft toy protagonist, believable fabric fibers, seams, stitched details, gentle stuffing volume, cozy bedtime ambience, warm lamp light, soft blankets and wooden shelf, not a known mascot or franchise character, plush puppy curled beside a record player and folded blanket, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_plush_05_16x9_1145432482_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_082206_animal_plush_05_16x9_1145432482.png"
+    },
+    {
+      "theme": "animal_plush",
+      "folder": "01_animal_plush",
+      "variant_index": 6,
+      "variant": "plush deer on a cozy reading chair with gentle amber light",
+      "seed": 1978443372,
+      "prompt_id": "cc99473d-79c0-4b60-9766-cdf15a0877b5",
+      "prompt": "original plush animal music room scene, handmade soft toy protagonist, believable fabric fibers, seams, stitched details, gentle stuffing volume, cozy bedtime ambience, warm lamp light, soft blankets and wooden shelf, not a known mascot or franchise character, plush deer on a cozy reading chair with gentle amber light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_plush_06_16x9_1978443372_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_082206_animal_plush_06_16x9_1978443372.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "folder": "02_animal_2d_character",
+      "variant_index": 1,
+      "variant": "small cat character playing a tiny piano in a quiet moonlit room",
+      "seed": 610098254,
+      "prompt_id": "4e28f78c-ecbc-4726-8bb1-eaad748bb8f9",
+      "prompt": "original 2D animal character illustration for relaxing music, clean silhouette, consistent line weight, soft cel shading, simple readable pose, calm background, not an existing cartoon, mascot, anime character, or studio style, small cat character playing a tiny piano in a quiet moonlit room, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_2d_character_01_16x9_610098254_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_082206_animal_2d_character_01_16x9_610098254.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "folder": "02_animal_2d_character",
+      "variant_index": 2,
+      "variant": "gentle dog character wearing headphones beside a window with rain outside",
+      "seed": 49464527,
+      "prompt_id": "921602be-296f-4495-859e-93d71256bf0d",
+      "prompt": "original 2D animal character illustration for relaxing music, clean silhouette, consistent line weight, soft cel shading, simple readable pose, calm background, not an existing cartoon, mascot, anime character, or studio style, gentle dog character wearing headphones beside a window with rain outside, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_2d_character_02_16x9_49464527_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_082206_animal_2d_character_02_16x9_49464527.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "folder": "02_animal_2d_character",
+      "variant_index": 3,
+      "variant": "owl character reading sheet music under a desk lamp in a cozy study",
+      "seed": 1150312947,
+      "prompt_id": "93471e56-8495-4aa2-9291-8667d62da73b",
+      "prompt": "original 2D animal character illustration for relaxing music, clean silhouette, consistent line weight, soft cel shading, simple readable pose, calm background, not an existing cartoon, mascot, anime character, or studio style, owl character reading sheet music under a desk lamp in a cozy study, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_2d_character_03_16x9_1150312947_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_082206_animal_2d_character_03_16x9_1150312947.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "folder": "02_animal_2d_character",
+      "variant_index": 4,
+      "variant": "rabbit character holding a warm cup in a pastel bedroom with music notes implied by shapes only",
+      "seed": 626675246,
+      "prompt_id": "fb42b047-a3d2-4a39-a8d9-233992127b30",
+      "prompt": "original 2D animal character illustration for relaxing music, clean silhouette, consistent line weight, soft cel shading, simple readable pose, calm background, not an existing cartoon, mascot, anime character, or studio style, rabbit character holding a warm cup in a pastel bedroom with music notes implied by shapes only, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_2d_character_04_16x9_626675246_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_082206_animal_2d_character_04_16x9_626675246.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "folder": "02_animal_2d_character",
+      "variant_index": 5,
+      "variant": "fox character sitting on a rooftop at sunset with a portable speaker",
+      "seed": 822534359,
+      "prompt_id": "8139597b-c58d-4326-a226-237d36bd0c60",
+      "prompt": "original 2D animal character illustration for relaxing music, clean silhouette, consistent line weight, soft cel shading, simple readable pose, calm background, not an existing cartoon, mascot, anime character, or studio style, fox character sitting on a rooftop at sunset with a portable speaker, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_2d_character_05_16x9_822534359_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_082206_animal_2d_character_05_16x9_822534359.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "folder": "02_animal_2d_character",
+      "variant_index": 6,
+      "variant": "bear character napping near an old radio in a warm cabin interior",
+      "seed": 2107692607,
+      "prompt_id": "9b0d875f-ee70-477f-bfb3-fb1014c2640c",
+      "prompt": "original 2D animal character illustration for relaxing music, clean silhouette, consistent line weight, soft cel shading, simple readable pose, calm background, not an existing cartoon, mascot, anime character, or studio style, bear character napping near an old radio in a warm cabin interior, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_animal_2d_character_06_16x9_2107692607_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_082206_animal_2d_character_06_16x9_2107692607.png"
+    },
+    {
+      "theme": "campfire",
+      "folder": "03_campfire",
+      "variant_index": 1,
+      "variant": "campfire beside a quiet forest lake under a starry sky",
+      "seed": 1730685987,
+      "prompt_id": "14d17b01-5032-4f80-9dfa-41e8ce81c836",
+      "prompt": "cozy campfire ambience for long relaxing music, believable fire shape, glowing embers, readable wood grain, ash, smoke, stones, forest floor texture, calm wide composition, campfire beside a quiet forest lake under a starry sky, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_campfire_01_16x9_1730685987_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_082206_campfire_01_16x9_1730685987.png"
+    },
+    {
+      "theme": "campfire",
+      "folder": "03_campfire",
+      "variant_index": 2,
+      "variant": "small mountain campsite with pine trees and glowing tent in the distance",
+      "seed": 627354548,
+      "prompt_id": "a23c1b20-ce6b-408f-b583-582514ead707",
+      "prompt": "cozy campfire ambience for long relaxing music, believable fire shape, glowing embers, readable wood grain, ash, smoke, stones, forest floor texture, calm wide composition, small mountain campsite with pine trees and glowing tent in the distance, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_campfire_02_16x9_627354548_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_082206_campfire_02_16x9_627354548.png"
+    },
+    {
+      "theme": "campfire",
+      "folder": "03_campfire",
+      "variant_index": 3,
+      "variant": "rainy shelter campfire under a tarp with wet stones and steam",
+      "seed": 1746919690,
+      "prompt_id": "58aadf4c-50d8-400a-a9f5-69a8d1896d6e",
+      "prompt": "cozy campfire ambience for long relaxing music, believable fire shape, glowing embers, readable wood grain, ash, smoke, stones, forest floor texture, calm wide composition, rainy shelter campfire under a tarp with wet stones and steam, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_campfire_03_16x9_1746919690_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_082206_campfire_03_16x9_1746919690.png"
+    },
+    {
+      "theme": "campfire",
+      "folder": "03_campfire",
+      "variant_index": 4,
+      "variant": "winter campfire in a snowy clearing with warm orange light on snow",
+      "seed": 1003757547,
+      "prompt_id": "9fc43cdd-3922-4716-9f31-fe119eb43f28",
+      "prompt": "cozy campfire ambience for long relaxing music, believable fire shape, glowing embers, readable wood grain, ash, smoke, stones, forest floor texture, calm wide composition, winter campfire in a snowy clearing with warm orange light on snow, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_campfire_04_16x9_1003757547_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_082206_campfire_04_16x9_1003757547.png"
+    },
+    {
+      "theme": "campfire",
+      "folder": "03_campfire",
+      "variant_index": 5,
+      "variant": "desert night campfire with low rocks and distant silhouettes of mesas",
+      "seed": 1518174184,
+      "prompt_id": "7ed5800b-5115-47f1-aa8f-a08a30f38577",
+      "prompt": "cozy campfire ambience for long relaxing music, believable fire shape, glowing embers, readable wood grain, ash, smoke, stones, forest floor texture, calm wide composition, desert night campfire with low rocks and distant silhouettes of mesas, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_campfire_05_16x9_1518174184_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_082206_campfire_05_16x9_1518174184.png"
+    },
+    {
+      "theme": "campfire",
+      "folder": "03_campfire",
+      "variant_index": 6,
+      "variant": "beach campfire with driftwood, soft waves, and moonlit horizon",
+      "seed": 1855944158,
+      "prompt_id": "abe0fa2c-ce08-4b4b-9341-da6fee889396",
+      "prompt": "cozy campfire ambience for long relaxing music, believable fire shape, glowing embers, readable wood grain, ash, smoke, stones, forest floor texture, calm wide composition, beach campfire with driftwood, soft waves, and moonlit horizon, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_campfire_06_16x9_1855944158_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_082206_campfire_06_16x9_1855944158.png"
+    },
+    {
+      "theme": "kodoromo",
+      "folder": "04_kodoromo",
+      "variant_index": 1,
+      "variant": "tiny attic room with handmade mobiles, soft futon, and warm paper lantern glow",
+      "seed": 1787209617,
+      "prompt_id": "ad8c450c-7001-460b-9cff-79bbedf448ec",
+      "prompt": "original kodoromo theme visual identity, dreamy childlike folklore music background, soft handmade room, paper charms, small wooden toys, gentle textiles, nostalgic but not copied, calm composition for long playback, tiny attic room with handmade mobiles, soft futon, and warm paper lantern glow, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_kodoromo_01_16x9_1787209617_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_082206_kodoromo_01_16x9_1787209617.png"
+    },
+    {
+      "theme": "kodoromo",
+      "folder": "04_kodoromo",
+      "variant_index": 2,
+      "variant": "quiet wooden playroom with little fabric dolls and moonlight on tatami-like mat texture",
+      "seed": 210945284,
+      "prompt_id": "cb401c1c-7d1e-4a31-a362-a2b574a24595",
+      "prompt": "original kodoromo theme visual identity, dreamy childlike folklore music background, soft handmade room, paper charms, small wooden toys, gentle textiles, nostalgic but not copied, calm composition for long playback, quiet wooden playroom with little fabric dolls and moonlight on tatami-like mat texture, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_kodoromo_02_16x9_210945284_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_082206_kodoromo_02_16x9_210945284.png"
+    },
+    {
+      "theme": "kodoromo",
+      "folder": "04_kodoromo",
+      "variant_index": 3,
+      "variant": "storybook corner with folded blankets, paper stars, and gentle dusk window light",
+      "seed": 598954099,
+      "prompt_id": "032bffbb-883b-4cc6-b3e3-15a333365a0e",
+      "prompt": "original kodoromo theme visual identity, dreamy childlike folklore music background, soft handmade room, paper charms, small wooden toys, gentle textiles, nostalgic but not copied, calm composition for long playback, storybook corner with folded blankets, paper stars, and gentle dusk window light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_kodoromo_03_16x9_598954099_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_082206_kodoromo_03_16x9_598954099.png"
+    },
+    {
+      "theme": "kodoromo",
+      "folder": "04_kodoromo",
+      "variant_index": 4,
+      "variant": "small shrine-like shelf with handmade charms, soft cloth, and candle-safe lantern light",
+      "seed": 2023786711,
+      "prompt_id": "2a960f01-9d16-46e1-9876-a06e6d1556fc",
+      "prompt": "original kodoromo theme visual identity, dreamy childlike folklore music background, soft handmade room, paper charms, small wooden toys, gentle textiles, nostalgic but not copied, calm composition for long playback, small shrine-like shelf with handmade charms, soft cloth, and candle-safe lantern light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_kodoromo_04_16x9_2023786711_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_082206_kodoromo_04_16x9_2023786711.png"
+    },
+    {
+      "theme": "kodoromo",
+      "folder": "04_kodoromo",
+      "variant_index": 5,
+      "variant": "dreamy rainy bedroom with wooden toys, low table, and muted pastel fabric textures",
+      "seed": 2099834965,
+      "prompt_id": "9095ae12-db44-400d-9849-635d32011db9",
+      "prompt": "original kodoromo theme visual identity, dreamy childlike folklore music background, soft handmade room, paper charms, small wooden toys, gentle textiles, nostalgic but not copied, calm composition for long playback, dreamy rainy bedroom with wooden toys, low table, and muted pastel fabric textures, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_kodoromo_05_16x9_2099834965_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_082206_kodoromo_05_16x9_2099834965.png"
+    },
+    {
+      "theme": "kodoromo",
+      "folder": "04_kodoromo",
+      "variant_index": 6,
+      "variant": "cozy nursery-like music corner with old radio, plush cushions, and paper garland",
+      "seed": 95812547,
+      "prompt_id": "ec0d254c-ef5c-46aa-9641-842e54366f8e",
+      "prompt": "original kodoromo theme visual identity, dreamy childlike folklore music background, soft handmade room, paper charms, small wooden toys, gentle textiles, nostalgic but not copied, calm composition for long playback, cozy nursery-like music corner with old radio, plush cushions, and paper garland, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_kodoromo_06_16x9_95812547_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_082206_kodoromo_06_16x9_95812547.png"
+    },
+    {
+      "theme": "cafe",
+      "folder": "05_cafe",
+      "variant_index": 1,
+      "variant": "empty window seat with coffee cup, rain on glass, warm lamp reflections",
+      "seed": 967990883,
+      "prompt_id": "62c6c208-8e33-4e2d-b168-51971c8f3738",
+      "prompt": "original cozy cafe background for chill music, warm believable lighting, readable wood, ceramic, glass, paper, pastry, and fabric textures, no chain branding, no recognizable venue design, empty window seat with coffee cup, rain on glass, warm lamp reflections, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_cafe_01_16x9_967990883_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_082206_cafe_01_16x9_967990883.png"
+    },
+    {
+      "theme": "cafe",
+      "folder": "05_cafe",
+      "variant_index": 2,
+      "variant": "quiet late-night cafe counter with espresso machine silhouettes and pastries",
+      "seed": 2088018924,
+      "prompt_id": "9888979d-8481-4e8c-a5ee-5b3532bf98c4",
+      "prompt": "original cozy cafe background for chill music, warm believable lighting, readable wood, ceramic, glass, paper, pastry, and fabric textures, no chain branding, no recognizable venue design, quiet late-night cafe counter with espresso machine silhouettes and pastries, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_cafe_02_16x9_2088018924_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_082206_cafe_02_16x9_2088018924.png"
+    },
+    {
+      "theme": "cafe",
+      "folder": "05_cafe",
+      "variant_index": 3,
+      "variant": "sunny morning cafe table with ceramic cup, book, linen napkin, and soft shadows",
+      "seed": 830326194,
+      "prompt_id": "7c2f23cb-d42a-4feb-8955-d503977d213d",
+      "prompt": "original cozy cafe background for chill music, warm believable lighting, readable wood, ceramic, glass, paper, pastry, and fabric textures, no chain branding, no recognizable venue design, sunny morning cafe table with ceramic cup, book, linen napkin, and soft shadows, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_cafe_03_16x9_830326194_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_082206_cafe_03_16x9_830326194.png"
+    },
+    {
+      "theme": "cafe",
+      "folder": "05_cafe",
+      "variant_index": 4,
+      "variant": "small jazz cafe corner with vinyl records, wooden chair, and amber wall light",
+      "seed": 956724310,
+      "prompt_id": "97bfc85b-b0ab-4d14-97c1-58c3beada6a4",
+      "prompt": "original cozy cafe background for chill music, warm believable lighting, readable wood, ceramic, glass, paper, pastry, and fabric textures, no chain branding, no recognizable venue design, small jazz cafe corner with vinyl records, wooden chair, and amber wall light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_cafe_04_16x9_956724310_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_082206_cafe_04_16x9_956724310.png"
+    },
+    {
+      "theme": "cafe",
+      "folder": "05_cafe",
+      "variant_index": 5,
+      "variant": "greenhouse cafe interior with plants, wooden tables, and diffused daylight",
+      "seed": 1406594461,
+      "prompt_id": "f76e920f-540c-4f8a-bbe8-b676c691d76d",
+      "prompt": "original cozy cafe background for chill music, warm believable lighting, readable wood, ceramic, glass, paper, pastry, and fabric textures, no chain branding, no recognizable venue design, greenhouse cafe interior with plants, wooden tables, and diffused daylight, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_cafe_05_16x9_1406594461_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_082206_cafe_05_16x9_1406594461.png"
+    },
+    {
+      "theme": "cafe",
+      "folder": "05_cafe",
+      "variant_index": 6,
+      "variant": "minimal Korean-style cafe room with low warm lights, clean table props, and calm negative space",
+      "seed": 960553441,
+      "prompt_id": "f55ab86d-eb7b-488d-bce2-182abaadf2cb",
+      "prompt": "original cozy cafe background for chill music, warm believable lighting, readable wood, ceramic, glass, paper, pastry, and fabric textures, no chain branding, no recognizable venue design, minimal Korean-style cafe room with low warm lights, clean table props, and calm negative space, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_cafe_06_16x9_960553441_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_082206_cafe_06_16x9_960553441.png"
+    },
+    {
+      "theme": "university_library",
+      "folder": "06_university_library",
+      "variant_index": 1,
+      "variant": "grand arched reading room with long wooden tables and green banker lamps",
+      "seed": 1861411251,
+      "prompt_id": "9f389a8c-5198-486c-8acf-c90a791bee1e",
+      "prompt": "prestigious historic university library inspired background, broad academic architecture only, not copying a specific real library, no university name, no crest, no seals, grand reading room, stable shelves, desks, lamps, books, wood, stone, brass, leather, paper, grand arched reading room with long wooden tables and green banker lamps, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_university_library_01_16x9_1861411251_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_082206_university_library_01_16x9_1861411251.png"
+    },
+    {
+      "theme": "university_library",
+      "folder": "06_university_library",
+      "variant_index": 2,
+      "variant": "high-ceiling old library with balcony stacks and warm afternoon light",
+      "seed": 2054490686,
+      "prompt_id": "22d9b417-fbe3-4273-945f-6fc6c500ded0",
+      "prompt": "prestigious historic university library inspired background, broad academic architecture only, not copying a specific real library, no university name, no crest, no seals, grand reading room, stable shelves, desks, lamps, books, wood, stone, brass, leather, paper, high-ceiling old library with balcony stacks and warm afternoon light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_university_library_02_16x9_2054490686_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_082206_university_library_02_16x9_2054490686.png"
+    },
+    {
+      "theme": "university_library",
+      "folder": "06_university_library",
+      "variant_index": 3,
+      "variant": "quiet gothic academic reading hall with stone columns and symmetrical bookcases",
+      "seed": 501988526,
+      "prompt_id": "09937caf-e265-435c-bbaa-33893f26b078",
+      "prompt": "prestigious historic university library inspired background, broad academic architecture only, not copying a specific real library, no university name, no crest, no seals, grand reading room, stable shelves, desks, lamps, books, wood, stone, brass, leather, paper, quiet gothic academic reading hall with stone columns and symmetrical bookcases, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_university_library_03_16x9_501988526_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_082206_university_library_03_16x9_501988526.png"
+    },
+    {
+      "theme": "university_library",
+      "folder": "06_university_library",
+      "variant_index": 4,
+      "variant": "mahogany study hall with brass lamps, leather chairs, and tall windows",
+      "seed": 1659970189,
+      "prompt_id": "42a3fc28-d8ff-4e3e-b8d5-b4f76980db95",
+      "prompt": "prestigious historic university library inspired background, broad academic architecture only, not copying a specific real library, no university name, no crest, no seals, grand reading room, stable shelves, desks, lamps, books, wood, stone, brass, leather, paper, mahogany study hall with brass lamps, leather chairs, and tall windows, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_university_library_04_16x9_1659970189_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_082206_university_library_04_16x9_1659970189.png"
+    },
+    {
+      "theme": "university_library",
+      "folder": "06_university_library",
+      "variant_index": 5,
+      "variant": "snowy evening university library interior with warm desk lamps and empty chairs",
+      "seed": 1457976962,
+      "prompt_id": "eb278d5f-4a9a-47e0-842c-b115ce47d51e",
+      "prompt": "prestigious historic university library inspired background, broad academic architecture only, not copying a specific real library, no university name, no crest, no seals, grand reading room, stable shelves, desks, lamps, books, wood, stone, brass, leather, paper, snowy evening university library interior with warm desk lamps and empty chairs, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_university_library_05_16x9_1457976962_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_082206_university_library_05_16x9_1457976962.png"
+    },
+    {
+      "theme": "university_library",
+      "folder": "06_university_library",
+      "variant_index": 6,
+      "variant": "sunlit classical research library with marble floor, wooden shelves, and dust in the air",
+      "seed": 206993278,
+      "prompt_id": "102495b3-16d4-44be-b2cc-131dec1ed960",
+      "prompt": "prestigious historic university library inspired background, broad academic architecture only, not copying a specific real library, no university name, no crest, no seals, grand reading room, stable shelves, desks, lamps, books, wood, stone, brass, leather, paper, sunlit classical research library with marble floor, wooden shelves, and dust in the air, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_university_library_06_16x9_206993278_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_082206_university_library_06_16x9_206993278.png"
+    },
+    {
+      "theme": "magic_library",
+      "folder": "07_magic_library",
+      "variant_index": 1,
+      "variant": "towering circular library with floating candles and blue-gold magical light",
+      "seed": 1579587837,
+      "prompt_id": "7ff735ff-8d2c-42e7-9dc5-fab4780d9d6f",
+      "prompt": "original fantasy magic library background, coherent bookshelves, candles, floating dust, magical light, readable props, cinematic stable lighting, no readable book titles, towering circular library with floating candles and blue-gold magical light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_magic_library_01_16x9_1579587837_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_082206_magic_library_01_16x9_1579587837.png"
+    },
+    {
+      "theme": "magic_library",
+      "folder": "07_magic_library",
+      "variant_index": 2,
+      "variant": "old wizard study with open blank spellbook, glass bottles, and soft green glow",
+      "seed": 1440596137,
+      "prompt_id": "b21b90a2-e82d-4114-acd3-8807e272980b",
+      "prompt": "original fantasy magic library background, coherent bookshelves, candles, floating dust, magical light, readable props, cinematic stable lighting, no readable book titles, old wizard study with open blank spellbook, glass bottles, and soft green glow, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_magic_library_02_16x9_1440596137_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_082206_magic_library_02_16x9_1440596137.png"
+    },
+    {
+      "theme": "magic_library",
+      "folder": "07_magic_library",
+      "variant_index": 3,
+      "variant": "moonlit magic archive with spiral stairs and glowing dust motes",
+      "seed": 716490302,
+      "prompt_id": "d24c22ca-b2d2-4479-802b-df4d8da34f0e",
+      "prompt": "original fantasy magic library background, coherent bookshelves, candles, floating dust, magical light, readable props, cinematic stable lighting, no readable book titles, moonlit magic archive with spiral stairs and glowing dust motes, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_magic_library_03_16x9_716490302_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_082206_magic_library_03_16x9_716490302.png"
+    },
+    {
+      "theme": "magic_library",
+      "folder": "07_magic_library",
+      "variant_index": 4,
+      "variant": "cozy enchanted library fireplace with hovering lanterns and deep wooden shelves",
+      "seed": 1271584491,
+      "prompt_id": "547a4f4c-7e46-4ad8-bf61-f4afcb9650ce",
+      "prompt": "original fantasy magic library background, coherent bookshelves, candles, floating dust, magical light, readable props, cinematic stable lighting, no readable book titles, cozy enchanted library fireplace with hovering lanterns and deep wooden shelves, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_magic_library_04_16x9_1271584491_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_082206_magic_library_04_16x9_1271584491.png"
+    },
+    {
+      "theme": "magic_library",
+      "folder": "07_magic_library",
+      "variant_index": 5,
+      "variant": "ancient underground library with crystal light and carved stone arches",
+      "seed": 1797862138,
+      "prompt_id": "cd5e4767-1b86-4d98-9e44-4b094dc2f8d9",
+      "prompt": "original fantasy magic library background, coherent bookshelves, candles, floating dust, magical light, readable props, cinematic stable lighting, no readable book titles, ancient underground library with crystal light and carved stone arches, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_magic_library_05_16x9_1797862138_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_082206_magic_library_05_16x9_1797862138.png"
+    },
+    {
+      "theme": "magic_library",
+      "folder": "07_magic_library",
+      "variant_index": 6,
+      "variant": "starry observatory library with brass telescope, bookshelves, and magical sky window",
+      "seed": 37795487,
+      "prompt_id": "f05217e6-8cce-482b-962f-848413c7a58c",
+      "prompt": "original fantasy magic library background, coherent bookshelves, candles, floating dust, magical light, readable props, cinematic stable lighting, no readable book titles, starry observatory library with brass telescope, bookshelves, and magical sky window, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_magic_library_06_16x9_37795487_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_082206_magic_library_06_16x9_37795487.png"
+    },
+    {
+      "theme": "racing",
+      "folder": "08_racing",
+      "variant_index": 1,
+      "variant": "sleek original prototype race car parked in a rainy pit lane at night",
+      "seed": 1963546569,
+      "prompt_id": "bdf4c5f7-22ef-479e-8f35-bc685659272a",
+      "prompt": "original racing music background, no real car brand, no sponsor decals, no team livery, stable vehicle geometry, clean wheels, believable reflections, motion direction clear, no fake text on cars, billboards, suits, or track walls, sleek original prototype race car parked in a rainy pit lane at night, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_racing_01_16x9_1963546569_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_082206_racing_01_16x9_1963546569.png"
+    },
+    {
+      "theme": "racing",
+      "folder": "08_racing",
+      "variant_index": 2,
+      "variant": "cinematic endurance race car silhouette entering a misty corner at dawn",
+      "seed": 1253620435,
+      "prompt_id": "8401021f-0694-40c7-9999-a2d9f874ba89",
+      "prompt": "original racing music background, no real car brand, no sponsor decals, no team livery, stable vehicle geometry, clean wheels, believable reflections, motion direction clear, no fake text on cars, billboards, suits, or track walls, cinematic endurance race car silhouette entering a misty corner at dawn, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_racing_02_16x9_1253620435_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_082206_racing_02_16x9_1253620435.png"
+    },
+    {
+      "theme": "racing",
+      "folder": "08_racing",
+      "variant_index": 3,
+      "variant": "futuristic neon racing garage with one unbranded car under strip lights",
+      "seed": 1303882656,
+      "prompt_id": "04cf7e65-0924-47e3-9657-4031f9b56c7d",
+      "prompt": "original racing music background, no real car brand, no sponsor decals, no team livery, stable vehicle geometry, clean wheels, believable reflections, motion direction clear, no fake text on cars, billboards, suits, or track walls, futuristic neon racing garage with one unbranded car under strip lights, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_racing_03_16x9_1303882656_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_082206_racing_03_16x9_1303882656.png"
+    },
+    {
+      "theme": "racing",
+      "folder": "08_racing",
+      "variant_index": 4,
+      "variant": "empty mountain road racing scene with blurred original car and golden sunset",
+      "seed": 116418184,
+      "prompt_id": "36b4efe4-cead-497c-a1b8-fc4d8d14bd51",
+      "prompt": "original racing music background, no real car brand, no sponsor decals, no team livery, stable vehicle geometry, clean wheels, believable reflections, motion direction clear, no fake text on cars, billboards, suits, or track walls, empty mountain road racing scene with blurred original car and golden sunset, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_racing_04_16x9_116418184_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_082206_racing_04_16x9_116418184.png"
+    },
+    {
+      "theme": "racing",
+      "folder": "08_racing",
+      "variant_index": 5,
+      "variant": "wet city circuit corner with reflections and a single unbranded race car",
+      "seed": 297721108,
+      "prompt_id": "893c4fb5-bc20-49dd-9c71-7ebfc1791ba8",
+      "prompt": "original racing music background, no real car brand, no sponsor decals, no team livery, stable vehicle geometry, clean wheels, believable reflections, motion direction clear, no fake text on cars, billboards, suits, or track walls, wet city circuit corner with reflections and a single unbranded race car, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_racing_05_16x9_297721108_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_082206_racing_05_16x9_297721108.png"
+    },
+    {
+      "theme": "racing",
+      "folder": "08_racing",
+      "variant_index": 6,
+      "variant": "classic-inspired unbranded race car on a desert test track under dramatic clouds",
+      "seed": 804870170,
+      "prompt_id": "6abec801-1575-4abb-b33f-3f0a296f732f",
+      "prompt": "original racing music background, no real car brand, no sponsor decals, no team livery, stable vehicle geometry, clean wheels, believable reflections, motion direction clear, no fake text on cars, billboards, suits, or track walls, classic-inspired unbranded race car on a desert test track under dramatic clouds, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_racing_06_16x9_804870170_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_082206_racing_06_16x9_804870170.png"
+    },
+    {
+      "theme": "teto_nam",
+      "folder": "09_teto_nam",
+      "variant_index": 1,
+      "variant": "fictional adult man silhouette in a dark studio with warm side light and vinyl player",
+      "seed": 1736871482,
+      "prompt_id": "a2543a72-0ff4-431e-8562-45fb935c64e6",
+      "prompt": "original teto nam channel visual identity, moody masculine music background, single fictional adult male presence or silhouette, not a real person, not a celebrity, stable anatomy when visible, clean hands if visible, no text, no brand logo, fictional adult man silhouette in a dark studio with warm side light and vinyl player, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_teto_nam_01_16x9_1736871482_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_082206_teto_nam_01_16x9_1736871482.png"
+    },
+    {
+      "theme": "teto_nam",
+      "folder": "09_teto_nam",
+      "variant_index": 2,
+      "variant": "quiet city apartment at night with a single adult male figure seen from behind near window",
+      "seed": 1794913973,
+      "prompt_id": "616a5c09-501b-43ef-99a4-2f357a02c37a",
+      "prompt": "original teto nam channel visual identity, moody masculine music background, single fictional adult male presence or silhouette, not a real person, not a celebrity, stable anatomy when visible, clean hands if visible, no text, no brand logo, quiet city apartment at night with a single adult male figure seen from behind near window, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_teto_nam_02_16x9_1794913973_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_082206_teto_nam_02_16x9_1794913973.png"
+    },
+    {
+      "theme": "teto_nam",
+      "folder": "09_teto_nam",
+      "variant_index": 3,
+      "variant": "moody gym locker room ambience with jacket on bench and subtle human silhouette",
+      "seed": 1661866421,
+      "prompt_id": "307dfd18-971b-43cf-8711-334c58aa13a0",
+      "prompt": "original teto nam channel visual identity, moody masculine music background, single fictional adult male presence or silhouette, not a real person, not a celebrity, stable anatomy when visible, clean hands if visible, no text, no brand logo, moody gym locker room ambience with jacket on bench and subtle human silhouette, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_teto_nam_03_16x9_1661866421_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_082206_teto_nam_03_16x9_1661866421.png"
+    },
+    {
+      "theme": "teto_nam",
+      "folder": "09_teto_nam",
+      "variant_index": 4,
+      "variant": "late-night black car interior ambience with fictional driver silhouette and rain on glass",
+      "seed": 1143111824,
+      "prompt_id": "16eaee41-5f96-4d3d-97ad-96a6bcc46b3f",
+      "prompt": "original teto nam channel visual identity, moody masculine music background, single fictional adult male presence or silhouette, not a real person, not a celebrity, stable anatomy when visible, clean hands if visible, no text, no brand logo, late-night black car interior ambience with fictional driver silhouette and rain on glass, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_teto_nam_04_16x9_1143111824_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_082206_teto_nam_04_16x9_1143111824.png"
+    },
+    {
+      "theme": "teto_nam",
+      "folder": "09_teto_nam",
+      "variant_index": 5,
+      "variant": "minimal rooftop scene with adult male figure leaning on railing, hands relaxed and visible",
+      "seed": 254127059,
+      "prompt_id": "af1c4f0c-acad-4384-bed1-f65ea76f08a2",
+      "prompt": "original teto nam channel visual identity, moody masculine music background, single fictional adult male presence or silhouette, not a real person, not a celebrity, stable anatomy when visible, clean hands if visible, no text, no brand logo, minimal rooftop scene with adult male figure leaning on railing, hands relaxed and visible, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_teto_nam_05_16x9_254127059_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_082206_teto_nam_05_16x9_254127059.png"
+    },
+    {
+      "theme": "teto_nam",
+      "folder": "09_teto_nam",
+      "variant_index": 6,
+      "variant": "low-key lounge room with leather chair, guitar case, and fictional male silhouette in background",
+      "seed": 1398692254,
+      "prompt_id": "1e548a8e-194e-44dc-bc20-71e0ee1069ff",
+      "prompt": "original teto nam channel visual identity, moody masculine music background, single fictional adult male presence or silhouette, not a real person, not a celebrity, stable anatomy when visible, clean hands if visible, no text, no brand logo, low-key lounge room with leather chair, guitar case, and fictional male silhouette in background, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_teto_nam_06_16x9_1398692254_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_082206_teto_nam_06_16x9_1398692254.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "folder": "10_classical_orchestra_stage",
+      "variant_index": 1,
+      "variant": "empty symphony stage before concert with chairs, stands, and warm golden hall lights",
+      "seed": 1992195630,
+      "prompt_id": "61770c72-c2c5-4279-b996-319248b23108",
+      "prompt": "original classical orchestra stage background, no famous orchestra, no conductor likeness, no venue logo, coherent instruments, chairs, music stands, stage lights, curtains, wide balanced concert hall composition, empty symphony stage before concert with chairs, stands, and warm golden hall lights, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_classical_orchestra_stage_01_16x9_1992195630_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_082206_classical_orchestra_stage_01_16x9_1992195630.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "folder": "10_classical_orchestra_stage",
+      "variant_index": 2,
+      "variant": "grand concert hall stage with string instruments resting on chairs and red curtains",
+      "seed": 579596513,
+      "prompt_id": "9fe3dc56-b841-45ce-abb6-3adf1697d672",
+      "prompt": "original classical orchestra stage background, no famous orchestra, no conductor likeness, no venue logo, coherent instruments, chairs, music stands, stage lights, curtains, wide balanced concert hall composition, grand concert hall stage with string instruments resting on chairs and red curtains, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_classical_orchestra_stage_02_16x9_579596513_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_082206_classical_orchestra_stage_02_16x9_579596513.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "folder": "10_classical_orchestra_stage",
+      "variant_index": 3,
+      "variant": "quiet rehearsal stage with piano, cellos, music stands, and soft morning light",
+      "seed": 1142023678,
+      "prompt_id": "f3379098-98c3-41ce-a146-f18ea6bad700",
+      "prompt": "original classical orchestra stage background, no famous orchestra, no conductor likeness, no venue logo, coherent instruments, chairs, music stands, stage lights, curtains, wide balanced concert hall composition, quiet rehearsal stage with piano, cellos, music stands, and soft morning light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_classical_orchestra_stage_03_16x9_1142023678_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_082206_classical_orchestra_stage_03_16x9_1142023678.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "folder": "10_classical_orchestra_stage",
+      "variant_index": 4,
+      "variant": "dramatic orchestra stage viewed from balcony with polished wood and amber spotlights",
+      "seed": 95929236,
+      "prompt_id": "088b3d8c-c823-4100-948b-eb4de6d3e4d5",
+      "prompt": "original classical orchestra stage background, no famous orchestra, no conductor likeness, no venue logo, coherent instruments, chairs, music stands, stage lights, curtains, wide balanced concert hall composition, dramatic orchestra stage viewed from balcony with polished wood and amber spotlights, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_classical_orchestra_stage_04_16x9_95929236_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_082206_classical_orchestra_stage_04_16x9_95929236.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "folder": "10_classical_orchestra_stage",
+      "variant_index": 5,
+      "variant": "minimal chamber orchestra setup in a small hall with black stands and soft side light",
+      "seed": 811127028,
+      "prompt_id": "c8ebdb1a-3df5-4b61-ae62-81bd43293f8c",
+      "prompt": "original classical orchestra stage background, no famous orchestra, no conductor likeness, no venue logo, coherent instruments, chairs, music stands, stage lights, curtains, wide balanced concert hall composition, minimal chamber orchestra setup in a small hall with black stands and soft side light, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_classical_orchestra_stage_05_16x9_811127028_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_082206_classical_orchestra_stage_05_16x9_811127028.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "folder": "10_classical_orchestra_stage",
+      "variant_index": 6,
+      "variant": "large classical stage with harp, timpani, strings, and deep blue evening lighting",
+      "seed": 771783770,
+      "prompt_id": "02287aea-3b57-4110-b329-e9215c111b11",
+      "prompt": "original classical orchestra stage background, no famous orchestra, no conductor likeness, no venue logo, coherent instruments, chairs, music stands, stage lights, curtains, wide balanced concert hall composition, large classical stage with harp, timpani, strings, and deep blue evening lighting, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_082206_classical_orchestra_stage_06_16x9_771783770_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_082206_classical_orchestra_stage_06_16x9_771783770.png"
+    }
+  ],
+  "contact_sheets": [
+    {
+      "theme": "animal_plush",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_animal_plush_sheet.png"
+    },
+    {
+      "theme": "animal_2d_character",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_animal_2d_character_sheet.png"
+    },
+    {
+      "theme": "campfire",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_campfire_sheet.png"
+    },
+    {
+      "theme": "kodoromo",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_kodoromo_sheet.png"
+    },
+    {
+      "theme": "cafe",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_cafe_sheet.png"
+    },
+    {
+      "theme": "university_library",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_university_library_sheet.png"
+    },
+    {
+      "theme": "magic_library",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_magic_library_sheet.png"
+    },
+    {
+      "theme": "racing",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_racing_sheet.png"
+    },
+    {
+      "theme": "teto_nam",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_teto_nam_sheet.png"
+    },
+    {
+      "theme": "classical_orchestra_stage",
+      "path": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_082206_classical_orchestra_stage_sheet.png"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "name": "person_pose_zimage_best_20260603_073707",
+  "created_at_kst": "2026-06-03 07:37:07",
+  "purpose": "Reusable local ComfyUI workflow for photorealistic adult model and pose reference generation.",
+  "policy_scope": {
+    "uses_copyrighted_reference_images": false,
+    "copies_specific_living_person": false,
+    "copies_specific_brand_campaign": false,
+    "stores_abstract_prompt_only": true
+  },
+  "accepted_output": {
+    "candidate_id": "three_quarter_contrapposto",
+    "prompt_id": "e0b48229-5b02-4e4c-baeb-340632ed0326",
+    "seed": 1550815067,
+    "repo_image": "outputs/generated_images/person_pose_zimage_best_20260603_073707.png",
+    "downloads_image": "C:/Users/Hojun/Downloads/person_pose_zimage_best_20260603_073707.png",
+    "source_image": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_pose_candidate_20260603_073707_three_quarter_contrapposto_00001_.png"
+  },
+  "generation_settings": {
+    "api": "http://127.0.0.1:8188",
+    "model": "z_image_turbo_nvfp4.safetensors",
+    "text_encoder": "qwen_3_4b_fp4_mixed.safetensors",
+    "text_encoder_type": "lumina2",
+    "vae": "ae.safetensors",
+    "width": 768,
+    "height": 1024,
+    "aspect_ratio": "3:4",
+    "steps": 10,
+    "cfg": 1.0,
+    "sampler_name": "res_multistep",
+    "scheduler": "simple",
+    "denoise": 1.0,
+    "model_sampling": "ModelSamplingAuraFlow",
+    "shift": 3.0
+  },
+  "selection_reason": [
+    "Best balance of full-body framing, readable contrapposto pose, natural face, visible hands, and stable feet among the generated candidates.",
+    "The 960x1280 reruns produced stronger pose variation but introduced more foot-detail risk, so the accepted workflow preserves the more stable 768x1024 result.",
+    "No external reference image, living person, brand campaign, or artist style was used."
+  ],
+  "candidate_batch": {
+    "draft_size": "768x1024",
+    "draft_candidates": [
+      {
+        "id": "front_relaxed",
+        "seed": 715885740,
+        "prompt_id": "25fa99e0-6564-47c9-b9d0-7d7b54629bd7"
+      },
+      {
+        "id": "three_quarter_contrapposto",
+        "seed": 1550815067,
+        "prompt_id": "e0b48229-5b02-4e4c-baeb-340632ed0326"
+      },
+      {
+        "id": "soft_runway_step",
+        "seed": 1274940193,
+        "prompt_id": "ce590408-5c7e-4ec8-8748-36007f9a2876"
+      },
+      {
+        "id": "seated_floor_pose",
+        "seed": 853823304,
+        "prompt_id": "8eda4fb4-2c64-44f3-bec2-60a33b94e4ee"
+      }
+    ],
+    "higher_resolution_checks": [
+      {
+        "id": "standing_contrapposto_final",
+        "seed": 1455388207,
+        "prompt_id": "fef956b1-9d84-43eb-8df3-12c109b0688d",
+        "size": "960x1280"
+      },
+      {
+        "id": "seated_floor_final",
+        "seed": 233046215,
+        "prompt_id": "736b2748-1f45-46a0-bf9c-66f8ead9a9a0",
+        "size": "960x1280"
+      }
+    ]
+  },
+  "prompt": "photorealistic real-person full-body fashion model pose reference photo, single adult East Asian model, three-quarter standing contrapposto pose, weight on back leg, one leg slightly forward, shoulders gently angled, one hand lightly near the waist, the other hand relaxed downward, both hands visible, clean white photography studio, seamless white cyc wall, vertical 3:4 centered composition, full body visible from head to shoes, face visible, natural human proportions, realistic skin texture with subtle pores, detailed natural hair, simple fitted neutral knit top and clean neutral skirt, visible simple shoes, high-key softbox studio lighting, even illumination, soft floor shadow, neutral white balance, crisp focus, professional model casting photo and pose reference, no furniture, no extra objects, no text, no logo, no watermark, no extra people, no duplicated limbs, no extra arms, no extra hands, no missing fingers, no distorted fingers, no fused feet, no cropped feet, no plastic skin, no CGI, no cartoon"
+}

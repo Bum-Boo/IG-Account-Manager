@@ -4,9 +4,13 @@ import type {
   Concept,
   ContentAsset,
   ContentRecipe,
+  GenerateCandidateRequest,
+  GenerateCandidateResponse,
+  InstagramConnectionStatus,
   PluginRegistration,
   PostCandidate,
   PublishJob,
+  StartInstagramConnectionResponse,
   WorkspaceData,
   WorkspaceSnapshot
 } from "../types.js";
@@ -26,6 +30,38 @@ export class ApiClient {
 
   async listAccounts(): Promise<Account[]> {
     return this.get<Account[]>("/accounts");
+  }
+
+  async startInstagramConnection(accountId: string): Promise<StartInstagramConnectionResponse> {
+    return this.request<StartInstagramConnectionResponse>(`/accounts/${accountId}/instagram/connect`, {
+      method: "POST",
+      body: JSON.stringify({})
+    });
+  }
+
+  async getInstagramConnection(accountId: string): Promise<InstagramConnectionStatus> {
+    return this.get<InstagramConnectionStatus>(`/accounts/${accountId}/instagram/connection`);
+  }
+
+  async selectInstagramAccount(accountId: string, instagramBusinessAccountId: string): Promise<InstagramConnectionStatus> {
+    return this.request<InstagramConnectionStatus>(`/accounts/${accountId}/instagram/select`, {
+      method: "POST",
+      body: JSON.stringify({ instagramBusinessAccountId })
+    });
+  }
+
+  async disconnectInstagram(accountId: string): Promise<InstagramConnectionStatus> {
+    return this.request<InstagramConnectionStatus>(`/accounts/${accountId}/instagram/disconnect`, {
+      method: "POST",
+      body: JSON.stringify({})
+    });
+  }
+
+  async refreshInstagramConnection(accountId: string): Promise<InstagramConnectionStatus> {
+    return this.request<InstagramConnectionStatus>(`/accounts/${accountId}/instagram/refresh`, {
+      method: "POST",
+      body: JSON.stringify({})
+    });
   }
 
   async listConcepts(accounts: Account[]): Promise<Concept[]> {
@@ -50,6 +86,13 @@ export class ApiClient {
 
   async listCandidates(): Promise<PostCandidate[]> {
     return this.get<PostCandidate[]>("/candidates");
+  }
+
+  async generateCandidate(input: GenerateCandidateRequest): Promise<GenerateCandidateResponse> {
+    return this.request<GenerateCandidateResponse>("/generation/candidates", {
+      method: "POST",
+      body: JSON.stringify(input)
+    });
   }
 
   async approveCandidate(id: string): Promise<PostCandidate> {

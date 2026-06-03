@@ -83,7 +83,7 @@ describe("official instagram publisher", () => {
     const result = await plugin.publish(
       {
         account,
-        candidate,
+        candidate: httpsCandidate,
         job,
         approvedBy: "reviewer"
       },
@@ -168,7 +168,7 @@ describe("official instagram publisher", () => {
     const result = await plugin.publish(
       {
         account,
-        candidate,
+        candidate: httpsCandidate,
         job,
         approvedBy: "reviewer"
       },
@@ -182,6 +182,39 @@ describe("official instagram publisher", () => {
     expect(calls).toEqual(["create-container", "publish-container", "first-comment"]);
     expect(result.data.externalPostId).toBe("media_1");
     expect(result.data.permalink).toBe("https://instagram.example.invalid/p/media_1");
+  });
+
+  it("live mode rejects local file media before calling external clients", async () => {
+    let apiCalls = 0;
+    const plugin = new InstagramPublisher({
+      config: { mode: "live" },
+      tokenProvider: {
+        getAccessToken: async () => ({ accessToken: "test-token", scopes: ["instagram_content_publish"] })
+      },
+      apiClient: createCountingApiClient(() => {
+        apiCalls += 1;
+      })
+    });
+
+    const result = await plugin.publish(
+      {
+        account,
+        candidate,
+        job,
+        approvedBy: "reviewer"
+      },
+      createContext()
+    );
+
+    if (result.ok) {
+      throw new Error("Expected local file media to be rejected in live mode.");
+    }
+
+    expect(result.error.code).toBe("instagram_publish_validation_failed");
+    expect(result.error.details?.issues).toEqual(
+      expect.arrayContaining([expect.objectContaining({ code: "instagram_media_url_required" })])
+    );
+    expect(apiCalls).toBe(0);
   });
 });
 
@@ -259,6 +292,23 @@ const candidate = createPostCandidate({
   },
   createdAt: now,
   updatedAt: now
+});
+
+const httpsCandidate = createPostCandidate({
+  ...candidate,
+  metadata: {
+    instagram: {
+      hashtags: ["concept", "#workflow"],
+      media: [
+        {
+          assetId: "asset_main",
+          uri: "https://cdn.example.invalid/asset-main.jpg",
+          mediaType: "image",
+          altText: "Studio product image."
+        }
+      ]
+    }
+  }
 });
 
 const job = createPublishJob({

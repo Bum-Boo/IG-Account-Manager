@@ -2,6 +2,7 @@ import { existsSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createDatabase, createRepositories, runMigrations, type DatabaseHandle } from "@ig-manager/db";
+import { createInstagramIntegration } from "@ig-manager/instagram-integration";
 import { createLogger, type Logger } from "@ig-manager/logger";
 import {
   FixedIntervalRetryPolicy,
@@ -34,9 +35,11 @@ export function startWorker(options: StartWorkerOptions = {}): WorkerRuntime {
   const clock = new SystemClock();
   const handle = createWorkerDatabase(config.databaseUrl);
   const repositories = createRepositories(handle.db);
+  const instagram = createInstagramIntegration({ repositories });
   const publishers = createLocalPublisherRegistry({
     plugins: repositories.plugins,
-    logger
+    logger,
+    createInstagramPublisher: () => instagram.createPublisher()
   });
   const workflow = new WorkflowEngine({
     repositories,

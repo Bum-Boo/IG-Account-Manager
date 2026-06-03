@@ -1,0 +1,109 @@
+{
+  "created_at_kst": "2026-06-03",
+  "root": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images",
+  "expected_new_per_theme": 4,
+  "themes": [
+    {
+      "folder": "01_animal_plush",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_090912_animal_plush_set_a_arctic_lullaby_01_16x9_807988793.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_090912_animal_plush_set_a_arctic_lullaby_02_16x9_518837400.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_090912_animal_plush_set_b_tropical_rain_01_16x9_2106876918.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/01_animal_plush/20260603_090912_animal_plush_set_b_tropical_rain_02_16x9_1060560940.png"
+      ]
+    },
+    {
+      "folder": "02_animal_2d_character",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_090912_animal_2d_character_set_a_noir_room_01_16x9_1266777102.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_090912_animal_2d_character_set_a_noir_room_02_16x9_1269308326.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_090912_animal_2d_character_set_b_sunrise_field_01_16x9_1603164053.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/02_animal_2d_character/20260603_090912_animal_2d_character_set_b_sunrise_field_02_16x9_738071020.png"
+      ]
+    },
+    {
+      "folder": "03_campfire",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_090912_campfire_set_a_forest_rain_01_16x9_1302472821.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_090912_campfire_set_a_forest_rain_02_16x9_956940742.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_090912_campfire_set_b_desert_dawn_01_16x9_1004235468.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/03_campfire/20260603_090912_campfire_set_b_desert_dawn_02_16x9_83083432.png"
+      ]
+    },
+    {
+      "folder": "04_kodoromo",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_090912_kodoromo_set_a_paper_moon_01_16x9_1294580377.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_090912_kodoromo_set_a_paper_moon_02_16x9_1850608803.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_090912_kodoromo_set_b_rainy_workshop_01_16x9_1709890544.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/04_kodoromo/20260603_090912_kodoromo_set_b_rainy_workshop_02_16x9_1774668997.png"
+      ]
+    },
+    {
+      "folder": "05_cafe",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_090912_cafe_set_a_rainy_city_01_16x9_470215700.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_090912_cafe_set_a_rainy_city_02_16x9_1315089719.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_090912_cafe_set_b_coastal_morning_01_16x9_2005679814.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/05_cafe/20260603_090912_cafe_set_b_coastal_morning_02_16x9_52026371.png"
+      ]
+    },
+    {
+      "folder": "06_university_library",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_090912_university_library_set_a_modern_brutalist_02_16x9_378992421.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_090912_university_library_set_b_underground_archive_01_16x9_915616438.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_093131_university_library_set_b_underground_archive_replacement_02_16x9_1272081540.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/06_university_library/20260603_093330_university_library_modern_no_crest_candidate_02_16x9_1060319561.png"
+      ]
+    },
+    {
+      "folder": "07_magic_library",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_090912_magic_library_set_a_crystal_archive_01_16x9_1976557005.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_090912_magic_library_set_a_crystal_archive_02_16x9_534351762.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_090912_magic_library_set_b_solar_observatory_01_16x9_711795077.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/07_magic_library/20260603_090912_magic_library_set_b_solar_observatory_02_16x9_390636471.png"
+      ]
+    },
+    {
+      "folder": "08_racing",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_090912_racing_set_a_track_without_markings_01_16x9_1616552768.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_090912_racing_set_a_track_without_markings_02_16x9_646102993.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_090912_racing_set_b_studio_stilllife_01_16x9_489290128.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_090912_racing_set_b_studio_stilllife_02_16x9_576683755.png"
+      ]
+    },
+    {
+      "folder": "09_teto_nam",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_090912_teto_nam_set_a_empty_lounge_01_16x9_477657061.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_090912_teto_nam_set_a_empty_lounge_02_16x9_499559251.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_090912_teto_nam_set_b_rooftop_dawn_01_16x9_98668589.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/09_teto_nam/20260603_090912_teto_nam_set_b_rooftop_dawn_02_16x9_1034956699.png"
+      ]
+    },
+    {
+      "folder": "10_classical_orchestra_stage",
+      "new_count": 4,
+      "images": [
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_090912_classical_orchestra_stage_set_a_empty_after_rehearsal_01_16x9_1182439936.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_090912_classical_orchestra_stage_set_a_empty_after_rehearsal_02_16x9_1089680997.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_090912_classical_orchestra_stage_set_b_blue_concert_light_01_16x9_318683253.png",
+        "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/10_classical_orchestra_stage/20260603_090912_classical_orchestra_stage_set_b_blue_concert_light_02_16x9_1629753908.png"
+      ]
+    }
+  ],
+  "contact_sheet": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_final_variation_clean_10themes_40images_sheet.png",
+  "total_new_count": 40
+}

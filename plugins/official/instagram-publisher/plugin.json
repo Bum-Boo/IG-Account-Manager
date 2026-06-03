@@ -3,7 +3,7 @@
   "id": "official.instagram-publisher",
   "name": "Official Instagram Publisher",
   "version": "0.1.0",
-  "description": "Official Instagram publisher skeleton using only official Instagram APIs. Live API calls are intentionally behind interfaces.",
+  "description": "Official Instagram publisher using only official Instagram APIs. Live API calls are intentionally behind interfaces.",
   "type": "publisher",
   "distribution": "official",
   "private": false,

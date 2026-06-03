@@ -23,6 +23,7 @@ a {
 
 button,
 input,
+select,
 textarea {
   font: inherit;
 }
@@ -52,6 +53,7 @@ button:disabled {
   position: sticky;
   top: 0;
   height: 100vh;
+  min-width: 0;
 }
 
 .brand {
@@ -113,6 +115,7 @@ button:disabled {
   display: flex;
   justify-content: space-between;
   min-height: 58px;
+  min-width: 0;
   padding: 12px 28px;
   position: sticky;
   top: 0;
@@ -147,6 +150,7 @@ button:disabled {
   margin: 0 auto;
   max-width: 1440px;
   padding: 28px;
+  width: 100%;
 }
 
 .page-header {
@@ -154,6 +158,12 @@ button:disabled {
   display: flex;
   gap: 24px;
   justify-content: space-between;
+  min-width: 0;
+}
+
+.page-header > div,
+.section-heading > div {
+  min-width: 0;
 }
 
 .page-header h1 {
@@ -382,7 +392,8 @@ a.list-row:hover {
 .status-ready-for-review,
 .status-queued,
 .status-running,
-.status-publisher {
+.status-publisher,
+.status-pending-selection {
   background: #e8f3f7;
   border-color: #b8d9e5;
   color: #244e5f;
@@ -391,7 +402,9 @@ a.list-row:hover {
 .status-scheduled,
 .status-retry-scheduled,
 .status-draft,
-.status-candidate-generator {
+.status-candidate-generator,
+.status-not-connected,
+.status-disconnected {
   background: #fff1d7;
   border-color: #ebcf92;
   color: #684b10;
@@ -400,10 +413,17 @@ a.list-row:hover {
 .status-failed,
 .status-publish-failed,
 .status-rejected,
-.status-disabled {
+.status-disabled,
+.status-attention {
   background: #fde7e3;
   border-color: #e8b8ae;
   color: #743025;
+}
+
+.status-ready {
+  background: #e7f3dd;
+  border-color: #bdd9ad;
+  color: #274c28;
 }
 
 .board {
@@ -512,6 +532,7 @@ label {
 }
 
 input,
+select,
 textarea {
   border: 1px solid #cfd9d1;
   border-radius: 8px;
@@ -606,6 +627,37 @@ textarea {
 
 .candidates-page {
   align-items: start;
+}
+
+.generation-panel {
+  align-items: end;
+  background: #ffffff;
+  border: 1px solid #dfe5dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.8fr);
+  padding: 16px;
+}
+
+.generation-panel h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.generation-panel p {
+  margin: 6px 0 0;
+}
+
+.generation-form {
+  align-items: end;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(160px, 1fr) minmax(160px, 1fr) minmax(140px, 0.8fr) auto auto;
+}
+
+.generation-check {
+  min-height: 40px;
 }
 
 .candidate-review-layout {
@@ -733,6 +785,229 @@ textarea {
   gap: 8px;
 }
 
+.metadata-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metadata-grid div {
+  background: #f6f8f4;
+  border: 1px solid #e2e8e1;
+  border-radius: 8px;
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+}
+
+.metadata-grid span,
+.metadata-path {
+  color: #5e6b64;
+  font-size: 0.82rem;
+}
+
+.instagram-connection-panel {
+  grid-column: 1 / -1;
+}
+
+.connection-hub {
+  gap: 16px;
+}
+
+.connection-progress {
+  background: #edf2ed;
+  border: 1px solid #d9e2d8;
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.connection-progress span {
+  background: linear-gradient(90deg, #2d6c54, #538f72);
+  display: block;
+  height: 100%;
+}
+
+.connection-summary-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.connection-summary-grid div {
+  background: #f6f8f4;
+  border: 1px solid #e2e7df;
+  border-radius: 8px;
+  display: grid;
+  gap: 6px;
+  min-height: 76px;
+  padding: 12px;
+}
+
+.connection-summary-grid span {
+  color: #5e6b64;
+  font-size: 0.82rem;
+}
+
+.connection-summary-grid strong {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.connection-account-list {
+  display: grid;
+  gap: 10px;
+}
+
+.connection-account-row {
+  align-items: center;
+  border: 1px solid #e2e8e1;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(220px, 1fr) minmax(190px, 0.75fr) auto;
+  padding: 12px;
+}
+
+.connection-account-main,
+.connection-account-actions {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.connection-account-main {
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.connection-account-title {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.connection-account-title span,
+.connection-account-meta span {
+  color: #5e6b64;
+  font-size: 0.84rem;
+  overflow-wrap: anywhere;
+}
+
+.connection-account-meta {
+  display: grid;
+  gap: 4px;
+}
+
+.connection-account-actions {
+  flex-wrap: wrap;
+  justify-content: end;
+}
+
+.connection-choice-list {
+  display: grid;
+  gap: 8px;
+}
+
+.connection-choice-list.compact {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.choice-button {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #dfe5dc;
+  border-radius: 8px;
+  color: #202522;
+  display: flex;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.choice-button:hover {
+  border-color: #2d6c54;
+}
+
+.choice-button span {
+  color: #5e6b64;
+  font-size: 0.82rem;
+}
+
+.choice-button small {
+  color: #2d6c54;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.link-button {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.form-error {
+  background: #fff4f0;
+  border: 1px solid #e2b7a8;
+  border-radius: 8px;
+  color: #8f3d32;
+  font-size: 0.86rem;
+  margin: 0;
+  padding: 10px;
+}
+
+.connection-notice {
+  background: #eef7f8;
+  border: 1px solid #badce2;
+  border-radius: 8px;
+  color: #244e5f;
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin: 0;
+  padding: 10px 12px;
+}
+
+.metadata-path {
+  background: #f6f8f4;
+  border: 1px solid #e2e8e1;
+  border-radius: 8px;
+  margin: 0;
+  overflow-wrap: anywhere;
+  padding: 10px;
+}
+
+.metadata-details {
+  border: 1px solid #e2e8e1;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.metadata-details summary {
+  background: #f6f8f4;
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 800;
+  padding: 10px;
+}
+
+.metadata-details pre {
+  color: #3f4944;
+  font-size: 0.78rem;
+  margin: 0;
+  max-height: 220px;
+  overflow: auto;
+  padding: 10px;
+  white-space: pre-wrap;
+}
+
 .asset-chip,
 .job-summary {
   border: 1px solid #e2e8e1;
@@ -785,7 +1060,8 @@ textarea {
 @media (max-width: 1180px) {
   .metrics-grid,
   .entity-grid,
-  .calendar-grid {
+  .calendar-grid,
+  .connection-summary-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -793,6 +1069,14 @@ textarea {
   .editor-grid,
   .editor-grid.narrow {
     grid-template-columns: 1fr;
+  }
+
+  .connection-account-row {
+    grid-template-columns: 1fr;
+  }
+
+  .connection-account-actions {
+    justify-content: start;
   }
 }
 
@@ -803,17 +1087,22 @@ textarea {
 
   .sidebar {
     height: auto;
+    overflow: hidden;
     position: static;
   }
 
   .brand {
     align-items: center;
+    max-width: 100%;
   }
 
   .nav-list {
     display: flex;
+    max-width: 100%;
+    min-width: 0;
     overflow-x: auto;
     padding-bottom: 4px;
+    width: 100%;
   }
 
   .nav-list a {
@@ -841,7 +1130,8 @@ textarea {
 
   .metrics-grid,
   .entity-grid,
-  .calendar-grid {
+  .calendar-grid,
+  .connection-summary-grid {
     grid-template-columns: 1fr;
   }
 
@@ -860,6 +1150,12 @@ textarea {
   }
 
   .candidate-review-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .generation-panel,
+  .generation-form,
+  .metadata-grid {
     grid-template-columns: 1fr;
   }
 
@@ -897,5 +1193,15 @@ textarea {
 
   .status-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .connection-account-main,
+  .connection-account-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .connection-account-main {
+    align-items: start;
   }
 }

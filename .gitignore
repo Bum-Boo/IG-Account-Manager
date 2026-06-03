@@ -2,6 +2,9 @@ node_modules/
 dist/
 coverage/
 .turbo/
+.codex-tmp/
+__pycache__/
+*.pyc
 data/
 *.log
 *.sqlite
@@ -21,6 +24,12 @@ exports/generated-media/
 content-library/generated/
 content-library/outputs/
 content-library/assets/generated/
+reference_library/**/*.jpg
+reference_library/**/*.jpeg
+reference_library/**/*.png
+reference_library/**/*.webp
+reference_data/drafts/*.json
+outputs/generated_images/
 *.generated.png
 *.generated.jpg
 *.generated.jpeg

@@ -17,6 +17,7 @@
     "@fastify/swagger-ui": "^5.0.0",
     "@ig-manager/db": "workspace:*",
     "@ig-manager/domain": "workspace:*",
+    "@ig-manager/instagram-integration": "workspace:*",
     "@ig-manager/plugin-sdk": "workspace:*",
     "@ig-manager/workflow-engine": "workspace:*",
     "fastify": "^5.0.0",

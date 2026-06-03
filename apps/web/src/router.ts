@@ -13,7 +13,7 @@ export type Route =
   | { name: "settings" };
 
 export function parseRoute(hash: string): Route {
-  const path = hash.replace(/^#/, "") || "/";
+  const [path = "/"] = (hash.replace(/^#/, "") || "/").split("?");
   const parts = path.split("/").filter(Boolean);
 
   if (parts[0] === "accounts" && parts[1]) return { name: "account", id: parts[1] };

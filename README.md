@@ -167,6 +167,49 @@ Private AI/content generation plugins are developed outside this Core repository
 - `pnpm lint` runs the current lightweight lint gate.
 - `pnpm test` runs unit tests.
 
+## Gurrimming_ref Local Reference Workflow
+
+This repository also contains a local-only reference abstraction workflow for clean white studio fashion pose prompts. It is designed to support Z-Image Turbo prompt packages for ComfyUI without committing local reference images.
+
+Reference images go under `reference_library/` and are ignored by Git:
+
+```text
+reference_library/
+  backgrounds/
+  outfits/
+  props/
+  poses/
+  lighting/
+  makeup_hair/
+  mood/
+```
+
+Reviewed prompt assets live in `reference_data/*.json`. Drafts created from local image folders live in `reference_data/drafts/` and are not auto-promoted.
+
+Create an editable draft from a local folder:
+
+```bash
+python scripts/analyze_reference_images.py --category backgrounds --input reference_library/backgrounds/white_studio --output reference_data/drafts/backgrounds_draft.json
+```
+
+Validate schemas and reviewed JSON:
+
+```bash
+python scripts/validate_json.py
+```
+
+Generate a ComfyUI-friendly Z-Image Turbo prompt package:
+
+```bash
+python -m src.prompt_engine.generate --recipe reference_data/prompt_recipes/gurrimming_white_studio_example.json
+```
+
+Outputs are written to `outputs/prompts/` and `outputs/captions/`. Generated image files should stay under `outputs/generated_images/` or another ignored local media folder.
+
+To add a new account concept besides `Gurrimming_ref`, create new reviewed JSON assets or prompt recipe files under `reference_data/prompt_recipes/`, then keep the same output contract: main prompt, compact prompt under 800 characters, caption, pinned comment prompt, five hashtags, alt text, and ComfyUI-oriented prompt fields.
+
+For the full workflow, release checklist, and roadmap, see [docs/gurrimming_ref_workflow.md](docs/gurrimming_ref_workflow.md). For safety rules, see [docs/reference_policy.md](docs/reference_policy.md).
+
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening issues or pull requests. Security issues should follow [SECURITY.md](SECURITY.md) rather than public issue reports.

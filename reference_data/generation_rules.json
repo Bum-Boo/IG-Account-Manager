@@ -1,0 +1,16 @@
+{
+  "max_props": 1,
+  "allow_multiple_complex_items": false,
+  "if_pose_difficulty_high_then_prop_complexity": "low",
+  "if_background_is_white_studio_then_clutter_level": "none",
+  "if_full_body_then_require_visible_shoes": true,
+  "if_prop_requires_hand_interaction_then_hands_visible": true,
+  "default_output_format": {
+    "main_prompt": true,
+    "compact_prompt_under_800_chars": true,
+    "instagram_caption": true,
+    "pinned_comment_prompt": true,
+    "hashtags_count": 5,
+    "alt_text": true
+  }
+}

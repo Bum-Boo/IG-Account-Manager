@@ -1,0 +1,28 @@
+[
+  {
+    "id": "mh_natural_001",
+    "category": "makeup_hair",
+    "source_folder": "makeup_hair/natural",
+    "visual_summary": "natural makeup and softly styled hair suitable for realistic white studio fashion references",
+    "usable_prompt": "natural makeup, subtle skin texture, soft neutral lips, clean brows, softly styled natural hair",
+    "finish": "natural",
+    "hair_style": "soft natural hair",
+    "makeup_style": "subtle natural makeup",
+    "style_tags": ["natural", "clean_skin", "soft_hair", "studio"],
+    "avoid": ["heavy glitter", "plastic skin", "overdrawn lips", "messy flyaways hiding face"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "mh_tied_hair_001",
+    "category": "makeup_hair",
+    "source_folder": "makeup_hair/tied_hair",
+    "visual_summary": "clean tied hair styling with visible face shape and understated studio makeup",
+    "usable_prompt": "clean tied-back hair, soft face-framing strands, subtle studio makeup, clear jawline and visible ears",
+    "finish": "clean",
+    "hair_style": "tied-back hair with soft face-framing strands",
+    "makeup_style": "subtle clean casual makeup",
+    "style_tags": ["tied_hair", "clean_casual", "clean_face", "studio"],
+    "avoid": ["hair covering eyes", "overly glossy skin", "heavy contour", "large hair accessories"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  }
+]

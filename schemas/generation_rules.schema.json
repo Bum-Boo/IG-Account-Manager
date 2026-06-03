@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Generation rules",
+  "type": "object",
+  "required": [
+    "max_props",
+    "allow_multiple_complex_items",
+    "if_pose_difficulty_high_then_prop_complexity",
+    "if_background_is_white_studio_then_clutter_level",
+    "if_full_body_then_require_visible_shoes",
+    "if_prop_requires_hand_interaction_then_hands_visible",
+    "default_output_format"
+  ],
+  "properties": {
+    "max_props": { "type": "integer", "minimum": 0 },
+    "allow_multiple_complex_items": { "type": "boolean" },
+    "if_pose_difficulty_high_then_prop_complexity": { "enum": ["low", "medium", "high"] },
+    "if_background_is_white_studio_then_clutter_level": { "type": "string" },
+    "if_full_body_then_require_visible_shoes": { "type": "boolean" },
+    "if_prop_requires_hand_interaction_then_hands_visible": { "type": "boolean" },
+    "default_output_format": {
+      "type": "object",
+      "required": [
+        "main_prompt",
+        "compact_prompt_under_800_chars",
+        "instagram_caption",
+        "pinned_comment_prompt",
+        "hashtags_count",
+        "alt_text"
+      ],
+      "properties": {
+        "main_prompt": { "type": "boolean" },
+        "compact_prompt_under_800_chars": { "type": "boolean" },
+        "instagram_caption": { "type": "boolean" },
+        "pinned_comment_prompt": { "type": "boolean" },
+        "hashtags_count": { "type": "integer", "minimum": 0 },
+        "alt_text": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

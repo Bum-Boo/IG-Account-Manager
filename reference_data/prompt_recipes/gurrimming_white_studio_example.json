@@ -1,0 +1,20 @@
+{
+  "account_concept": "Gurrimming_ref",
+  "base_style": "white_studio_fashion_pose_reference",
+  "model_type": "female",
+  "background_id": "bg_white_studio_001",
+  "pose_id": "pose_standing_001",
+  "outfit_id": "outfit_knit_skirt_001",
+  "prop_id": "prop_camera_001",
+  "lighting_id": "light_highkey_softbox_001",
+  "makeup_hair_id": "mh_natural_001",
+  "mood_id": "mood_calm_001",
+  "output_targets": [
+    "main_prompt",
+    "compact_prompt",
+    "instagram_caption",
+    "pinned_comment_prompt",
+    "hashtags",
+    "alt_text"
+  ]
+}

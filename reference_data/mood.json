@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mood_calm_001",
+    "category": "mood",
+    "source_folder": "mood/calm",
+    "visual_summary": "calm minimal fashion-reference mood with a relaxed face and composed body language",
+    "usable_prompt": "calm composed mood, relaxed facial expression, gentle direct gaze, quiet confidence, minimal editorial energy",
+    "emotion": "calm",
+    "expression_prompt": "relaxed lips, soft direct gaze, composed posture",
+    "style_tags": ["calm", "minimal", "composed", "reference"],
+    "avoid": ["exaggerated smile", "dramatic sadness", "aggressive expression", "chaotic energy"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "mood_confident_001",
+    "category": "mood",
+    "source_folder": "mood/confident",
+    "visual_summary": "confident fashion pose-reference mood with controlled expression and clear presence",
+    "usable_prompt": "confident fashion-reference mood, poised direct gaze, subtle self-assured expression, strong clean posture",
+    "emotion": "confident",
+    "expression_prompt": "subtle confident expression, steady direct gaze, lifted posture",
+    "style_tags": ["confident", "poised", "fashion_reference", "clean"],
+    "avoid": ["smirk distortion", "overacting", "angry expression", "brand-campaign imitation"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  }
+]

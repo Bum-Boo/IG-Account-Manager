@@ -50,6 +50,9 @@ importers:
       '@ig-manager/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@ig-manager/instagram-integration':
+        specifier: workspace:*
+        version: link:../../packages/instagram-integration
       '@ig-manager/plugin-sdk':
         specifier: workspace:*
         version: link:../../packages/plugin-sdk
@@ -80,9 +83,15 @@ importers:
       '@ig-manager/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@ig-manager/instagram-integration':
+        specifier: workspace:*
+        version: link:../../packages/instagram-integration
       '@ig-manager/logger':
         specifier: workspace:*
         version: link:../../packages/logger
+      '@ig-manager/plugin-sdk':
+        specifier: workspace:*
+        version: link:../../packages/plugin-sdk
       '@ig-manager/scheduler-core':
         specifier: workspace:*
         version: link:../../packages/scheduler-core
@@ -116,6 +125,21 @@ importers:
       zod:
         specifier: ^4.1.12
         version: 4.4.3
+
+  packages/instagram-integration:
+    dependencies:
+      '@ig-manager/db':
+        specifier: workspace:*
+        version: link:../db
+      '@ig-manager/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@ig-manager/plugin-official-instagram-publisher':
+        specifier: workspace:*
+        version: link:../../plugins/official/instagram-publisher
+      '@ig-manager/plugin-sdk':
+        specifier: workspace:*
+        version: link:../plugin-sdk
 
   packages/logger: {}
 
