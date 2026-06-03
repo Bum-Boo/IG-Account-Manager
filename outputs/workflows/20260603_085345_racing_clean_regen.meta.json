@@ -1,0 +1,69 @@
+{
+  "run_id": "20260603_085345",
+  "created_at_kst": "2026-06-03 08:56:10",
+  "reason": "Regenerated racing concept because first batch had decal/signage/text risk.",
+  "settings": {
+    "model": "z_image_turbo_nvfp4.safetensors",
+    "text_encoder": "qwen_3_4b_fp4_mixed.safetensors",
+    "vae": "ae.safetensors",
+    "width": 1280,
+    "height": 720,
+    "aspect_ratio": "16:9",
+    "steps": 8,
+    "cfg": 1.0,
+    "sampler_name": "res_multistep",
+    "scheduler": "simple",
+    "flux_used": false
+  },
+  "outputs": [
+    {
+      "index": 1,
+      "seed": 1359507950,
+      "prompt_id": "53a8808e-ca32-404f-8cbd-fe565b568dcc",
+      "prompt": "original racing music background, strict no text and no logos, no sponsor decals, no race numbers, no team livery, no readable lettering, no signs, no billboards, no license plate, no brand marks, stable vehicle geometry, clean wheels, believable reflections, calm wide 16:9 composition for long-form YouTube background, plain matte black unbranded race car silhouette on an empty wet track at night, blank barriers only, no billboards, no markings, no numbers, no decals, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085345_racing_clean_01_16x9_1359507950_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085345_racing_clean_01_16x9_1359507950.png"
+    },
+    {
+      "index": 2,
+      "seed": 456791398,
+      "prompt_id": "53613d83-bd22-4070-98dd-091af06184f4",
+      "prompt": "original racing music background, strict no text and no logos, no sponsor decals, no race numbers, no team livery, no readable lettering, no signs, no billboards, no license plate, no brand marks, stable vehicle geometry, clean wheels, believable reflections, calm wide 16:9 composition for long-form YouTube background, single plain silver prototype car in a clean dark racing garage with blank walls and strip lights, no graphics on the car, no signs anywhere, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085345_racing_clean_02_16x9_456791398_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085345_racing_clean_02_16x9_456791398.png"
+    },
+    {
+      "index": 3,
+      "seed": 1036870258,
+      "prompt_id": "11a98620-528f-4399-9ec6-67c3b0f61d42",
+      "prompt": "original racing music background, strict no text and no logos, no sponsor decals, no race numbers, no team livery, no readable lettering, no signs, no billboards, no license plate, no brand marks, stable vehicle geometry, clean wheels, believable reflections, calm wide 16:9 composition for long-form YouTube background, low wide view of an empty pit lane with one plain dark unmarked racing car under rain lights, no sponsor boards, no lettering, no numbers, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085345_racing_clean_03_16x9_1036870258_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085345_racing_clean_03_16x9_1036870258.png"
+    },
+    {
+      "index": 4,
+      "seed": 968830465,
+      "prompt_id": "0ce7f89c-1845-4074-9483-1e958469f90a",
+      "prompt": "original racing music background, strict no text and no logos, no sponsor decals, no race numbers, no team livery, no readable lettering, no signs, no billboards, no license plate, no brand marks, stable vehicle geometry, clean wheels, believable reflections, calm wide 16:9 composition for long-form YouTube background, mountain road racing mood with one plain red unbranded sports car blurred in motion, no decals, no plates, no road signs, sunset haze, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085345_racing_clean_04_16x9_968830465_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085345_racing_clean_04_16x9_968830465.png"
+    },
+    {
+      "index": 5,
+      "seed": 1838178223,
+      "prompt_id": "1d31fa88-17ef-4b32-8a5c-0ada8231ae59",
+      "prompt": "original racing music background, strict no text and no logos, no sponsor decals, no race numbers, no team livery, no readable lettering, no signs, no billboards, no license plate, no brand marks, stable vehicle geometry, clean wheels, believable reflections, calm wide 16:9 composition for long-form YouTube background, close racing ambience still life with plain black helmet, gloves, tire stack, and unmarked car body reflection, no labels, no numbers, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085345_racing_clean_05_16x9_1838178223_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085345_racing_clean_05_16x9_1838178223.png"
+    },
+    {
+      "index": 6,
+      "seed": 378442559,
+      "prompt_id": "59623033-b9b2-4248-b7b3-b00ffe0918d4",
+      "prompt": "original racing music background, strict no text and no logos, no sponsor decals, no race numbers, no team livery, no readable lettering, no signs, no billboards, no license plate, no brand marks, stable vehicle geometry, clean wheels, believable reflections, calm wide 16:9 composition for long-form YouTube background, minimal desert test track with a single plain white unmarked prototype car, clean body panels, no billboards, no decals, dramatic clouds, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085345_racing_clean_06_16x9_378442559_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085345_racing_clean_06_16x9_378442559.png"
+    }
+  ],
+  "contact_sheet": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_085345_racing_clean_sheet.png"
+}

@@ -1,0 +1,32 @@
+{
+  "run_id": "20260603_085851",
+  "created_at_kst": "2026-06-03 09:00:13",
+  "reason": "Generated extra still-life candidates for one clean racing replacement.",
+  "outputs": [
+    {
+      "index": 1,
+      "seed": 168962185,
+      "prompt_id": "b11a57db-934c-47f7-8cf5-bb64098787f5",
+      "prompt": "original racing ambience for YouTube music background, strict no text, no logos, no brand marks, no numbers, no signage, no billboards, no readable lettering, calm 16:9 composition, high material texture, abstract racing pit ambience with stacked black tires, plain black helmet turned away, soft strip lights, dark clean background, absolutely no stickers or labels, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085851_racing_stilllife_candidate_01_16x9_168962185_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085851_racing_stilllife_candidate_01_16x9_168962185.png"
+    },
+    {
+      "index": 2,
+      "seed": 2059708384,
+      "prompt_id": "a807e123-b3c3-4278-a4ff-5faaa0235430",
+      "prompt": "original racing ambience for YouTube music background, strict no text, no logos, no brand marks, no numbers, no signage, no billboards, no readable lettering, calm 16:9 composition, high material texture, empty night racing track curve with wet asphalt, tire marks, colored light streaks, no car, no signs, no billboards, no text, no logos, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085851_racing_stilllife_candidate_02_16x9_2059708384_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085851_racing_stilllife_candidate_02_16x9_2059708384.png"
+    },
+    {
+      "index": 3,
+      "seed": 795091369,
+      "prompt_id": "748d1c96-8a8c-4221-b893-ff71a1f494da",
+      "prompt": "original racing ambience for YouTube music background, strict no text, no logos, no brand marks, no numbers, no signage, no billboards, no readable lettering, calm 16:9 composition, high material texture, close-up of slick racing tire tread and plain gloves on matte black table, shallow depth of field, no labels, no decals, no letters anywhere, wide 16:9 YouTube long-form AI music background image, calm stable composition, cinematic but not cluttered, high detail, coherent lighting, clean negative space, no text, no captions, no logos, no watermark, no signature, no brand marks, no readable letters, no UI elements, no duplicated subjects, no malformed objects",
+      "source_path": "C:/Users/Hojun/Documents/comfy ui/ComfyUI_windows_portable_nvidia/ComfyUI_windows_portable/ComfyUI/output/codex_youtube_20260603_085851_racing_stilllife_candidate_03_16x9_795091369_00001_.png",
+      "drive_path": "C:/Users/Hojun/Documents/hojun_google_drive/youtube_ai_music_images/08_racing/20260603_085851_racing_stilllife_candidate_03_16x9_795091369.png"
+    }
+  ],
+  "contact_sheet": "C:/Users/Hojun/Desktop/Bumboo/Codes/IG post manager/outputs/generated_images/youtube_ai_music_contact_sheets/20260603_085851_racing_stilllife_candidates_sheet.png"
+}

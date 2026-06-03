@@ -21,6 +21,12 @@ import type {
 
 type JsonRecord = Record<string, unknown>;
 
+export type AccountConnectionStatus =
+  | "pending_selection"
+  | "connected"
+  | "disconnected"
+  | "failed";
+
 export const accounts = sqliteTable(
   "accounts",
   {
@@ -212,6 +218,51 @@ export const pluginPermissions = sqliteTable(
   ]
 );
 
+export const accountConnections = sqliteTable(
+  "account_connections",
+  {
+    id: text("id").primaryKey().notNull(),
+    accountId: text("account_id")
+      .notNull()
+      .references(() => accounts.id, { onDelete: "cascade" }),
+    provider: text("provider").notNull(),
+    externalAccountId: text("external_account_id"),
+    handle: text("handle"),
+    status: text("status").$type<AccountConnectionStatus>().notNull(),
+    scopes: text("scopes", { mode: "json" }).$type<string[]>().notNull().default([]),
+    tokenRef: text("token_ref"),
+    expiresAt: text("expires_at"),
+    metadata: text("metadata", { mode: "json" }).$type<JsonRecord>().notNull().default({}),
+    connectedAt: text("connected_at"),
+    createdAt: text("created_at").notNull(),
+    updatedAt: text("updated_at").notNull()
+  },
+  (table) => [
+    index("account_connections_account_idx").on(table.accountId),
+    index("account_connections_provider_status_idx").on(table.provider, table.status),
+    uniqueIndex("account_connections_account_provider_idx").on(table.accountId, table.provider)
+  ]
+);
+
+export const secretVaultEntries = sqliteTable(
+  "secret_vault_entries",
+  {
+    id: text("id").primaryKey().notNull(),
+    namespace: text("namespace").notNull(),
+    algorithm: text("algorithm").notNull(),
+    ciphertext: text("ciphertext").notNull(),
+    iv: text("iv").notNull(),
+    authTag: text("auth_tag").notNull(),
+    metadata: text("metadata", { mode: "json" }).$type<JsonRecord>().notNull().default({}),
+    createdAt: text("created_at").notNull(),
+    updatedAt: text("updated_at").notNull()
+  },
+  (table) => [
+    index("secret_vault_entries_namespace_idx").on(table.namespace),
+    index("secret_vault_entries_updated_at_idx").on(table.updatedAt)
+  ]
+);
+
 export const publishJobs = sqliteTable(
   "publish_jobs",
   {
@@ -292,6 +343,7 @@ export const workflowEvents = sqliteTable(
 );
 
 export const schema = {
+  accountConnections,
   accounts,
   auditLogs,
   concepts,
@@ -301,8 +353,8 @@ export const schema = {
   plugins,
   postCandidates,
   publishJobs,
+  secretVaultEntries,
   workflowEvents
 };
 
 export type Schema = typeof schema;
-

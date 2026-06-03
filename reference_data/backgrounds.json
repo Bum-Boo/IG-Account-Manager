@@ -1,0 +1,40 @@
+[
+  {
+    "id": "bg_white_studio_001",
+    "category": "background",
+    "source_folder": "backgrounds/white_studio",
+    "visual_summary": "clean seamless white photography studio with a curved cyclorama wall and soft floor shadow",
+    "usable_prompt": "clean pure white photography studio, seamless white cyc wall, minimal floor shadow, empty background, no furniture",
+    "elements": {
+      "space_type": "photography studio",
+      "main_surface": "white cyclorama wall",
+      "floor": "matte white studio floor",
+      "objects": [],
+      "clutter_level": "none"
+    },
+    "lighting_hint": "soft high-key studio lighting",
+    "composition_hint": "centered full-body fashion catalog framing",
+    "style_tags": ["white_studio", "minimal", "high_key", "fashion_reference"],
+    "avoid": ["furniture", "visible room corner", "dirty floor", "logos", "text"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "bg_white_studio_002",
+    "category": "background",
+    "source_folder": "backgrounds/white_studio",
+    "visual_summary": "bright white studio floor with a gentle contact shadow and wide negative space around the model",
+    "usable_prompt": "empty bright white studio, smooth matte white floor, wide negative space, soft contact shadow under the shoes, no props in the background",
+    "elements": {
+      "space_type": "photography studio",
+      "main_surface": "plain white studio backdrop",
+      "floor": "smooth matte white floor",
+      "objects": [],
+      "clutter_level": "none"
+    },
+    "lighting_hint": "even high-key studio lighting with very soft shadows",
+    "composition_hint": "vertical full-body framing with clear space around the silhouette",
+    "style_tags": ["white_studio", "negative_space", "clean_floor", "full_body"],
+    "avoid": ["set furniture", "decorations", "background seams", "visible brands", "text"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  }
+]

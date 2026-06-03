@@ -5,7 +5,15 @@ import Fastify, { type FastifyServerOptions } from "fastify";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import { createDatabase, createRepositories, runMigrations, type DatabaseHandle } from "@ig-manager/db";
+import {
+  createInstagramIntegration,
+  type FetchLike,
+  type InstagramConnectionService,
+  type InstagramIntegration,
+  type InstagramIntegrationConfig
+} from "@ig-manager/instagram-integration";
 import { WorkflowEngine } from "@ig-manager/workflow-engine";
+import type { CandidateGenerationProvider } from "./generation.js";
 import { registerLocalTokenAuth } from "./auth.js";
 import { registerErrorHandler } from "./errors.js";
 import { createSqliteEventPublisher } from "./events.js";
@@ -17,6 +25,8 @@ import { registerAuditLogRoutes } from "./routes/audit-logs.js";
 import { registerCandidateRoutes } from "./routes/candidates.js";
 import { registerConceptRoutes } from "./routes/concepts.js";
 import { registerHealthRoutes } from "./routes/health.js";
+import { registerInstagramRoutes } from "./routes/instagram.js";
+import { registerGenerationRoutes } from "./routes/generation.js";
 import { registerPluginRoutes } from "./routes/plugins.js";
 import { registerPublishJobRoutes } from "./routes/publish-jobs.js";
 import { registerRecipeRoutes } from "./routes/recipes.js";
@@ -28,6 +38,12 @@ export interface CreateApiServerOptions extends FastifyServerOptions {
   actorId?: string;
   applyMigrations?: boolean;
   closeDatabaseOnClose?: boolean;
+  candidateGenerationProvider?: CandidateGenerationProvider;
+  instagramConnectionService?: InstagramConnectionService;
+  instagramIntegration?: InstagramIntegration;
+  instagramIntegrationConfig?: InstagramIntegrationConfig;
+  instagramFetch?: FetchLike;
+  env?: NodeJS.ProcessEnv;
 }
 
 export function createApiServer(options: CreateApiServerOptions = {}) {
@@ -38,6 +54,12 @@ export function createApiServer(options: CreateApiServerOptions = {}) {
     actorId = "local-api",
     applyMigrations = true,
     closeDatabaseOnClose,
+    candidateGenerationProvider,
+    instagramConnectionService,
+    instagramIntegration,
+    instagramIntegrationConfig,
+    instagramFetch,
+    env = process.env,
     ...fastifyOptions
   } = options;
   const server = Fastify(fastifyOptions);
@@ -48,7 +70,15 @@ export function createApiServer(options: CreateApiServerOptions = {}) {
   }
 
   const repositories = createRepositories(database.db);
-  const publisherPlugins = createApiPublisherRegistry(repositories.plugins);
+  const instagram = instagramIntegration ?? createInstagramIntegration({
+    repositories,
+    config: instagramIntegrationConfig,
+    env,
+    fetch: instagramFetch
+  });
+  const publisherPlugins = createApiPublisherRegistry(repositories.plugins, {
+    createInstagramPublisher: () => instagram.createPublisher()
+  });
   const context: ApiContext = {
     database,
     repositories,
@@ -57,6 +87,8 @@ export function createApiServer(options: CreateApiServerOptions = {}) {
       events: createSqliteEventPublisher(database.db),
       publisherPlugins
     }),
+    candidateGenerationProvider,
+    instagramConnectionService: instagramConnectionService ?? instagram.connectionService,
     apiToken,
     actorId,
     ownsDatabase: closeDatabaseOnClose ?? !databaseHandle
@@ -68,7 +100,9 @@ export function createApiServer(options: CreateApiServerOptions = {}) {
 
   server.register(async (routes) => {
     await registerHealthRoutes(routes);
+    await registerGenerationRoutes(routes, context);
     await registerAccountRoutes(routes, context);
+    await registerInstagramRoutes(routes, context);
     await registerConceptRoutes(routes, context);
     await registerAssetRoutes(routes, context);
     await registerRecipeRoutes(routes, context);

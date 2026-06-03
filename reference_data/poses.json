@@ -1,0 +1,62 @@
+[
+  {
+    "id": "pose_standing_001",
+    "category": "pose",
+    "source_folder": "poses/standing",
+    "visual_summary": "relaxed full-body standing pose with clear silhouette and simple hand placement",
+    "usable_prompt": "standing with one leg slightly forward, weight shifted onto the back leg, shoulders slightly angled, one hand near the waist, the other arm relaxed downward",
+    "pose_type": "standing",
+    "body_logic": {
+      "weight_distribution": "back leg",
+      "leg_position": "one leg slightly forward",
+      "arm_position": "one hand near waist, one arm relaxed",
+      "head_direction": "looking at camera"
+    },
+    "difficulty": "low",
+    "hands_visible": true,
+    "best_for": ["full_body", "fashion_catalog", "white_studio"],
+    "style_tags": ["standing", "clean_silhouette", "low_difficulty"],
+    "avoid": ["crossed limbs", "hidden hands", "extreme twist"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "pose_walking_001",
+    "category": "pose",
+    "source_folder": "poses/walking",
+    "visual_summary": "controlled walking pose with visible legs and natural arm swing for a studio fashion reference",
+    "usable_prompt": "mid-step walking pose, front foot placed forward, back heel slightly lifted, arms relaxed with natural swing, face toward camera",
+    "pose_type": "walking",
+    "body_logic": {
+      "weight_distribution": "front leg",
+      "leg_position": "one foot stepping forward",
+      "arm_position": "natural relaxed swing with both hands visible",
+      "head_direction": "looking at camera"
+    },
+    "difficulty": "medium",
+    "hands_visible": true,
+    "best_for": ["full_body", "streetwear", "white_studio"],
+    "style_tags": ["walking", "motion", "visible_shoes", "medium_difficulty"],
+    "avoid": ["motion blur", "feet cropped out", "hidden fingers", "exaggerated stride"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "pose_sitting_001",
+    "category": "pose",
+    "source_folder": "poses/sitting",
+    "visual_summary": "simple seated studio pose with upright posture and readable outfit lines",
+    "usable_prompt": "seated on an invisible simple studio block or low stool, upright posture, knees angled slightly, hands resting clearly on lap or near the waist",
+    "pose_type": "sitting",
+    "body_logic": {
+      "weight_distribution": "seated center",
+      "leg_position": "knees angled slightly with feet visible",
+      "arm_position": "hands resting clearly on lap",
+      "head_direction": "soft direct gaze"
+    },
+    "difficulty": "medium",
+    "hands_visible": true,
+    "best_for": ["fashion_catalog", "prop_interaction", "white_studio"],
+    "style_tags": ["sitting", "upright", "hands_visible", "studio"],
+    "avoid": ["hidden feet", "collapsed posture", "hands tucked away", "busy chair detail"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  }
+]

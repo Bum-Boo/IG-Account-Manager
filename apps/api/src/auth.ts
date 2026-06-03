@@ -5,7 +5,7 @@ const PUBLIC_PREFIXES = ["/docs", "/documentation", "/openapi.json"];
 
 export function registerLocalTokenAuth(server: FastifyInstance, context: ApiContext): void {
   server.addHook("preHandler", async (request, reply) => {
-    if (!context.apiToken || request.url === "/health" || isPublicDocumentationRoute(request.url)) {
+    if (!context.apiToken || request.url === "/health" || isPublicDocumentationRoute(request.url) || isPublicOAuthCallback(request.url)) {
       return;
     }
 
@@ -20,6 +20,10 @@ export function registerLocalTokenAuth(server: FastifyInstance, context: ApiCont
       });
     }
   });
+}
+
+function isPublicOAuthCallback(url: string): boolean {
+  return url === "/instagram/oauth/callback" || url.startsWith("/instagram/oauth/callback?");
 }
 
 function isPublicDocumentationRoute(url: string): boolean {

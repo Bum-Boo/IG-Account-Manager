@@ -1,0 +1,47 @@
+[
+  {
+    "id": "prop_camera_001",
+    "category": "prop",
+    "source_folder": "props/camera",
+    "visual_summary": "small handheld camera prop used as a simple fashion pose anchor",
+    "usable_prompt": "small handheld camera prop held naturally near the torso, simple grip, prop remains secondary to the outfit and pose",
+    "name": "small handheld camera",
+    "interaction_prompt": "one or both hands lightly holding a small camera near the torso",
+    "hand_complexity": "medium",
+    "requires_hand_interaction": true,
+    "best_poses": ["standing", "sitting", "leaning"],
+    "style_tags": ["camera", "handheld", "pose_anchor", "studio_prop"],
+    "avoid": ["oversized camera", "lens covering face", "complex finger overlap", "brand logo"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "prop_flowers_001",
+    "category": "prop",
+    "source_folder": "props/flowers",
+    "visual_summary": "small flower bouquet used as a soft styling accent without cluttering the white studio frame",
+    "usable_prompt": "small simple flower bouquet held loosely at waist level, soft styling accent, clean negative space around the prop",
+    "name": "small flower bouquet",
+    "interaction_prompt": "one hand loosely holding a small bouquet near the waist",
+    "hand_complexity": "low",
+    "requires_hand_interaction": true,
+    "best_poses": ["standing", "walking", "sitting"],
+    "style_tags": ["flowers", "soft", "romantic", "low_complexity"],
+    "avoid": ["large bouquet hiding outfit", "busy floral wall", "petals covering hands", "text ribbon"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "prop_headphones_001",
+    "category": "prop",
+    "source_folder": "props/headphones",
+    "visual_summary": "minimal headphones used as a casual styling cue with low hand interaction",
+    "usable_prompt": "minimal over-ear headphones resting around the neck, simple casual accessory, hands remain clearly visible",
+    "name": "minimal over-ear headphones",
+    "interaction_prompt": "headphones resting around the neck, no complex hand grip required",
+    "hand_complexity": "low",
+    "requires_hand_interaction": false,
+    "best_poses": ["standing", "walking", "leaning"],
+    "style_tags": ["headphones", "casual", "accessory", "low_complexity"],
+    "avoid": ["hands covering ears", "cables crossing fingers", "large logos", "obscured neckline"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  }
+]

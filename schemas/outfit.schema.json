@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Outfit reference asset",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "source_folder",
+    "visual_summary",
+    "usable_prompt",
+    "gender_fit",
+    "style_family",
+    "fabric_details",
+    "silhouette",
+    "color_palette",
+    "best_backgrounds",
+    "style_tags",
+    "avoid",
+    "source_note"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "category": { "const": "outfit" },
+    "source_folder": { "type": "string", "minLength": 1 },
+    "source_file": { "type": "string" },
+    "visual_summary": { "type": "string", "minLength": 1 },
+    "usable_prompt": { "type": "string", "minLength": 1 },
+    "gender_fit": { "type": "string" },
+    "style_family": { "type": "string" },
+    "fabric_details": { "type": "array", "items": { "type": "string" } },
+    "silhouette": { "type": "string" },
+    "silhouette_complexity": { "enum": ["low", "medium", "high"] },
+    "color_palette": { "type": "array", "items": { "type": "string" } },
+    "best_backgrounds": { "type": "array", "items": { "type": "string" } },
+    "style_tags": { "type": "array", "items": { "type": "string" } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "source_note": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

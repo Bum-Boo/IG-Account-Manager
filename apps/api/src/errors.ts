@@ -1,7 +1,13 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { DomainValidationError, InvalidStateTransitionError } from "@ig-manager/domain";
+import { InstagramIntegrationError } from "@ig-manager/instagram-integration";
 import { WorkflowNotFoundError, WorkflowRuleViolationError } from "@ig-manager/workflow-engine";
+import {
+  CandidateGenerationFailedError,
+  CandidateGenerationNotFoundError,
+  CandidateGenerationUnavailableError
+} from "./generation.js";
 
 export class ApiNotFoundError extends Error {
   constructor(entity: string, id: string) {
@@ -22,7 +28,7 @@ export function registerErrorHandler(server: FastifyInstance): void {
       });
     }
 
-    if (error instanceof ApiNotFoundError || error instanceof WorkflowNotFoundError) {
+    if (error instanceof ApiNotFoundError || error instanceof WorkflowNotFoundError || error instanceof CandidateGenerationNotFoundError) {
       return reply.code(404).send({
         error: {
           code: "not_found",
@@ -36,6 +42,34 @@ export function registerErrorHandler(server: FastifyInstance): void {
         error: {
           code: "workflow_rule_violation",
           message: error.message
+        }
+      });
+    }
+
+    if (error instanceof CandidateGenerationUnavailableError) {
+      return reply.code(503).send({
+        error: {
+          code: "candidate_generation_unavailable",
+          message: error.message
+        }
+      });
+    }
+
+    if (error instanceof CandidateGenerationFailedError) {
+      return reply.code(502).send({
+        error: {
+          code: "candidate_generation_failed",
+          message: error.message
+        }
+      });
+    }
+
+    if (error instanceof InstagramIntegrationError) {
+      return reply.code(error.statusCode).send({
+        error: {
+          code: error.code,
+          message: error.message,
+          details: error.details
         }
       });
     }

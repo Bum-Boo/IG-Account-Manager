@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lighting reference asset",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "source_folder",
+    "visual_summary",
+    "usable_prompt",
+    "light_type",
+    "main_light",
+    "fill_light",
+    "rim_light",
+    "shadow_style",
+    "best_backgrounds",
+    "style_tags",
+    "avoid",
+    "source_note"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "category": { "const": "lighting" },
+    "source_folder": { "type": "string", "minLength": 1 },
+    "source_file": { "type": "string" },
+    "visual_summary": { "type": "string", "minLength": 1 },
+    "usable_prompt": { "type": "string", "minLength": 1 },
+    "light_type": { "type": "string", "minLength": 1 },
+    "main_light": { "type": "string", "minLength": 1 },
+    "fill_light": { "type": "string" },
+    "rim_light": { "type": "string" },
+    "shadow_style": { "type": "string", "minLength": 1 },
+    "best_backgrounds": { "type": "array", "items": { "type": "string" } },
+    "style_tags": { "type": "array", "items": { "type": "string" } },
+    "avoid": { "type": "array", "items": { "type": "string" } },
+    "source_note": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": true
+}

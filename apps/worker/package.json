@@ -15,7 +15,9 @@
   "dependencies": {
     "@ig-manager/db": "workspace:*",
     "@ig-manager/domain": "workspace:*",
+    "@ig-manager/instagram-integration": "workspace:*",
     "@ig-manager/logger": "workspace:*",
+    "@ig-manager/plugin-sdk": "workspace:*",
     "@ig-manager/scheduler-core": "workspace:*",
     "@ig-manager/workflow-engine": "workspace:*"
   }

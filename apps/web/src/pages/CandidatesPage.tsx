@@ -3,7 +3,7 @@ import { PageHeader } from "../components/PageHeader.js";
 import { RelationshipTrail } from "../components/RelationshipTrail.js";
 import { EmptyState, ErrorState } from "../components/StateBlock.js";
 import { StatusPill } from "../components/StatusPill.js";
-import type { ContentAsset, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
+import type { ContentAsset, GenerateCandidateRequest, GenerateCandidateResponse, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
 import {
   accountLabel,
   boardGroups,
@@ -21,6 +21,7 @@ export function CandidatesPage({
   data,
   selectedCandidateId,
   onApprove,
+  onGenerateCandidate,
   onReject,
   onRequestRegeneration,
   onSchedule,
@@ -29,6 +30,7 @@ export function CandidatesPage({
   data: WorkspaceData;
   selectedCandidateId?: string;
   onApprove(id: string): Promise<void>;
+  onGenerateCandidate(input: GenerateCandidateRequest): Promise<GenerateCandidateResponse>;
   onReject(id: string, reason?: string): Promise<void>;
   onRequestRegeneration(id: string): Promise<void>;
   onSchedule(id: string, scheduledAt: string): Promise<void>;
@@ -59,6 +61,15 @@ export function CandidatesPage({
       </PageHeader>
 
       {actionError ? <ErrorState message={actionError} /> : null}
+
+      <GenerateCandidatePanel
+        data={data}
+        onGenerate={async (input) => {
+          const generated = await onGenerateCandidate(input);
+          window.location.hash = `#/candidates/${generated.candidateId}`;
+        }}
+        onError={setActionError}
+      />
 
       {data.candidates.length === 0 ? (
         <EmptyState title="No post candidates yet" detail="Generated candidates will appear here for review before scheduling." />
@@ -124,6 +135,101 @@ export function CandidatesPage({
         </section>
       )}
     </main>
+  );
+}
+
+function GenerateCandidatePanel({
+  data,
+  onGenerate,
+  onError
+}: {
+  data: WorkspaceData;
+  onGenerate(input: GenerateCandidateRequest): Promise<void>;
+  onError(message: string | undefined): void;
+}) {
+  const initialConceptId = data.concepts[0]?.id ?? "";
+  const [conceptId, setConceptId] = useState(initialConceptId);
+  const concept = data.concepts.find((item) => item.id === conceptId) ?? data.concepts[0];
+  const availableRecipes = concept ? data.recipes.filter((recipe) => recipe.conceptId === concept.id) : [];
+  const [recipeId, setRecipeId] = useState(availableRecipes[0]?.id ?? "");
+  const [seed, setSeed] = useState("");
+  const [dryRun, setDryRun] = useState(true);
+  const [generating, setGenerating] = useState(false);
+  const activeRecipeId = availableRecipes.some((recipe) => recipe.id === recipeId) ? recipeId : availableRecipes[0]?.id ?? "";
+
+  async function generate() {
+    if (!concept || !activeRecipeId) {
+      onError("Choose a concept and recipe before generating.");
+      return;
+    }
+
+    setGenerating(true);
+    onError(undefined);
+
+    try {
+      await onGenerate({
+        accountId: concept.accountId,
+        conceptId: concept.id,
+        recipeId: activeRecipeId,
+        seed: seed.trim() || undefined,
+        dryRun
+      });
+    } catch (error) {
+      onError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  return (
+    <section className="generation-panel" aria-label="Generate candidate">
+      <div>
+        <h2>Generate candidate</h2>
+        <p className="muted-copy">Create a review-ready candidate from a concept, recipe, selected assets, and the configured media provider.</p>
+      </div>
+      <div className="generation-form">
+        <label>
+          Concept
+          <select
+            onChange={(event) => {
+              const nextConceptId = event.target.value;
+              const nextRecipe = data.recipes.find((recipe) => recipe.conceptId === nextConceptId);
+              setConceptId(nextConceptId);
+              setRecipeId(nextRecipe?.id ?? "");
+            }}
+            value={concept?.id ?? ""}
+          >
+            {data.concepts.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Recipe
+          <select onChange={(event) => setRecipeId(event.target.value)} value={activeRecipeId}>
+            {availableRecipes.length === 0 ? <option value="">No recipes</option> : null}
+            {availableRecipes.map((recipe) => (
+              <option key={recipe.id} value={recipe.id}>
+                {recipe.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Seed
+          <input onChange={(event) => setSeed(event.target.value)} placeholder="Optional" value={seed} />
+        </label>
+        <label className="check-row generation-check">
+          <input checked={dryRun} onChange={(event) => setDryRun(event.target.checked)} type="checkbox" />
+          Dry run
+        </label>
+        <button className="primary-button" disabled={generating || !concept || !activeRecipeId} onClick={() => void generate()} type="button">
+          {generating ? "Generating" : "Generate candidate"}
+        </button>
+      </div>
+    </section>
   );
 }
 
@@ -297,6 +403,8 @@ function CandidateDetailPanel({
         )}
       </section>
 
+      <ProviderMetadataSection candidate={candidate} />
+
       <section className="detail-section">
         <h3>Review actions</h3>
         <div className="action-row review-actions">
@@ -359,6 +467,57 @@ function CandidateDetailPanel({
         {primaryJob?.lastError ? <p className="error-copy">{primaryJob.lastError.message}</p> : null}
       </section>
     </aside>
+  );
+}
+
+function ProviderMetadataSection({ candidate }: { candidate: PostCandidate }) {
+  const metadata = asRecord(candidate.metadata.aiContentFactory);
+
+  if (!metadata) {
+    return null;
+  }
+
+  const provider = typeof metadata.provider === "string" ? metadata.provider : "unknown";
+  const generatedAssetId = typeof metadata.generatedAssetId === "string" ? metadata.generatedAssetId : undefined;
+  const generatedMediaUri = typeof metadata.generatedMediaUri === "string" ? metadata.generatedMediaUri : undefined;
+  const altText = typeof metadata.altText === "string" ? metadata.altText : undefined;
+  const providerMetadata = metadata.providerMetadata;
+  const selectionExplanation = metadata.selectionExplanation;
+  const dryRun = metadata.dryRun === true;
+
+  return (
+    <section className="detail-section">
+      <h3>Provider metadata</h3>
+      <div className="metadata-grid">
+        <div>
+          <span>Provider</span>
+          <strong>{provider}</strong>
+        </div>
+        <div>
+          <span>Mode</span>
+          <strong>{dryRun ? "dry run" : "live"}</strong>
+        </div>
+        {generatedAssetId ? (
+          <div>
+            <span>Generated asset</span>
+            <strong>{generatedAssetId}</strong>
+          </div>
+        ) : null}
+      </div>
+      {generatedMediaUri ? <p className="metadata-path">{generatedMediaUri}</p> : null}
+      {altText ? <p className="muted-copy">{altText}</p> : null}
+      {providerMetadata ? <MetadataDetails title="Provider data" value={providerMetadata} /> : null}
+      {selectionExplanation ? <MetadataDetails title="Selection explanation" value={selectionExplanation} /> : null}
+    </section>
+  );
+}
+
+function MetadataDetails({ title, value }: { title: string; value: unknown }) {
+  return (
+    <details className="metadata-details">
+      <summary>{title}</summary>
+      <pre>{JSON.stringify(value, null, 2)}</pre>
+    </details>
   );
 }
 

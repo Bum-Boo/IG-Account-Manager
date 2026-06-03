@@ -20,7 +20,7 @@ export const instagramPublisherManifest: PluginManifest = {
   name: "Official Instagram Publisher",
   version: "0.1.0",
   description:
-    "Official Instagram publisher skeleton using only official Instagram APIs. Live API calls are intentionally behind interfaces.",
+    "Official Instagram publisher using only official Instagram APIs. Live API calls are intentionally behind interfaces.",
   type: "publisher",
   distribution: "official",
   private: false,
@@ -595,6 +595,24 @@ function validateInstagramPublishRequest(
         code: "instagram_media_uri_required",
         severity: "error",
         message: "Live mode requires resolvable media URIs for official Instagram API container creation.",
+        path: "candidate.metadata.instagram.media"
+      });
+    }
+
+    if (media.length !== 1 || media.some((item) => item.mediaType !== "image")) {
+      issues.push({
+        code: "instagram_media_type_unsupported",
+        severity: "error",
+        message: "Live mode currently supports publishing exactly one image media item.",
+        path: "candidate.metadata.instagram.media"
+      });
+    }
+
+    if (media.some((item) => item.uri && !/^https:\/\//i.test(item.uri))) {
+      issues.push({
+        code: "instagram_media_url_required",
+        severity: "error",
+        message: "Live mode requires a publicly reachable HTTPS media URL; local file paths cannot be sent to Instagram.",
         path: "candidate.metadata.instagram.media"
       });
     }

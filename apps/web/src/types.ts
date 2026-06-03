@@ -222,3 +222,60 @@ export interface WorkspaceSnapshot {
 }
 
 export type BoardGroup = "candidate" | "needs_review" | "approved" | "scheduled" | "published" | "failed";
+
+export interface GenerateCandidateRequest {
+  accountId: string;
+  conceptId: string;
+  recipeId: string;
+  seed?: string | number;
+  dryRun?: boolean;
+}
+
+export interface GenerateCandidateResponse {
+  candidateId: string;
+  candidate: PostCandidate;
+  generatedAsset: ContentAsset;
+  selectedAssetIds: string[];
+  metadata: {
+    requestId: string;
+    provider: string;
+    dryRun: boolean;
+    accountId: string;
+    conceptId: string;
+    recipeId: string;
+    selectedAssetIds: string[];
+    generatedAssetId: string;
+    generatedMediaUri: string;
+    prompt?: string;
+    selectedAssetExplanation?: unknown;
+    providerMetadata?: Record<string, unknown>;
+  };
+  auditLogIds: string[];
+}
+
+export interface PublicInstagramAccountOption {
+  instagramBusinessAccountId: string;
+  username: string;
+  name?: string;
+  pageId: string;
+  pageName: string;
+}
+
+export interface InstagramConnectionStatus {
+  accountId: string;
+  provider: "instagram";
+  status: "not_connected" | "pending_selection" | "connected" | "disconnected" | "failed";
+  externalAccountId?: string;
+  handle?: string;
+  scopes: string[];
+  expiresAt?: string;
+  connectedAt?: string;
+  availableAccounts?: PublicInstagramAccountOption[];
+  metadata: Record<string, unknown>;
+}
+
+export interface StartInstagramConnectionResponse {
+  authorizationUrl: string;
+  stateExpiresAt: string;
+  scopes: string[];
+}

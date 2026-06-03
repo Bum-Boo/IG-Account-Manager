@@ -39,9 +39,29 @@ function renderRoute(route: ReturnType<typeof useHashRoute>, workspace: ReturnTy
 
   switch (route.name) {
     case "accounts":
-      return <AccountsPage data={data} />;
+      return (
+        <AccountsPage
+          data={data}
+          onConnectInstagram={workspace.connectInstagram}
+          onLoadInstagramConnection={workspace.loadInstagramConnection}
+          onRefreshInstagramConnection={workspace.refreshInstagramConnection}
+          onSelectInstagramAccount={workspace.selectInstagramAccount}
+          source={workspace.source}
+        />
+      );
     case "account":
-      return <AccountDetailPage accountId={route.id} data={data} />;
+      return (
+        <AccountDetailPage
+          accountId={route.id}
+          data={data}
+          onConnectInstagram={workspace.connectInstagram}
+          onDisconnectInstagram={workspace.disconnectInstagram}
+          onLoadInstagramConnection={workspace.loadInstagramConnection}
+          onRefreshInstagramConnection={workspace.refreshInstagramConnection}
+          onSelectInstagramAccount={workspace.selectInstagramAccount}
+          source={workspace.source}
+        />
+      );
     case "concepts":
       return <ConceptsPage data={data} />;
     case "concept":
@@ -55,6 +75,7 @@ function renderRoute(route: ReturnType<typeof useHashRoute>, workspace: ReturnTy
           data={data}
           selectedCandidateId={route.name === "candidate" ? route.id : undefined}
           onApprove={workspace.approveCandidate}
+          onGenerateCandidate={workspace.generateCandidate}
           onReject={workspace.rejectCandidate}
           onRequestRegeneration={workspace.requestRegeneration}
           onSchedule={workspace.scheduleCandidate}

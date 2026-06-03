@@ -1,0 +1,34 @@
+[
+  {
+    "id": "light_highkey_softbox_001",
+    "category": "lighting",
+    "source_folder": "lighting/softbox",
+    "visual_summary": "high-key studio softbox lighting with even skin tone and minimal background shadow",
+    "usable_prompt": "high-key softbox studio lighting, even illumination, soft floor shadow, clean white balance, gentle skin detail",
+    "light_type": "softbox",
+    "main_light": "large front-left softbox",
+    "fill_light": "soft front fill",
+    "rim_light": "none",
+    "shadow_style": "very soft minimal shadows",
+    "best_backgrounds": ["white_studio"],
+    "style_tags": ["high_key", "softbox", "clean_skin", "studio"],
+    "avoid": ["hard shadow", "yellow color cast", "dramatic low-key lighting", "neon spill"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  },
+  {
+    "id": "light_soft_backlight_001",
+    "category": "lighting",
+    "source_folder": "lighting/backlight",
+    "visual_summary": "soft studio backlight adding gentle hair separation while preserving a clean white set",
+    "usable_prompt": "soft white studio backlight creating gentle hair separation, balanced front fill, clean high-key exposure",
+    "light_type": "backlight",
+    "main_light": "large front softbox",
+    "fill_light": "balanced soft fill",
+    "rim_light": "subtle white backlight around hair and shoulders",
+    "shadow_style": "soft controlled shadow",
+    "best_backgrounds": ["white_studio"],
+    "style_tags": ["backlight", "hair_separation", "high_key", "studio"],
+    "avoid": ["overexposed halo", "colored rim light", "dark background", "lens flare"],
+    "source_note": "Use as abstract visual reference only, not for direct reproduction."
+  }
+]

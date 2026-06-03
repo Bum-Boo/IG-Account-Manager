@@ -238,6 +238,44 @@ describe("repositories", () => {
 
     expect(entries.map((auditLog) => auditLog.id)).toEqual(["audit_candidate_reviewed"]);
   });
+
+  it("stores Instagram connection metadata and encrypted vault entries outside account records", () => {
+    const now = "2026-06-01T00:00:00.000Z";
+
+    repos.secretVault.create({
+      id: "secret_instagram_token",
+      namespace: "instagram",
+      algorithm: "aes-256-gcm",
+      ciphertext: "encrypted-token",
+      iv: "encrypted-iv",
+      authTag: "encrypted-tag",
+      metadata: { provider: "instagram", accountId: "account_studio" },
+      createdAt: now,
+      updatedAt: now
+    });
+    repos.accountConnections.upsert({
+      id: "account_connection_instagram",
+      accountId: "account_studio",
+      provider: "instagram",
+      externalAccountId: "ig_123",
+      handle: "studio",
+      status: "connected",
+      scopes: ["instagram_content_publish"],
+      tokenRef: "secret_instagram_token",
+      expiresAt: "2026-07-01T00:00:00.000Z",
+      metadata: { pageId: "page_123" },
+      connectedAt: now,
+      createdAt: now,
+      updatedAt: now
+    });
+
+    expect(repos.accountConnections.getByAccountProvider("account_studio", "instagram")).toMatchObject({
+      externalAccountId: "ig_123",
+      tokenRef: "secret_instagram_token"
+    });
+    expect(repos.secretVault.getById("secret_instagram_token")?.ciphertext).toBe("encrypted-token");
+    expect(repos.accounts.getById("account_studio")?.metadata).not.toHaveProperty("accessToken");
+  });
 });
 
 function seed(repos: Repositories): void {
