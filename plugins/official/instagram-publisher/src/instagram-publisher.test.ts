@@ -184,11 +184,14 @@ describe("official instagram publisher", () => {
     expect(result.data.permalink).toBe("https://instagram.example.invalid/p/media_1");
   });
 
-  it("keeps a confirmed post successful when its first comment fails", async () => {
+  it.each([false, true])("keeps a confirmed post successful after comment failure (logger fails: %s)", async (loggerFails) => {
     const calls: string[] = [];
     const logs: string[] = [];
     const context = createContext(logs);
-    context.logger.warn = (message, metadata) => logs.push(JSON.stringify({ message, metadata }));
+    context.logger.warn = (message, metadata) => {
+      if (loggerFails) throw new Error("Synthetic private logger response");
+      logs.push(JSON.stringify({ message, metadata }));
+    };
     context.logger.error = (message, metadata) => logs.push(JSON.stringify({ message, metadata }));
     const plugin = new InstagramPublisher({
       config: { mode: "live" },
@@ -219,6 +222,7 @@ describe("official instagram publisher", () => {
     ]);
     expect(calls).toEqual(["create-container", "publish-container", "first-comment"]);
     expect(JSON.stringify({ result, logs })).not.toContain("Synthetic private comment response");
+    expect(JSON.stringify({ result, logs })).not.toContain("Synthetic private logger response");
   });
 });
 

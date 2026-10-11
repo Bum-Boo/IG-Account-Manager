@@ -200,6 +200,17 @@ describe("repositories", () => {
     expect(due.map((job) => job.id)).toEqual(["job_retry_due", "job_due"]);
   });
 
+  it.each(["running", "succeeded"] as const)("does not automatically requeue a %s job", (status) => {
+    const job = repos.publishJobs.getById("job_due");
+    if (!job) throw new Error("Expected the seeded due job");
+    repos.publishJobs.update({ ...job, status });
+
+    const due = repos.publishJobs.getScheduledJobsDueBefore("2027-01-01T00:00:00.000Z");
+
+    expect(due.map((entry) => entry.id)).not.toContain(job.id);
+    expect(repos.publishJobs.getById(job.id)?.status).toBe(status);
+  });
+
   it("gets assets compatible with a concept", () => {
     const assets = repos.assets.getAssetsCompatibleWithConcept("concept_workflow");
 

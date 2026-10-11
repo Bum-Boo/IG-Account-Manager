@@ -440,11 +440,15 @@ export class InstagramPublisher implements PublisherPlugin {
             code: "instagram_first_comment_failed",
             message: "Post published, but its first comment could not be created."
           });
-          context.logger.warn("instagram first comment failed after post publication", {
-            candidateId: input.candidateId,
-            accountId: input.accountId,
-            jobId: input.jobId
-          });
+          try {
+            context.logger.warn("instagram first comment failed after post publication", {
+              candidateId: input.candidateId,
+              accountId: input.accountId,
+              jobId: input.jobId
+            });
+          } catch {
+            // Diagnostic storage must not turn a confirmed post into a retry.
+          }
         }
       }
 
