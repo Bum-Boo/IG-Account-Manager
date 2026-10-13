@@ -102,6 +102,59 @@ describe("SchedulerService", () => {
     expect(publisher.publishCalls).toBe(0);
     expect(workflow.jobs.get("job_dry_run")?.status).toBe("queued");
   });
+
+  it("does not retry a confirmed publish when saving its result fails", async () => {
+    const workflow = createFakeWorkflow([createJob("job_save_failed", dueAt)]);
+    workflow.markPublishSucceeded = async () => {
+      throw new Error("Synthetic result storage failure");
+    };
+    const publisher = createCountingPublisher();
+    let now = fixedNow;
+    const clock: Clock = { now: () => now, sleep: async () => undefined };
+    const service = new SchedulerService({
+      workflow,
+      publishers: publisher.registry,
+      jobLock: new InMemoryJobLock(clock),
+      clock,
+      trigger: "manual"
+    });
+
+    const first = await service.pollOnce();
+    now = new Date("2026-05-31T12:06:00.000Z");
+    const second = await service.pollOnce();
+
+    expect(publisher.publishCalls).toBe(1);
+    expect(workflow.failures).toEqual([]);
+    expect(workflow.jobs.get("job_save_failed")?.status).toBe("running");
+    expect(first.results).toEqual([
+      {
+        jobId: "job_save_failed",
+        status: "failed",
+        error: "Publisher confirmed success, but recording the result failed. Check the external post before retrying."
+      }
+    ]);
+    expect(second.selected).toBe(0);
+  });
+
+  it("keeps a succeeded job terminal if a later audit or event fails", async () => {
+    const workflow = createFakeWorkflow([createJob("job_audit_failed", dueAt)]);
+    const persistSuccess = workflow.markPublishSucceeded.bind(workflow);
+    workflow.markPublishSucceeded = async (command) => {
+      await persistSuccess(command);
+      throw new Error("Synthetic post-save audit failure");
+    };
+    const publisher = createCountingPublisher();
+    const service = createService(workflow, publisher.registry);
+
+    const first = await service.pollOnce();
+    const second = await service.pollOnce();
+
+    expect(first.results[0]?.status).toBe("failed");
+    expect(workflow.jobs.get("job_audit_failed")?.status).toBe("succeeded");
+    expect(workflow.failures).toEqual([]);
+    expect(publisher.publishCalls).toBe(1);
+    expect(second.selected).toBe(0);
+  });
 });
 
 function createService(

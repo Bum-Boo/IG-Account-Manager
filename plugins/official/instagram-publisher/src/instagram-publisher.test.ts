@@ -183,6 +183,47 @@ describe("official instagram publisher", () => {
     expect(result.data.externalPostId).toBe("media_1");
     expect(result.data.permalink).toBe("https://instagram.example.invalid/p/media_1");
   });
+
+  it.each([false, true])("keeps a confirmed post successful after comment failure (logger fails: %s)", async (loggerFails) => {
+    const calls: string[] = [];
+    const logs: string[] = [];
+    const context = createContext(logs);
+    context.logger.warn = (message, metadata) => {
+      if (loggerFails) throw new Error("Synthetic private logger response");
+      logs.push(JSON.stringify({ message, metadata }));
+    };
+    context.logger.error = (message, metadata) => logs.push(JSON.stringify({ message, metadata }));
+    const plugin = new InstagramPublisher({
+      config: { mode: "live" },
+      tokenProvider: { getAccessToken: async () => ({ accessToken: "test-token" }) },
+      apiClient: {
+        createMediaContainer: async () => {
+          calls.push("create-container");
+          return { containerId: "container_1" };
+        },
+        publishMediaContainer: async () => {
+          calls.push("publish-container");
+          return { mediaId: "media_1" };
+        },
+        createFirstComment: async () => {
+          calls.push("first-comment");
+          throw new Error("Synthetic private comment response");
+        }
+      }
+    });
+
+    const result = await plugin.publish({ account, candidate, job, approvedBy: "reviewer" }, context);
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) throw new Error("The confirmed external post must remain successful");
+    expect(result.data.externalPostId).toBe("media_1");
+    expect(result.warnings).toEqual([
+      { code: "instagram_first_comment_failed", message: "Post published, but its first comment could not be created." }
+    ]);
+    expect(calls).toEqual(["create-container", "publish-container", "first-comment"]);
+    expect(JSON.stringify({ result, logs })).not.toContain("Synthetic private comment response");
+    expect(JSON.stringify({ result, logs })).not.toContain("Synthetic private logger response");
+  });
 });
 
 function createContext(logs: string[] = []): PluginContext {

@@ -128,6 +128,16 @@ Publishing is gated by the workflow engine:
 
 Publisher plugins must not contain scraping, browser automation, CAPTCHA bypass, anti-detection logic, or UI-based posting.
 
+Once a publisher confirms success, a later local result, audit, or event failure
+does not schedule another publish attempt. The scheduler reports the recording
+failure and preserves the stored `running` or `succeeded` state. Check the
+external post and reconcile local records before manually retrying; repeating
+the external publish could create a duplicate post.
+
+The Instagram publisher also preserves a confirmed post when its optional first
+comment fails. It returns the post id with a warning, rather than a retryable
+publish failure. Check the comment separately before adding it manually.
+
 ## Audit Logging
 
 Audit logs should record:

@@ -418,19 +418,38 @@ export class InstagramPublisher implements PublisherPlugin {
       });
 
       let firstCommentRef: string | undefined;
+      const warnings: PluginWarning[] = [];
 
       if (input.firstComment && this.config.createFirstComment) {
         // TODO(real Instagram API): create the first comment through the official Instagram API.
-        const firstComment = await this.apiClient.createFirstComment({
-          accessToken: token.accessToken,
-          instagramBusinessAccountId: input.externalAccountId as string,
-          mediaId: published.mediaId,
-          text: input.firstComment,
-          graphApiBaseUrl: this.config.graphApiBaseUrl,
-          graphApiVersion: this.config.graphApiVersion,
-          signal: context.signal
-        });
-        firstCommentRef = firstComment.rawResultRef ?? firstComment.commentId;
+        try {
+          const firstComment = await this.apiClient.createFirstComment({
+            accessToken: token.accessToken,
+            instagramBusinessAccountId: input.externalAccountId as string,
+            mediaId: published.mediaId,
+            text: input.firstComment,
+            graphApiBaseUrl: this.config.graphApiBaseUrl,
+            graphApiVersion: this.config.graphApiVersion,
+            signal: context.signal
+          });
+          firstCommentRef = firstComment.rawResultRef ?? firstComment.commentId;
+        } catch {
+          // The post already exists. Retrying the whole publish operation just
+          // to recover its optional comment would duplicate the external post.
+          warnings.push({
+            code: "instagram_first_comment_failed",
+            message: "Post published, but its first comment could not be created."
+          });
+          try {
+            context.logger.warn("instagram first comment failed after post publication", {
+              candidateId: input.candidateId,
+              accountId: input.accountId,
+              jobId: input.jobId
+            });
+          } catch {
+            // Diagnostic storage must not turn a confirmed post into a retry.
+          }
+        }
       }
 
       return pluginSuccess(
@@ -441,6 +460,7 @@ export class InstagramPublisher implements PublisherPlugin {
           rawResultRef: published.rawResultRef ?? container.rawResultRef
         },
         {
+          warnings,
           audit: {
             simulated: false,
             mode: "live",

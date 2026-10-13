@@ -131,6 +131,7 @@ export class SchedulerService {
     }
 
     let runningJob: PublishJob | undefined;
+    let publisherCompleted = false;
 
     try {
       const running = await this.options.workflow.runPublishJob({
@@ -177,6 +178,7 @@ export class SchedulerService {
           retryable: published.error.retryable
         });
       }
+      publisherCompleted = true;
 
       await this.options.workflow.markPublishSucceeded({
         publishJobId: running.data.job.id,
@@ -194,6 +196,20 @@ export class SchedulerService {
 
       return { jobId: job.id, status: "succeeded" };
     } catch (error) {
+      if (publisherCompleted) {
+        // Publishing has already completed. A local persistence/audit failure
+        // must not schedule another external publish of the same content.
+        this.logger.error("publish result could not be recorded", {
+          jobId: job.id,
+          code: "publish_result_persistence_failed"
+        });
+        return {
+          jobId: job.id,
+          status: "failed",
+          error: "Publisher confirmed success, but recording the result failed. Check the external post before retrying."
+        };
+      }
+
       this.logger.error("publish job failed before publisher completion", {
         jobId: job.id,
         error: formatError(error)

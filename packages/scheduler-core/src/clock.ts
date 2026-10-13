@@ -14,17 +14,14 @@ export class SystemClock implements Clock {
     }
 
     return new Promise((resolve) => {
-      const timeout = setTimeout(resolve, ms);
-
-      signal?.addEventListener(
-        "abort",
-        () => {
-          clearTimeout(timeout);
-          resolve();
-        },
-        { once: true }
-      );
+      const finish = () => {
+        clearTimeout(timeout);
+        signal?.removeEventListener("abort", finish);
+        resolve();
+      };
+      const timeout = setTimeout(finish, ms);
+      signal?.addEventListener("abort", finish, { once: true });
+      if (signal?.aborted) finish();
     });
   }
 }
-
