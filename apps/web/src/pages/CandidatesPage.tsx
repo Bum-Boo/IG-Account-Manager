@@ -447,13 +447,15 @@ function NewCandidateForm({
   busy: boolean;
   onCreate(input: NewCandidateInput): Promise<boolean>;
 }) {
-  const [accountId, setAccountId] = useState(() => data.accounts[0]?.id ?? "");
-  const concepts = data.concepts.filter((concept) => concept.accountId === accountId);
-  const [conceptId, setConceptId] = useState(() => concepts[0]?.id ?? "");
+  // The form can mount before the workspace has accounts (e.g. right before
+  // seeding), so selections are resolved against the current data every render.
+  const [accountId, setAccountId] = useState("");
+  const [conceptId, setConceptId] = useState("");
   const [format, setFormat] = useState("feed_image");
   const [caption, setCaption] = useState("");
-  const selectedConceptId = concepts.some((concept) => concept.id === conceptId) ? conceptId : (concepts[0]?.id ?? "");
   const selectedAccountId = data.accounts.some((account) => account.id === accountId) ? accountId : (data.accounts[0]?.id ?? "");
+  const concepts = data.concepts.filter((concept) => concept.accountId === selectedAccountId);
+  const selectedConceptId = concepts.some((concept) => concept.id === conceptId) ? conceptId : (concepts[0]?.id ?? "");
 
   if (data.accounts.length === 0) {
     return null;
