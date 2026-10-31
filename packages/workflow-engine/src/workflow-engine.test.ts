@@ -149,6 +149,113 @@ describe("WorkflowEngine", () => {
     expect(retried.data.attempt).toBe(2);
   });
 
+  it("stores scheduled times as UTC so due-job string comparison stays correct", async () => {
+    const candidate = await createReadyCandidate("candidate_offset");
+    await engine.approveCandidate({ candidateId: candidate.id, actorId: "reviewer", now: fixedNow });
+
+    const scheduled = await engine.scheduleCandidate({
+      candidateId: candidate.id,
+      publisherPluginId: "plugin_publisher",
+      publishJobId: "publish_job_offset",
+      scheduledAt: "2026-06-01T19:00:00+09:00",
+      actorId: "scheduler",
+      now: fixedNow
+    });
+
+    expect(scheduled.data.publishJob.scheduledAt).toBe("2026-06-01T10:00:00.000Z");
+    expect(scheduled.data.candidate.scheduledAt).toBe("2026-06-01T10:00:00.000Z");
+  });
+
+  it("auto trigger skips review-first jobs until a person requests a run", async () => {
+    const scheduled = await createScheduledCandidateWithJob("candidate_manual", "publish_job_manual");
+
+    const before = await engine.enqueueDuePublishJobs({
+      dueBefore: "2026-05-31T00:00:00.000Z",
+      actorId: "worker",
+      trigger: "auto"
+    });
+    expect(before.data.jobs).toEqual([]);
+    await expect(
+      engine.runPublishJob({ publishJobId: scheduled.publishJob.id, actorId: "worker", trigger: "auto", now: fixedNow })
+    ).rejects.toBeInstanceOf(WorkflowRuleViolationError);
+
+    const requested = await engine.requestPublishJobRun({
+      publishJobId: scheduled.publishJob.id,
+      actorId: "reviewer",
+      now: fixedNow
+    });
+
+    expect(requested.data.status).toBe("queued");
+    expect(requested.data.scheduledAt).toBe(fixedNow.toISOString());
+    expect(requested.data.metadata.runRequest).toEqual({
+      requestedAt: fixedNow.toISOString(),
+      requestedBy: "reviewer",
+      originalScheduledAt: scheduledAt
+    });
+    expect(store.auditLogs.at(-1)?.action).toBe("publish_job.run_requested");
+    expect(events.at(-1)?.type).toBe("PublishJobRunRequested");
+
+    const due = await engine.enqueueDuePublishJobs({
+      dueBefore: fixedNow.toISOString(),
+      actorId: "worker",
+      trigger: "auto"
+    });
+    expect(due.data.jobs.map((job) => job.id)).toEqual([scheduled.publishJob.id]);
+
+    const running = await engine.runPublishJob({
+      publishJobId: scheduled.publishJob.id,
+      actorId: "worker",
+      trigger: "auto",
+      now: fixedNow
+    });
+
+    expect(running.data.job.status).toBe("running");
+    expect(running.data.job.metadata.runRequest).toBeUndefined();
+    expect(store.auditLogs.at(-1)?.metadata).toMatchObject({ trigger: "manual", runRequestedBy: "reviewer" });
+  });
+
+  it("a run request makes a retry-scheduled job due without starting it", async () => {
+    const scheduled = await createScheduledCandidateWithJob("candidate_retry_request", "publish_job_retry_request");
+    await engine.runPublishJob({ publishJobId: scheduled.publishJob.id, actorId: "worker", now: fixedNow });
+    await engine.markPublishFailed({
+      publishJobId: scheduled.publishJob.id,
+      code: "temporary_failure",
+      message: "Temporary publisher error.",
+      retryable: true,
+      actorId: "worker",
+      now: fixedNow
+    });
+
+    const requestedAt = new Date("2026-05-31T00:00:30.000Z");
+    const requested = await engine.requestPublishJobRun({
+      publishJobId: scheduled.publishJob.id,
+      actorId: "reviewer",
+      now: requestedAt
+    });
+
+    // Regression: the API retry route used to move the job to "running" with
+    // no process left to finish it, so it stayed running forever.
+    expect(requested.data.status).toBe("retry_scheduled");
+    expect(requested.data.attempt).toBe(1);
+    expect(requested.data.retryAfter).toBe(requestedAt.toISOString());
+
+    const due = await engine.enqueueDuePublishJobs({
+      dueBefore: requestedAt.toISOString(),
+      actorId: "worker",
+      trigger: "auto"
+    });
+    expect(due.data.jobs.map((job) => job.id)).toEqual([scheduled.publishJob.id]);
+  });
+
+  it("refuses run requests for jobs that are not waiting", async () => {
+    const scheduled = await createScheduledCandidateWithJob("candidate_running", "publish_job_running");
+    await engine.runPublishJob({ publishJobId: scheduled.publishJob.id, actorId: "worker", now: fixedNow });
+
+    await expect(
+      engine.requestPublishJobRun({ publishJobId: scheduled.publishJob.id, actorId: "reviewer", now: fixedNow })
+    ).rejects.toBeInstanceOf(WorkflowRuleViolationError);
+  });
+
   it("audit logs are written", async () => {
     const candidate = await createReadyCandidate();
     await engine.approveCandidate({

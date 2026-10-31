@@ -127,6 +127,17 @@ export const PublishJobRetriedEventSchema = BaseDomainEventSchema.extend({
     .strict()
 });
 
+export const PublishJobRunRequestedEventSchema = BaseDomainEventSchema.extend({
+  type: z.literal("PublishJobRunRequested"),
+  data: z
+    .object({
+      publishJobId: IdSchema,
+      candidateId: IdSchema,
+      requestedBy: z.string().trim().min(1).max(120).optional()
+    })
+    .strict()
+});
+
 export const PublishSucceededEventSchema = BaseDomainEventSchema.extend({
   type: z.literal("PublishSucceeded"),
   data: z
@@ -173,6 +184,7 @@ export const DomainEventSchema = z.discriminatedUnion("type", [
   PublishJobsDueCheckedEventSchema,
   PublishJobEnqueuedEventSchema,
   PublishJobRetriedEventSchema,
+  PublishJobRunRequestedEventSchema,
   PublishSucceededEventSchema,
   PublishFailedEventSchema,
   FirstCommentCreatedEventSchema

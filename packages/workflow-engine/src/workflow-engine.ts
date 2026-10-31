@@ -6,6 +6,7 @@ import {
   createPublishJob,
   failPublishJob,
   isoNow,
+  PublishJobSchema,
   markCandidatePublishFailed,
   markCandidatePublished,
   approveCandidate as approveDomainCandidate,
@@ -32,7 +33,7 @@ import type {
   WorkflowEngineOptions,
   WorkflowRepositories
 } from "./interfaces.js";
-import { allowsAutoPublish, conceptAllowsAutoSchedule } from "./policies.js";
+import { allowsAutoPublish, conceptAllowsAutoSchedule, getPublishJobRunRequest } from "./policies.js";
 
 const DEFAULT_RETRY_POLICY: RetryPolicy = {
   maxAttempts: 3,
@@ -91,6 +92,12 @@ export interface MarkPublishFailedCommand extends PublishFailureInput {
 }
 
 export interface RetryPublishJobCommand {
+  publishJobId: string;
+  actorId?: string;
+  now?: Date;
+}
+
+export interface RequestPublishJobRunCommand {
   publishJobId: string;
   actorId?: string;
   now?: Date;
@@ -242,8 +249,11 @@ export class WorkflowEngine {
       requireApprovedCandidate:
         candidate.status === "approved" ? account.schedulePolicy.requireApprovedCandidate : false
     };
+    // Due-job selection compares ISO strings in SQLite, so store UTC ("Z")
+    // timestamps only; an offset such as +09:00 would sort incorrectly.
+    const scheduledAt = normalizeIsoTimestamp(command.scheduledAt);
     const scheduledCandidate = scheduleDomainCandidate(candidate, {
-      scheduledAt: command.scheduledAt,
+      scheduledAt,
       schedulePolicy,
       now: command.now
     });
@@ -252,7 +262,7 @@ export class WorkflowEngine {
       candidateId: scheduledCandidate.id,
       accountId: scheduledCandidate.accountId,
       pluginRegistrationId: plugin.id,
-      scheduledAt: command.scheduledAt,
+      scheduledAt,
       maxAttempts: command.maxAttempts ?? this.retryPolicy.maxAttempts,
       metadata: {
         autoPublish: command.autoPublish === true
@@ -268,7 +278,7 @@ export class WorkflowEngine {
       "PostScheduled",
       {
         candidateId: scheduledCandidate.id,
-        scheduledAt: command.scheduledAt
+        scheduledAt
       },
       { actorId: command.actorId, occurredAt: now }
     );
@@ -343,8 +353,11 @@ export class WorkflowEngine {
   async runPublishJob(
     command: RunPublishJobCommand
   ): Promise<WorkflowActionResult<RunPublishJobResult>> {
-    const trigger = command.trigger ?? "manual";
     const job = await this.getRequiredPublishJob(command.publishJobId);
+    const runRequest = getPublishJobRunRequest(job);
+    // A run a person explicitly requested is a manual run, even when the
+    // polling worker is the process that picks it up.
+    const trigger = runRequest ? "manual" : (command.trigger ?? "manual");
     const candidate = await this.getRequiredCandidate(job.candidateId);
     const account = await this.getRequiredAccount(job.accountId);
     const concept = await this.getRequiredConcept(candidate.conceptId);
@@ -361,7 +374,10 @@ export class WorkflowEngine {
     await this.getRequiredPublisherPluginContract(plugin.id);
 
     const now = isoNow(command.now);
-    const runningJob = startPublishJob(job, now);
+    // One request authorizes one attempt; a later retry needs a new request
+    // unless auto-publish is enabled for the job.
+    const { runRequest: _consumed, ...metadata } = job.metadata;
+    const runningJob = startPublishJob(runRequest ? { ...job, metadata } : job, now);
     await this.repositories.publishJobs.update(runningJob);
 
     const event = createDomainEvent(
@@ -376,7 +392,7 @@ export class WorkflowEngine {
     const auditLog = await this.audit("publish_job.started", runningJob.id, command.actorId, {
       before: job,
       after: runningJob,
-      metadata: { trigger, publisherPluginId: plugin.id },
+      metadata: { trigger, publisherPluginId: plugin.id, ...(runRequest ? { runRequestedBy: runRequest.requestedBy } : {}) },
       now
     });
     await this.emit(event);
@@ -479,6 +495,67 @@ export class WorkflowEngine {
     return { data: failed, events: [event], auditLogs: [auditLog] };
   }
 
+  /**
+   * Records that a person wants this job to run now and makes it due
+   * immediately. Nothing is published here: the local worker picks the job up
+   * on its next poll and runs it with a manual trigger, so review-first jobs do
+   * not need auto-publish to be enabled.
+   */
+  async requestPublishJobRun(
+    command: RequestPublishJobRunCommand
+  ): Promise<WorkflowActionResult<PublishJob>> {
+    const job = await this.getRequiredPublishJob(command.publishJobId);
+    const waiting = job.status === "queued" || job.status === "retry_scheduled";
+
+    if (!waiting || job.attempt >= job.maxAttempts) {
+      throw new WorkflowRuleViolationError("Only queued or retry-scheduled jobs with attempts remaining can be run.");
+    }
+
+    const candidate = await this.getRequiredCandidate(job.candidateId);
+
+    if (candidate.status !== "scheduled") {
+      throw new WorkflowRuleViolationError("Publish jobs can only run for scheduled candidates.");
+    }
+
+    await this.getRequiredPublisherPluginRegistration(job.pluginRegistrationId);
+
+    const now = isoNow(command.now);
+    const requested = PublishJobSchema.parse({
+      ...job,
+      scheduledAt: job.status === "queued" && Date.parse(job.scheduledAt) > Date.parse(now) ? now : job.scheduledAt,
+      retryAfter: job.status === "retry_scheduled" ? now : job.retryAfter,
+      metadata: {
+        ...job.metadata,
+        runRequest: {
+          requestedAt: now,
+          requestedBy: command.actorId,
+          originalScheduledAt: job.scheduledAt
+        }
+      },
+      updatedAt: now
+    });
+    await this.repositories.publishJobs.update(requested);
+
+    const event = createDomainEvent(
+      "PublishJobRunRequested",
+      {
+        publishJobId: requested.id,
+        candidateId: requested.candidateId,
+        requestedBy: command.actorId
+      },
+      { actorId: command.actorId, occurredAt: now }
+    );
+    const auditLog = await this.audit("publish_job.run_requested", requested.id, command.actorId, {
+      before: job,
+      after: requested,
+      metadata: { candidateId: candidate.id, previousStatus: job.status },
+      now
+    });
+    await this.emit(event);
+
+    return { data: requested, events: [event], auditLogs: [auditLog] };
+  }
+
   async retryPublishJob(
     command: RetryPublishJobCommand
   ): Promise<WorkflowActionResult<PublishJob>> {
@@ -522,7 +599,7 @@ export class WorkflowEngine {
       const account = await this.getRequiredAccount(job.accountId);
       const concept = await this.getRequiredConcept(candidate.conceptId);
 
-      if (job.metadata.autoPublish === true && allowsAutoPublish(account, concept)) {
+      if ((job.metadata.autoPublish === true && allowsAutoPublish(account, concept)) || getPublishJobRunRequest(job)) {
         allowed.push(job);
       }
     }
@@ -646,6 +723,11 @@ export class WorkflowEngine {
       await this.emit(event);
     }
   }
+}
+
+function normalizeIsoTimestamp(value: string): string {
+  const parsed = Date.parse(value);
+  return Number.isNaN(parsed) ? value : new Date(parsed).toISOString();
 }
 
 function toRecord(value: object): Record<string, unknown> {
