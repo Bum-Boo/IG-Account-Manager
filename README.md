@@ -12,7 +12,7 @@ The Core is platform-neutral. Instagram support belongs in publisher plugins tha
 - Exposes a local Fastify API for the dashboard and mobile PWA.
 - Runs a local worker that polls due publish jobs while the user's computer is awake.
 - Defines a plugin SDK for importers, generators, validators, scheduler policies, publishers, analytics exporters, and UI extensions.
-- Supports official MVP plugins for mock publishing, local asset import, and an Instagram publisher skeleton with dry-run and mock modes.
+- Supports official MVP plugins for mock publishing, local asset import, and an Instagram publisher skeleton with dry-run and mock modes. The bundled API and worker always bind publisher registrations to the local mock publisher; nothing is posted to Instagram or any other service.
 
 ## What It Does Not Do
 
@@ -95,6 +95,26 @@ pnpm --filter @ig-manager/api dev
 pnpm --filter @ig-manager/web dev
 pnpm --filter @ig-manager/worker dev
 ```
+
+Run the seed and a one-shot worker from the workspace root:
+
+```bash
+pnpm seed          # starter seed into an empty workspace (same as the dashboard button)
+pnpm worker:once   # process jobs that are due now, then exit
+pnpm test:e2e      # browser end-to-end test (after pnpm build; needs Playwright's Chromium)
+```
+
+All local processes share `<workspace root>/data/ig-manager.sqlite` by default.
+
+### First run: the review loop
+
+1. `pnpm dev`, then open the dashboard. An empty workspace offers **Load starter seed**: one synthetic account, two concepts, three candidates ready for review and a mock publisher, all marked `metadata.seed = "starter-v1"`.
+2. **Candidates → Prepare a candidate** adds your own candidate to the review queue.
+3. Open a candidate to inspect it, then **Approve** or **Reject** (with a review note) and **Schedule approved**.
+4. On the candidate or the **Jobs** page, **Run now** hands the job to the local worker. The worker started by `pnpm dev` polls every 30 seconds; `pnpm worker:once` runs it immediately. Press **Refresh** to see the mock result.
+5. **Jobs → Audit log** and each candidate's **Audit trail** show who did what.
+
+Seed data vs. sample data: the *seed* is written to your local database on request and behaves like real data. The *sample preview* is example data that exists only in the browser; it opens only when you choose it on the connection-error screen and is never saved. If the API becomes unreachable, the dashboard keeps showing your last loaded workspace with an error and a Retry button; it never switches to sample data on its own.
 
 Default ports:
 
