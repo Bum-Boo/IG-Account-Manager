@@ -73,6 +73,7 @@ export function startWorker(options: StartWorkerOptions = {}): WorkerRuntime {
 
   logger.info("worker starting", {
     databaseUrl: config.databaseUrl,
+    publisher: "mock (no external calls)",
     pollIntervalMs: config.pollIntervalMs,
     dryRun: config.dryRun,
     runOnce: config.runOnce,
@@ -118,7 +119,11 @@ async function runWorkerLoop(options: {
 }): Promise<void> {
   try {
     if (options.config.runOnce) {
-      await options.scheduler.pollOnce();
+      const result = await options.scheduler.pollOnce();
+      options.logger.info("worker run-once finished", {
+        selected: result.selected,
+        results: result.results
+      });
       return;
     }
 

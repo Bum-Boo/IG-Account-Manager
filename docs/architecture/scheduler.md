@@ -76,7 +76,9 @@ The MVP `JobLock` prevents duplicate execution inside one local worker process. 
 
 ## Auto-Publish Guardrails
 
-The worker defaults to `WORKER_TRIGGER=auto`. In auto mode, the workflow engine only returns and starts jobs that were explicitly scheduled with auto-publish metadata and are allowed by account/concept automation policy. Manual jobs can still be run by using `WORKER_TRIGGER=manual`, but this is an explicit operator choice.
+The worker defaults to `WORKER_TRIGGER=auto`. In auto mode, the workflow engine only returns and starts jobs that were explicitly scheduled with auto-publish metadata and are allowed by account/concept automation policy. Review-first jobs (scheduled without auto-publish) run when a person presses **Run now** or **Retry** in the dashboard (`POST /publish-jobs/:id/run|retry`). That records a run request on the job and makes it due immediately; the auto-mode worker then runs exactly one attempt for it as a `manual` trigger and the audit log records who requested it. `WORKER_TRIGGER=manual` still runs every due job and remains an explicit operator choice.
+
+`pnpm worker:once` (or `pnpm --filter @ig-manager/worker once`) processes the jobs that are due now and exits. `pnpm dev` keeps the worker polling. The bundled worker always binds publisher registrations to the local mock publisher; it makes no external calls.
 
 Dry-run mode is controlled by `WORKER_DRY_RUN=true`. In dry-run mode, due jobs are selected and logged, but the scheduler does not call `runPublishJob`, does not invoke a publisher, and does not mutate publish job state.
 
@@ -94,7 +96,7 @@ The workflow engine persists retry state using `retry_scheduled`. Jobs become te
 
 Environment variables:
 
-- `WORKER_DATABASE_URL`: SQLite file path or `:memory:`. Defaults to `./data/ig-manager.sqlite`.
+- `WORKER_DATABASE_URL`: SQLite file path or `:memory:`. Defaults to `<workspace root>/data/ig-manager.sqlite`, the same file as the API.
 - `WORKER_POLL_INTERVAL_MS`: poll interval. Defaults to `30000`.
 - `WORKER_DRY_RUN`: boolean. Defaults to `false`.
 - `WORKER_RUN_ONCE`: boolean for one-shot execution. Defaults to `false`.

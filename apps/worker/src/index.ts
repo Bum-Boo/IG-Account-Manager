@@ -8,7 +8,11 @@ export * from "./publisher-registry.js";
 export * from "./runtime.js";
 
 if (isMainModule()) {
-  const runtime = startWorker();
+  // `--once` processes the jobs that are due right now and exits. It is the
+  // cross-platform way to run the worker without setting environment variables.
+  const runtime = startWorker({
+    env: process.argv.includes("--once") ? { ...process.env, WORKER_RUN_ONCE: "true" } : process.env
+  });
 
   const shutdown = (signal: NodeJS.Signals) => {
     console.info(`worker received ${signal}, shutting down`);
