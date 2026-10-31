@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { sampleWorkspaceData } from "../api/sampleData.js";
 import type { WorkspaceData } from "../types.js";
-import { applyWorkspaceLoad, openSamplePreview } from "./workspaceState.js";
+import { applyWorkspaceLoad, createLoadSequencer, openSamplePreview } from "./workspaceState.js";
 
 const realWorkspace: WorkspaceData = {
   accounts: [],
@@ -48,5 +48,19 @@ describe("workspace load state", () => {
     expect(preview.error).toBeUndefined();
     expect(preview.data).toEqual(sampleWorkspaceData);
     expect(preview.data).not.toBe(sampleWorkspaceData);
+  });
+
+  it("only lets the newest load apply", () => {
+    const loads = createLoadSequencer();
+    const first = loads.next();
+    const second = loads.next();
+
+    // Regression: a slow first load could land after the reload triggered by
+    // Approve and show the candidate as unapproved again.
+    expect(loads.isLatest(first)).toBe(false);
+    expect(loads.isLatest(second)).toBe(true);
+
+    loads.invalidate();
+    expect(loads.isLatest(second)).toBe(false);
   });
 });

@@ -2,7 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ApiClient, createApiClient, loadWorkspaceData } from "../api/client.js";
 import { sampleWorkspaceData } from "../api/sampleData.js";
 import type { Concept, DataSource, NewCandidateInput, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
-import { applyWorkspaceLoad, errorMessage, openSamplePreview, type WorkspaceLoadState } from "./workspaceState.js";
+import {
+  applyWorkspaceLoad,
+  createLoadSequencer,
+  errorMessage,
+  openSamplePreview,
+  type WorkspaceLoadState
+} from "./workspaceState.js";
 
 const defaultApiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "/api";
 const apiBaseStorageKey = "ig-manager.apiBaseUrl";
@@ -41,22 +47,28 @@ export function useWorkspaceData(): WorkspaceState {
   const [refreshing, setRefreshing] = useState(false);
   const stateRef = useRef(state);
   stateRef.current = state;
+  const loads = useRef(createLoadSequencer()).current;
 
   const client = useMemo(() => createApiClient({ baseUrl: apiBaseUrl, token: apiToken || undefined }), [apiBaseUrl, apiToken]);
 
   const reload = useCallback(async () => {
+    const ticket = loads.next();
     setRefreshing(true);
 
     try {
       const data = await loadWorkspaceData(client);
+      if (!loads.isLatest(ticket)) return;
       setState((current) => applyWorkspaceLoad(current, { ok: true, data, at: new Date().toISOString() }));
     } catch (error) {
+      if (!loads.isLatest(ticket)) return;
       setState((current) => applyWorkspaceLoad(current, { ok: false, error: errorMessage(error) }));
     } finally {
-      setRefreshing(false);
-      setLoading(false);
+      if (loads.isLatest(ticket)) {
+        setRefreshing(false);
+        setLoading(false);
+      }
     }
-  }, [client]);
+  }, [client, loads]);
 
   useEffect(() => {
     void reload();
@@ -71,9 +83,20 @@ export function useWorkspaceData(): WorkspaceState {
     const nextToken = settings.apiToken.trim();
     writeStorage(apiBaseStorageKey, nextBaseUrl);
     writeStorage(apiTokenStorageKey, nextToken);
+
+    if (nextBaseUrl === apiBaseUrl && nextToken === apiToken) {
+      return;
+    }
+
+    // Data loaded from the previous API must not be shown, or mutated with its
+    // IDs, as if it belonged to the newly configured one. This is a deliberate
+    // user change, unlike a failure, which keeps the current workspace.
+    loads.invalidate();
+    setState({});
+    setLoading(true);
     setApiBaseUrl(nextBaseUrl);
     setApiToken(nextToken);
-  }, []);
+  }, [apiBaseUrl, apiToken, loads]);
 
   const isSample = () => stateRef.current.source === "sample";
 

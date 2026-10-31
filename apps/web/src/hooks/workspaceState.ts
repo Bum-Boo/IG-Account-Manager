@@ -33,6 +33,28 @@ export function openSamplePreview(state: WorkspaceLoadState, sample: WorkspaceDa
   return { ...state, data: structuredClone(sample), source: "sample", error: undefined };
 }
 
+/**
+ * Hands out load tickets so only the newest load may update state. An older,
+ * slower response (or one from previous API settings) is ignored.
+ */
+export function createLoadSequencer() {
+  let latest = 0;
+
+  return {
+    next(): number {
+      latest += 1;
+      return latest;
+    },
+    isLatest(ticket: number): boolean {
+      return ticket === latest;
+    },
+    /** Invalidates every load in flight, e.g. when the API settings change. */
+    invalidate(): void {
+      latest += 1;
+    }
+  };
+}
+
 export function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
