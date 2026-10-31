@@ -1,7 +1,11 @@
-import { existsSync, mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { createDatabase, createRepositories, runMigrations, type DatabaseHandle } from "@ig-manager/db";
+import {
+  createDatabase,
+  createRepositories,
+  ensureDatabaseDirectory,
+  resolveDatabaseFilename,
+  runMigrations,
+  type DatabaseHandle
+} from "@ig-manager/db";
 import { createLogger, type Logger } from "@ig-manager/logger";
 import {
   FixedIntervalRetryPolicy,
@@ -100,15 +104,7 @@ export function startWorker(options: StartWorkerOptions = {}): WorkerRuntime {
 
 function createWorkerDatabase(databaseUrl: string): DatabaseHandle {
   const filename = resolveDatabaseFilename(databaseUrl);
-
-  if (filename !== ":memory:") {
-    const directory = dirname(filename);
-
-    if (!existsSync(directory)) {
-      mkdirSync(directory, { recursive: true });
-    }
-  }
-
+  ensureDatabaseDirectory(filename);
   return createDatabase(filename);
 }
 
@@ -131,16 +127,4 @@ async function runWorkerLoop(options: {
     options.handle.close();
     options.logger.info("worker stopped");
   }
-}
-
-function resolveDatabaseFilename(databaseUrl: string): string {
-  if (databaseUrl === ":memory:") {
-    return databaseUrl;
-  }
-
-  if (databaseUrl.startsWith("file:")) {
-    return fileURLToPath(databaseUrl);
-  }
-
-  return resolve(databaseUrl);
 }

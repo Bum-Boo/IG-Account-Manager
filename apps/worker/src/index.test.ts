@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { defaultDatabaseFilename } from "@ig-manager/db";
 import { readWorkerConfig, startWorker } from "./index.js";
 
 describe("worker", () => {
@@ -24,6 +25,12 @@ describe("worker", () => {
       retryMaxAttempts: 5,
       retryIntervalMs: 2500
     });
+  });
+
+  it("defaults to the same workspace database file as the API", () => {
+    // Regression: the worker used a cwd-relative path, so `pnpm --filter` runs
+    // of the API and the worker opened two different SQLite files.
+    expect(readWorkerConfig({}).databaseUrl).toBe(defaultDatabaseFilename());
   });
 
   it("starts a run-once worker against SQLite", async () => {

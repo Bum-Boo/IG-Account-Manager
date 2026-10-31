@@ -1,13 +1,9 @@
-import { mkdirSync } from "node:fs";
-import { dirname } from "node:path";
 import { createDatabase } from "./database.js";
 import { runMigrations } from "./migrations.js";
+import { defaultDatabaseFilename, ensureDatabaseDirectory, resolveDatabaseFilename } from "./paths.js";
 
-const filename = process.env.DATABASE_URL ?? "./data/ig-manager.sqlite";
-
-if (filename !== ":memory:") {
-  mkdirSync(dirname(filename), { recursive: true });
-}
+const filename = process.env.DATABASE_URL ? resolveDatabaseFilename(process.env.DATABASE_URL) : defaultDatabaseFilename();
+ensureDatabaseDirectory(filename);
 
 const handle = createDatabase(filename);
 

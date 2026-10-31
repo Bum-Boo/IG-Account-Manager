@@ -1,3 +1,4 @@
+import { defaultDatabaseFilename } from "@ig-manager/db";
 import type { LogLevel } from "@ig-manager/logger";
 
 export interface WorkerConfig {
@@ -15,7 +16,7 @@ export interface WorkerConfig {
 
 export function readWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerConfig {
   return {
-    databaseUrl: readString(env.WORKER_DATABASE_URL ?? env.DATABASE_URL, "./data/ig-manager.sqlite"),
+    databaseUrl: readString(env.WORKER_DATABASE_URL ?? env.DATABASE_URL, defaultDatabaseFilename()),
     pollIntervalMs: readPositiveInteger(env.WORKER_POLL_INTERVAL_MS, 30_000),
     dryRun: readBoolean(env.WORKER_DRY_RUN, false),
     runOnce: readBoolean(env.WORKER_RUN_ONCE, false),

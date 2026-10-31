@@ -1,10 +1,14 @@
-import { existsSync, mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 import Fastify, { type FastifyServerOptions } from "fastify";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import { createDatabase, createRepositories, runMigrations, type DatabaseHandle } from "@ig-manager/db";
+import {
+  createDatabase,
+  createRepositories,
+  ensureDatabaseDirectory,
+  resolveDatabaseFilename,
+  runMigrations,
+  type DatabaseHandle
+} from "@ig-manager/db";
 import { WorkflowEngine } from "@ig-manager/workflow-engine";
 import { registerLocalTokenAuth } from "./auth.js";
 import { registerErrorHandler } from "./errors.js";
@@ -113,26 +117,6 @@ function registerOpenApi(server: ReturnType<typeof Fastify>): void {
 
 function createApiDatabase(databaseUrl: string): DatabaseHandle {
   const filename = resolveDatabaseFilename(databaseUrl);
-
-  if (filename !== ":memory:") {
-    const directory = dirname(filename);
-
-    if (!existsSync(directory)) {
-      mkdirSync(directory, { recursive: true });
-    }
-  }
-
+  ensureDatabaseDirectory(filename);
   return createDatabase(filename);
-}
-
-function resolveDatabaseFilename(databaseUrl: string): string {
-  if (databaseUrl === ":memory:") {
-    return databaseUrl;
-  }
-
-  if (databaseUrl.startsWith("file:")) {
-    return fileURLToPath(databaseUrl);
-  }
-
-  return resolve(databaseUrl);
 }

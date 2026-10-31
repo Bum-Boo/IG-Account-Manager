@@ -1,8 +1,9 @@
+import { defaultDatabaseFilename } from "@ig-manager/db";
 import { createApiServer } from "./server.js";
 
 const server = createApiServer({
   logger: process.env.NODE_ENV !== "test",
-  databaseUrl: process.env.API_DATABASE_URL ?? process.env.DATABASE_URL ?? "./data/ig-manager.sqlite",
+  databaseUrl: process.env.API_DATABASE_URL ?? process.env.DATABASE_URL ?? defaultDatabaseFilename(),
   apiToken: process.env.IG_MANAGER_LOCAL_TOKEN,
   actorId: process.env.API_ACTOR_ID ?? "local-api"
 });
