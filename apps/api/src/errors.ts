@@ -59,6 +59,20 @@ export function registerErrorHandler(server: FastifyInstance): void {
       });
     }
 
+    // Fastify's own request errors (malformed or empty JSON bodies, oversized
+    // payloads, ...) carry a 4xx statusCode; report them as client errors
+    // instead of a generic 500.
+    const statusCode = (error as { statusCode?: unknown }).statusCode;
+
+    if (typeof statusCode === "number" && statusCode >= 400 && statusCode < 500) {
+      return reply.code(statusCode).send({
+        error: {
+          code: "bad_request",
+          message: error instanceof Error ? error.message : "Bad request."
+        }
+      });
+    }
+
     server.log.error(error);
 
     return reply.code(500).send({

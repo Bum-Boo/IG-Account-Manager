@@ -187,6 +187,19 @@ describe("api server", () => {
     ]);
   });
 
+  it("reports malformed request bodies as client errors instead of 500", async () => {
+    // Regression: the dashboard sent `content-type: application/json` with an
+    // empty body when toggling plugins, and the API answered 500.
+    const response = await server.inject({
+      method: "POST",
+      url: "/plugins/plugin_test_publisher/disable",
+      headers: { ...auth, "content-type": "application/json" }
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json().error.code).toBe("bad_request");
+  });
+
   it("refuses to seed a workspace that already has data", async () => {
     await injectJson("POST", "/accounts", {
       id: "account_existing",
