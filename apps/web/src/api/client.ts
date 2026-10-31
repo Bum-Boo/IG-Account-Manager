@@ -4,13 +4,13 @@ import type {
   Concept,
   ContentAsset,
   ContentRecipe,
+  NewCandidateInput,
   PluginRegistration,
   PostCandidate,
   PublishJob,
-  WorkspaceData,
-  WorkspaceSnapshot
+  SeedResult,
+  WorkspaceData
 } from "../types.js";
-import { mockWorkspaceData } from "./mockData.js";
 
 interface ApiResponse<TData> {
   data: TData;
@@ -52,6 +52,20 @@ export class ApiClient {
     return this.get<PostCandidate[]>("/candidates");
   }
 
+  async createCandidate(input: NewCandidateInput): Promise<PostCandidate> {
+    return this.request<PostCandidate>("/candidates", {
+      method: "POST",
+      body: JSON.stringify({ ...input, status: "ready_for_review" })
+    });
+  }
+
+  async seedWorkspace(): Promise<SeedResult> {
+    return this.request<SeedResult>("/workspace/seed", {
+      method: "POST",
+      body: JSON.stringify({})
+    });
+  }
+
   async approveCandidate(id: string): Promise<PostCandidate> {
     return this.request<PostCandidate>(`/candidates/${id}/approve`, {
       method: "POST",
@@ -80,8 +94,9 @@ export class ApiClient {
     return this.get<PublishJob[]>("/publish-jobs");
   }
 
-  async retryPublishJob(id: string): Promise<PublishJob> {
-    return this.request<PublishJob>(`/publish-jobs/${id}/retry`, {
+  /** Asks the local worker to run this job now. The API itself never publishes. */
+  async requestPublishJobRun(id: string, action: "run" | "retry" = "run"): Promise<PublishJob> {
+    return this.request<PublishJob>(`/publish-jobs/${id}/${action}`, {
       method: "POST",
       body: JSON.stringify({})
     });
@@ -106,19 +121,27 @@ export class ApiClient {
   }
 
   private async request<TData>(path: string, init: RequestInit): Promise<TData> {
-    const response = await fetch(`${this.options.baseUrl}${path}`, {
-      ...init,
-      headers: {
-        "content-type": "application/json",
-        ...(this.options.token ? { authorization: `Bearer ${this.options.token}` } : {}),
-        ...init.headers
-      }
-    });
+    let response: Response;
+
+    try {
+      response = await fetch(`${this.options.baseUrl}${path}`, {
+        ...init,
+        headers: {
+          ...(init.body !== undefined ? { "content-type": "application/json" } : {}),
+          ...(this.options.token ? { authorization: `Bearer ${this.options.token}` } : {}),
+          ...init.headers
+        }
+      });
+    } catch (error) {
+      throw new ApiRequestError(
+        `Could not reach the local API at ${this.options.baseUrl || "/"} (${error instanceof Error ? error.message : String(error)}).`
+      );
+    }
 
     if (!response.ok) {
       const payload = await response.json().catch(() => undefined);
-      const message = payload?.error?.message ?? `API request failed with ${response.status}.`;
-      throw new Error(message);
+      const message = payload?.error?.message ?? `Local API request ${path} failed with HTTP ${response.status}.`;
+      throw new ApiRequestError(message, response.status);
     }
 
     const payload = (await response.json()) as ApiResponse<TData>;
@@ -126,45 +149,35 @@ export class ApiClient {
   }
 }
 
+export class ApiRequestError extends Error {
+  constructor(
+    message: string,
+    readonly status?: number
+  ) {
+    super(message);
+    this.name = "ApiRequestError";
+  }
+}
+
 export function createApiClient(options: ApiClientOptions): ApiClient {
   return new ApiClient(options);
 }
 
-export async function loadWorkspaceSnapshot(client: ApiClient): Promise<WorkspaceSnapshot> {
-  try {
-    const accounts = await client.listAccounts();
-    const [concepts, assets, recipes, candidates, publishJobs, plugins, auditLogs] = await Promise.all([
-      client.listConcepts(accounts),
-      client.listAssets(),
-      client.listRecipes(),
-      client.listCandidates(),
-      client.listPublishJobs(),
-      client.listPlugins(),
-      client.listAuditLogs()
-    ]);
+/**
+ * Loads the whole workspace from the local API. Failures are thrown to the
+ * caller; this function never substitutes sample data for the user's workspace.
+ */
+export async function loadWorkspaceData(client: ApiClient): Promise<WorkspaceData> {
+  const accounts = await client.listAccounts();
+  const [concepts, assets, recipes, candidates, publishJobs, plugins, auditLogs] = await Promise.all([
+    client.listConcepts(accounts),
+    client.listAssets(),
+    client.listRecipes(),
+    client.listCandidates(),
+    client.listPublishJobs(),
+    client.listPlugins(),
+    client.listAuditLogs()
+  ]);
 
-    return {
-      source: "api",
-      data: {
-        accounts,
-        concepts,
-        assets,
-        recipes,
-        candidates,
-        publishJobs,
-        plugins,
-        auditLogs
-      }
-    };
-  } catch (error) {
-    return {
-      source: "mock",
-      data: cloneWorkspaceData(mockWorkspaceData),
-      error: error instanceof Error ? error.message : String(error)
-    };
-  }
-}
-
-function cloneWorkspaceData(data: WorkspaceData): WorkspaceData {
-  return JSON.parse(JSON.stringify(data)) as WorkspaceData;
+  return { accounts, concepts, assets, recipes, candidates, publishJobs, plugins, auditLogs };
 }

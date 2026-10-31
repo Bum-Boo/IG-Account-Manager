@@ -1,171 +1,204 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { ApiClient, createApiClient, loadWorkspaceSnapshot } from "../api/client.js";
-import type { Concept, DataSource, PluginRegistration, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ApiClient, createApiClient, loadWorkspaceData } from "../api/client.js";
+import { sampleWorkspaceData } from "../api/sampleData.js";
+import type { Concept, DataSource, NewCandidateInput, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
+import { applyWorkspaceLoad, errorMessage, openSamplePreview, type WorkspaceLoadState } from "./workspaceState.js";
 
 const defaultApiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "/api";
 const apiBaseStorageKey = "ig-manager.apiBaseUrl";
 const apiTokenStorageKey = "ig-manager.apiToken";
+const samplePreviewOnly = "This action needs the local API. The sample preview is never saved.";
 
 export interface WorkspaceState {
   data?: WorkspaceData;
-  source: DataSource;
+  source?: DataSource;
+  /** True only for the very first load, before any data is available. */
   loading: boolean;
+  refreshing: boolean;
   error?: string;
+  loadedAt?: string;
   apiBaseUrl: string;
   apiToken: string;
   reload(): Promise<void>;
+  openSample(): void;
   updateSettings(settings: { apiBaseUrl: string; apiToken: string }): void;
+  seedWorkspace(): Promise<void>;
+  createCandidate(input: NewCandidateInput): Promise<void>;
   approveCandidate(id: string): Promise<void>;
   rejectCandidate(id: string, reason?: string): Promise<void>;
   requestRegeneration(id: string): Promise<void>;
   scheduleCandidate(id: string, scheduledAt: string): Promise<void>;
-  retryPublishJob(id: string): Promise<void>;
+  requestPublishJobRun(id: string): Promise<void>;
   setPluginEnabled(id: string, enabled: boolean): Promise<void>;
   updateConcept(id: string, patch: Partial<Concept>): Promise<void>;
 }
 
 export function useWorkspaceData(): WorkspaceState {
-  const [apiBaseUrl, setApiBaseUrl] = useState(() => localStorage.getItem(apiBaseStorageKey) ?? defaultApiBaseUrl);
-  const [apiToken, setApiToken] = useState(() => localStorage.getItem(apiTokenStorageKey) ?? "");
-  const [data, setData] = useState<WorkspaceData>();
-  const [source, setSource] = useState<DataSource>("mock");
+  const [apiBaseUrl, setApiBaseUrl] = useState(() => readStorage(apiBaseStorageKey) ?? defaultApiBaseUrl);
+  const [apiToken, setApiToken] = useState(() => readStorage(apiTokenStorageKey) ?? "");
+  const [state, setState] = useState<WorkspaceLoadState>({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>();
+  const [refreshing, setRefreshing] = useState(false);
+  const stateRef = useRef(state);
+  stateRef.current = state;
 
   const client = useMemo(() => createApiClient({ baseUrl: apiBaseUrl, token: apiToken || undefined }), [apiBaseUrl, apiToken]);
 
   const reload = useCallback(async () => {
-    setLoading(true);
-    const snapshot = await loadWorkspaceSnapshot(client);
-    setData(snapshot.data);
-    setSource(snapshot.source);
-    setError(snapshot.error);
-    setLoading(false);
+    setRefreshing(true);
+
+    try {
+      const data = await loadWorkspaceData(client);
+      setState((current) => applyWorkspaceLoad(current, { ok: true, data, at: new Date().toISOString() }));
+    } catch (error) {
+      setState((current) => applyWorkspaceLoad(current, { ok: false, error: errorMessage(error) }));
+    } finally {
+      setRefreshing(false);
+      setLoading(false);
+    }
   }, [client]);
 
   useEffect(() => {
     void reload();
   }, [reload]);
 
+  const openSample = useCallback(() => {
+    setState((current) => openSamplePreview(current, sampleWorkspaceData));
+  }, []);
+
   const updateSettings = useCallback((settings: { apiBaseUrl: string; apiToken: string }) => {
     const nextBaseUrl = settings.apiBaseUrl.trim() || defaultApiBaseUrl;
     const nextToken = settings.apiToken.trim();
-    localStorage.setItem(apiBaseStorageKey, nextBaseUrl);
-    localStorage.setItem(apiTokenStorageKey, nextToken);
+    writeStorage(apiBaseStorageKey, nextBaseUrl);
+    writeStorage(apiTokenStorageKey, nextToken);
     setApiBaseUrl(nextBaseUrl);
     setApiToken(nextToken);
   }, []);
 
-  const runCandidateMutation = useCallback(
-    async (id: string, mutateApi: (client: ApiClient) => Promise<PostCandidate>, mutateLocal: (candidate: PostCandidate) => PostCandidate) => {
-      if (source === "api") {
-        const updated = await mutateApi(client);
-        setData((current) =>
-          current ? { ...current, candidates: current.candidates.map((candidate) => (candidate.id === id ? updated : candidate)) } : current
-        );
+  const isSample = () => stateRef.current.source === "sample";
+
+  /** Runs an API mutation, then reloads so candidates, jobs and the audit log stay consistent. */
+  const mutateApi = useCallback(
+    async (task: (api: ApiClient) => Promise<unknown>) => {
+      await task(client);
+      await reload();
+    },
+    [client, reload]
+  );
+
+  const updateSampleData = useCallback((update: (data: WorkspaceData) => WorkspaceData) => {
+    setState((current) => (current.data ? { ...current, data: update(current.data) } : current));
+  }, []);
+
+  const updateSampleCandidate = useCallback(
+    (id: string, update: (candidate: PostCandidate) => PostCandidate) =>
+      updateSampleData((data) => ({
+        ...data,
+        candidates: data.candidates.map((candidate) => (candidate.id === id ? update(candidate) : candidate))
+      })),
+    [updateSampleData]
+  );
+
+  const seedWorkspace = useCallback(async () => {
+    if (isSample()) throw new Error(samplePreviewOnly);
+    await mutateApi((api) => api.seedWorkspace());
+  }, [mutateApi]);
+
+  const createCandidate = useCallback(
+    async (input: NewCandidateInput) => {
+      if (!isSample()) {
+        await mutateApi((api) => api.createCandidate(input));
         return;
       }
 
-      setData((current) =>
-        current
-          ? {
-              ...current,
-              candidates: current.candidates.map((candidate) => (candidate.id === id ? mutateLocal(candidate) : candidate))
-            }
-          : current
-      );
+      const now = new Date().toISOString();
+      updateSampleData((data) => ({
+        ...data,
+        candidates: [
+          ...data.candidates,
+          {
+            id: `sample_candidate_${Date.now()}`,
+            ...input,
+            assetIds: [],
+            status: "ready_for_review",
+            provenance: { source: "manual", sourceAssetIds: [], sourceReferenceIds: [] },
+            metadata: {},
+            createdAt: now,
+            updatedAt: now
+          }
+        ]
+      }));
     },
-    [client, source]
+    [mutateApi, updateSampleData]
   );
 
   const approveCandidate = useCallback(
-    (id: string) =>
-      runCandidateMutation(
-        id,
-        (api) => api.approveCandidate(id),
-        (candidate) => ({
-          ...candidate,
-          status: "approved",
-          approvedAt: new Date().toISOString(),
-          approvedBy: "local-reviewer",
-          updatedAt: new Date().toISOString()
-        })
-      ),
-    [runCandidateMutation]
+    async (id: string) => {
+      if (!isSample()) {
+        await mutateApi((api) => api.approveCandidate(id));
+        return;
+      }
+
+      const now = new Date().toISOString();
+      updateSampleCandidate(id, (candidate) => ({ ...candidate, status: "approved", approvedAt: now, approvedBy: "sample-reviewer", updatedAt: now }));
+    },
+    [mutateApi, updateSampleCandidate]
   );
 
   const rejectCandidate = useCallback(
-    (id: string, reason = "Rejected from dashboard.") =>
-      runCandidateMutation(
-        id,
-        (api) => api.rejectCandidate(id, reason),
-        (candidate) => ({
-          ...candidate,
-          status: "rejected",
-          rejectionReason: reason,
-          rejectedAt: new Date().toISOString(),
-          rejectedBy: "local-reviewer",
-          updatedAt: new Date().toISOString()
-        })
-      ),
-    [runCandidateMutation]
+    async (id: string, reason = "Rejected from dashboard.") => {
+      if (!isSample()) {
+        await mutateApi((api) => api.rejectCandidate(id, reason));
+        return;
+      }
+
+      const now = new Date().toISOString();
+      updateSampleCandidate(id, (candidate) => ({
+        ...candidate,
+        status: "rejected",
+        rejectionReason: reason,
+        rejectedAt: now,
+        rejectedBy: "sample-reviewer",
+        updatedAt: now
+      }));
+    },
+    [mutateApi, updateSampleCandidate]
   );
 
   const requestRegeneration = useCallback(
     async (id: string) => {
-      if (source === "api") {
-        setError("API gap: request regeneration is not implemented by the local API yet.");
-        return;
+      if (!isSample()) {
+        throw new Error("Request regeneration is not implemented by the local API yet.");
       }
 
-      setData((current) =>
-        current
-          ? {
-              ...current,
-              candidates: current.candidates.map((candidate) =>
-                candidate.id === id
-                  ? {
-                      ...candidate,
-                      status: "changes_requested",
-                      internalNotes: [candidate.internalNotes, "Regeneration requested from mobile review."]
-                        .filter(Boolean)
-                        .join("\n"),
-                      updatedAt: new Date().toISOString()
-                    }
-                  : candidate
-              )
-            }
-          : current
-      );
+      updateSampleCandidate(id, (candidate) => ({
+        ...candidate,
+        status: "changes_requested",
+        internalNotes: [candidate.internalNotes, "Regeneration requested from mobile review."].filter(Boolean).join("\n"),
+        updatedAt: new Date().toISOString()
+      }));
     },
-    [source]
+    [updateSampleCandidate]
   );
 
   const scheduleCandidate = useCallback(
     async (id: string, scheduledAt: string) => {
+      const data = stateRef.current.data;
       if (!data) return;
       const publisher = data.plugins.find((plugin) => plugin.type === "publisher" && plugin.enabled);
+
       if (!publisher) {
-        setError("No enabled publisher plugin is available.");
-        return;
+        throw new Error("No enabled publisher plugin is available. Enable one on the Plugins page.");
       }
 
-      if (source === "api") {
-        const scheduled = await client.scheduleCandidate(id, publisher.id, scheduledAt);
-        setData((current) =>
-          current
-            ? {
-                ...current,
-                candidates: current.candidates.map((candidate) => (candidate.id === id ? scheduled.candidate : candidate)),
-                publishJobs: [...current.publishJobs.filter((job) => job.id !== scheduled.publishJob.id), scheduled.publishJob]
-              }
-            : current
-        );
+      if (!isSample()) {
+        await mutateApi((api) => api.scheduleCandidate(id, publisher.id, scheduledAt));
         return;
       }
 
       const candidate = data.candidates.find((item) => item.id === id);
       if (!candidate) return;
+      const now = new Date().toISOString();
       const publishJob: PublishJob = {
         id: `job_${id}`,
         candidateId: id,
@@ -176,105 +209,93 @@ export function useWorkspaceData(): WorkspaceState {
         attempt: 0,
         maxAttempts: 3,
         metadata: { autoPublish: false },
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        createdAt: now,
+        updatedAt: now
       };
-      setData({
-        ...data,
-        candidates: data.candidates.map((item) =>
-          item.id === id ? { ...item, status: "scheduled", scheduledAt, updatedAt: new Date().toISOString() } : item
-        ),
-        publishJobs: [...data.publishJobs.filter((job) => job.id !== publishJob.id), publishJob]
-      });
+      updateSampleData((current) => ({
+        ...current,
+        candidates: current.candidates.map((item) => (item.id === id ? { ...item, status: "scheduled", scheduledAt, updatedAt: now } : item)),
+        publishJobs: [...current.publishJobs.filter((job) => job.id !== publishJob.id), publishJob]
+      }));
     },
-    [client, data, source]
+    [mutateApi, updateSampleData]
   );
 
-  const retryPublishJob = useCallback(
+  const requestPublishJobRun = useCallback(
     async (id: string) => {
-      if (source === "api") {
-        const retried = await client.retryPublishJob(id);
-        setData((current) =>
-          current ? { ...current, publishJobs: current.publishJobs.map((job) => (job.id === id ? retried : job)) } : current
-        );
-        return;
-      }
-
-      setData((current) =>
-        current
-          ? {
-              ...current,
-              publishJobs: current.publishJobs.map((job) =>
-                job.id === id
-                  ? { ...job, status: "running", attempt: job.attempt + 1, retryAfter: undefined, updatedAt: new Date().toISOString() }
-                  : job
-              )
-            }
-          : current
-      );
+      if (isSample()) throw new Error(samplePreviewOnly);
+      const job = stateRef.current.data?.publishJobs.find((item) => item.id === id);
+      await mutateApi((api) => api.requestPublishJobRun(id, job?.status === "retry_scheduled" ? "retry" : "run"));
     },
-    [client, source]
+    [mutateApi]
   );
 
   const setPluginEnabled = useCallback(
     async (id: string, enabled: boolean) => {
-      let updated: PluginRegistration | undefined;
-
-      if (source === "api") {
-        updated = await client.setPluginEnabled(id, enabled);
+      if (!isSample()) {
+        await mutateApi((api) => api.setPluginEnabled(id, enabled));
+        return;
       }
 
-      setData((current) =>
-        current
-          ? {
-              ...current,
-              plugins: current.plugins.map((plugin) =>
-                plugin.id === id ? (updated ?? { ...plugin, enabled, updatedAt: new Date().toISOString() }) : plugin
-              )
-            }
-          : current
-      );
+      updateSampleData((data) => ({
+        ...data,
+        plugins: data.plugins.map((plugin) => (plugin.id === id ? { ...plugin, enabled, updatedAt: new Date().toISOString() } : plugin))
+      }));
     },
-    [client, source]
+    [mutateApi, updateSampleData]
   );
 
   const updateConcept = useCallback(
     async (id: string, patch: Partial<Concept>) => {
-      let updated: Concept | undefined;
-
-      if (source === "api") {
-        updated = await client.updateConcept(id, patch);
+      if (!isSample()) {
+        await mutateApi((api) => api.updateConcept(id, patch));
+        return;
       }
 
-      setData((current) =>
-        current
-          ? {
-              ...current,
-              concepts: current.concepts.map((concept) =>
-                concept.id === id ? (updated ?? { ...concept, ...patch, updatedAt: new Date().toISOString() }) : concept
-              )
-            }
-          : current
-      );
+      updateSampleData((data) => ({
+        ...data,
+        concepts: data.concepts.map((concept) => (concept.id === id ? { ...concept, ...patch, updatedAt: new Date().toISOString() } : concept))
+      }));
     },
-    [client, source]
+    [mutateApi, updateSampleData]
   );
 
   return {
-    data,
-    source,
+    data: state.data,
+    source: state.source,
     loading,
-    error,
+    refreshing,
+    error: state.error,
+    loadedAt: state.loadedAt,
     apiBaseUrl,
     apiToken,
     reload,
+    openSample,
     updateSettings,
+    seedWorkspace,
+    createCandidate,
     approveCandidate,
     rejectCandidate,
     requestRegeneration,
     scheduleCandidate,
-    retryPublishJob,
+    requestPublishJobRun,
     setPluginEnabled,
     updateConcept
   };
+}
+
+function readStorage(key: string): string | undefined {
+  try {
+    return localStorage.getItem(key) ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function writeStorage(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Settings still apply for this session when storage is unavailable.
+  }
 }

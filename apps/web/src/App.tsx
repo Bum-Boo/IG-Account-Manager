@@ -1,5 +1,6 @@
 import { Layout } from "./components/Layout.js";
-import { ErrorState, LoadingState } from "./components/StateBlock.js";
+import { LoadingState } from "./components/StateBlock.js";
+import { ConnectionProblem, EmptyWorkspacePanel, SampleBanner, StaleDataNotice } from "./components/WorkspaceStatus.js";
 import { useHashRoute } from "./hooks/useHashRoute.js";
 import { useWorkspaceData } from "./hooks/useWorkspaceData.js";
 import { AccountDetailPage } from "./pages/AccountDetailPage.js";
@@ -17,20 +18,50 @@ import { SettingsPage } from "./pages/SettingsPage.js";
 export function App() {
   const route = useHashRoute();
   const workspace = useWorkspaceData();
+  const layoutProps = { route, source: workspace.source, error: workspace.error, refreshing: workspace.refreshing };
 
-  if (workspace.loading || !workspace.data) {
+  if (!workspace.data) {
     return (
-      <Layout route={route} source={workspace.source} error={workspace.error}>
-        <LoadingState />
+      <Layout {...layoutProps}>
+        {route.name === "settings" ? (
+          renderSettings(workspace)
+        ) : workspace.loading ? (
+          <LoadingState />
+        ) : (
+          <ConnectionProblem
+            error={workspace.error}
+            onOpenSample={workspace.openSample}
+            onRetry={workspace.reload}
+            retrying={workspace.refreshing}
+          />
+        )}
       </Layout>
     );
   }
 
   return (
-    <Layout route={route} source={workspace.source} error={workspace.error}>
-      {workspace.error && workspace.source === "api" ? <ErrorState message={workspace.error} /> : null}
+    <Layout {...layoutProps}>
+      {workspace.source === "sample" ? <SampleBanner onConnect={workspace.reload} retrying={workspace.refreshing} /> : null}
+      {workspace.error && workspace.source === "api" ? (
+        <StaleDataNotice error={workspace.error} loadedAt={workspace.loadedAt} onRetry={workspace.reload} retrying={workspace.refreshing} />
+      ) : null}
+      {workspace.source === "api" && workspace.data.accounts.length === 0 && route.name !== "settings" ? (
+        <EmptyWorkspacePanel onSeed={workspace.seedWorkspace} />
+      ) : null}
       {renderRoute(route, workspace)}
     </Layout>
+  );
+}
+
+function renderSettings(workspace: ReturnType<typeof useWorkspaceData>) {
+  return (
+    <SettingsPage
+      apiBaseUrl={workspace.apiBaseUrl}
+      apiToken={workspace.apiToken}
+      onReload={workspace.reload}
+      onSave={workspace.updateSettings}
+      source={workspace.source}
+    />
   );
 }
 
@@ -54,29 +85,26 @@ function renderRoute(route: ReturnType<typeof useHashRoute>, workspace: ReturnTy
         <CandidatesPage
           data={data}
           selectedCandidateId={route.name === "candidate" ? route.id : undefined}
+          refreshing={workspace.refreshing}
+          onCreate={workspace.createCandidate}
           onApprove={workspace.approveCandidate}
           onReject={workspace.rejectCandidate}
           onRequestRegeneration={workspace.requestRegeneration}
           onSchedule={workspace.scheduleCandidate}
-          onRetryJob={workspace.retryPublishJob}
+          onRunJob={workspace.requestPublishJobRun}
+          onRefresh={workspace.reload}
         />
       );
     case "calendar":
       return <CalendarPage data={data} />;
     case "jobs":
-      return <PublishJobsPage data={data} onRetry={workspace.retryPublishJob} />;
+      return (
+        <PublishJobsPage data={data} onRefresh={workspace.reload} onRunJob={workspace.requestPublishJobRun} refreshing={workspace.refreshing} />
+      );
     case "plugins":
       return <PluginsPage data={data} onToggle={workspace.setPluginEnabled} />;
     case "settings":
-      return (
-        <SettingsPage
-          apiBaseUrl={workspace.apiBaseUrl}
-          apiToken={workspace.apiToken}
-          onReload={workspace.reload}
-          onSave={workspace.updateSettings}
-          source={workspace.source}
-        />
-      );
+      return renderSettings(workspace);
     case "dashboard":
     default:
       return <DashboardPage data={data} />;

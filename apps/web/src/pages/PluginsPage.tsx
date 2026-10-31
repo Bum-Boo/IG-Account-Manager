@@ -1,6 +1,7 @@
 import { PageHeader } from "../components/PageHeader.js";
-import { EmptyState } from "../components/StateBlock.js";
+import { EmptyState, ErrorState } from "../components/StateBlock.js";
 import { StatusPill } from "../components/StatusPill.js";
+import { useAction } from "../hooks/useAction.js";
 import type { WorkspaceData } from "../types.js";
 
 export function PluginsPage({
@@ -10,11 +11,15 @@ export function PluginsPage({
   data: WorkspaceData;
   onToggle(id: string, enabled: boolean): Promise<void>;
 }) {
+  const action = useAction();
+
   return (
     <main className="content-area">
       <PageHeader eyebrow="Plugins" title="Plugin registry">
         Publisher, analytics, importer, generator, validator, and workflow extensions.
       </PageHeader>
+
+      {action.error ? <ErrorState message={action.error} /> : null}
 
       {data.plugins.length === 0 ? (
         <EmptyState title="No plugins registered" />
@@ -42,7 +47,12 @@ export function PluginsPage({
                 ))}
               </div>
               <div className="action-row">
-                <button className="small-button" onClick={() => void onToggle(plugin.id, !plugin.enabled)} type="button">
+                <button
+                  className="small-button"
+                  disabled={action.busy === plugin.id}
+                  onClick={() => void action.run(plugin.id, () => onToggle(plugin.id, !plugin.enabled))}
+                  type="button"
+                >
                   {plugin.enabled ? "Disable" : "Enable"}
                 </button>
               </div>

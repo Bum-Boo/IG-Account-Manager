@@ -213,12 +213,22 @@ export interface WorkspaceData {
   auditLogs: AuditLog[];
 }
 
-export type DataSource = "api" | "mock";
+/** "api" is the user's real local workspace; "sample" is the opt-in, never-saved browser preview. */
+export type DataSource = "api" | "sample";
 
-export interface WorkspaceSnapshot {
-  data: WorkspaceData;
-  source: DataSource;
-  error?: string;
+export interface SeedResult {
+  seed: string;
+  accounts: number;
+  concepts: number;
+  candidates: number;
+  publishers: number;
+}
+
+export interface NewCandidateInput {
+  accountId: string;
+  conceptId: string;
+  format: string;
+  caption: string;
 }
 
 export type BoardGroup = "candidate" | "needs_review" | "approved" | "scheduled" | "published" | "failed";

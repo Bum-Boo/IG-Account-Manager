@@ -600,8 +600,95 @@ textarea {
   grid-template-columns: minmax(220px, 1.5fr) 120px minmax(150px, 1fr) minmax(150px, 1fr) 120px;
 }
 
+.jobs-table {
+  min-width: 1040px;
+}
+
 .jobs-table .table-row {
-  grid-template-columns: minmax(140px, 1fr) minmax(220px, 1.5fr) minmax(160px, 1fr) 150px 130px 90px 80px;
+  grid-template-columns: minmax(140px, 1fr) minmax(200px, 1.4fr) minmax(150px, 1fr) 140px 130px 80px minmax(160px, 1.2fr) 100px;
+}
+
+.job-result {
+  overflow-wrap: anywhere;
+}
+
+.worker-hint {
+  margin: 0;
+}
+
+.notice-strip {
+  padding-bottom: 0;
+}
+
+.notice-panel h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.notice-panel p {
+  margin: 0;
+}
+
+.notice-panel.error {
+  border-color: #e1b1a8;
+}
+
+.state-block.sample {
+  background: #fff8e6;
+  border-color: #e3c983;
+  border-style: solid;
+  color: #5b4710;
+}
+
+.connection-status.warning strong {
+  color: #8f3d32;
+}
+
+.connection-status.sample strong {
+  color: #7a5b0c;
+}
+
+.audit-list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.audit-list li {
+  border-bottom: 1px solid #e7ece6;
+  display: grid;
+  gap: 2px;
+  padding-bottom: 8px;
+}
+
+.audit-list li:last-child {
+  border-bottom: 0;
+}
+
+.audit-list span {
+  color: #5e6b64;
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+
+.prepare-panel summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.prepare-form {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 12px;
+}
+
+.prepare-form .prepare-caption,
+.prepare-form .action-row,
+.prepare-form p {
+  grid-column: 1 / -1;
 }
 
 .candidates-page {
@@ -797,12 +884,16 @@ textarea {
 }
 
 @media (max-width: 760px) {
+  /* minmax(0, 1fr) instead of 1fr: a plain 1fr track grows to the min-content
+     width of the unwrapped navigation, which made the whole page ~860px wide
+     on a 390px phone and pushed the candidate detail controls off screen. */
   .app-frame {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .sidebar {
     height: auto;
+    min-width: 0;
     position: static;
   }
 
@@ -810,13 +901,21 @@ textarea {
     align-items: center;
   }
 
+  /* Wrap instead of scrolling sideways so every section, including
+     Candidates and Jobs, is visible without discovering a hidden scroller. */
+  .sidebar {
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
   .nav-list {
     display: flex;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    flex-wrap: wrap;
+    gap: 4px;
   }
 
   .nav-list a {
+    padding: 8px 10px;
     white-space: nowrap;
   }
 
@@ -860,7 +959,32 @@ textarea {
   }
 
   .candidate-review-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .prepare-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Stack table rows into cards so row actions such as Run now stay on screen. */
+  .data-table,
+  .jobs-table {
+    min-width: 0;
+  }
+
+  .data-table .table-head {
+    display: none;
+  }
+
+  .data-table .table-row,
+  .jobs-table .table-row,
+  .asset-table .table-row {
+    gap: 6px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topbar {
+    flex-wrap: wrap;
   }
 
   .candidate-detail-panel {
@@ -886,8 +1010,11 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .review-actions {
-    grid-template-columns: 1fr;
+  .review-actions,
+  .notice-panel .action-row,
+  .notice-strip .action-row,
+  .prepare-form .action-row {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .small-button,

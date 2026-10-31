@@ -18,13 +18,17 @@ export function Layout({
   route,
   source,
   error,
+  refreshing,
   children
 }: {
   route: Route;
-  source: DataSource;
+  source?: DataSource;
   error?: string;
+  refreshing?: boolean;
   children: ReactNode;
 }) {
+  const status = connectionStatus(source, error, refreshing);
+
   return (
     <div className="app-frame">
       <aside className="sidebar">
@@ -45,9 +49,9 @@ export function Layout({
       </aside>
       <div className="workspace">
         <header className="topbar">
-          <div>
-            <strong>{source === "api" ? "API connected" : "Mock data"}</strong>
-            <span>{error ? `Fallback: ${error}` : "Ready"}</span>
+          <div className={`connection-status ${status.tone}`} data-testid="connection-status">
+            <strong>{status.title}</strong>
+            <span>{status.detail}</span>
           </div>
           <a className="utility-link" href={routeHref("/settings")}>
             Local API
@@ -57,4 +61,18 @@ export function Layout({
       </div>
     </div>
   );
+}
+
+function connectionStatus(source: DataSource | undefined, error: string | undefined, refreshing: boolean | undefined) {
+  if (source === "sample") {
+    return { tone: "sample", title: "Sample preview", detail: "Example data, not saved" };
+  }
+
+  if (source === "api") {
+    if (error) return { tone: "warning", title: "API unreachable", detail: "Showing last loaded workspace" };
+    return { tone: "ok", title: "API connected", detail: refreshing ? "Refreshing..." : "Local workspace" };
+  }
+
+  if (error) return { tone: "warning", title: "API unreachable", detail: "No workspace loaded" };
+  return { tone: "ok", title: "Connecting", detail: "Loading local workspace..." };
 }

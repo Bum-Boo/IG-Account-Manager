@@ -12,7 +12,7 @@ export function AccountsPage({ data }: { data: WorkspaceData }) {
       </PageHeader>
 
       {data.accounts.length === 0 ? (
-        <EmptyState title="No accounts yet" detail="Create an account through the local API or seed the workspace." />
+        <EmptyState title="No accounts yet" detail="Use Load starter seed above, or create accounts through the local API (see /docs on the API)." />
       ) : (
         <section className="entity-grid">
           {data.accounts.map((account) => {

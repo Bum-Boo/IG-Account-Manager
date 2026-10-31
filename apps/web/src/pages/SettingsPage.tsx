@@ -11,7 +11,7 @@ export function SettingsPage({
 }: {
   apiBaseUrl: string;
   apiToken: string;
-  source: DataSource;
+  source?: DataSource;
   onSave(settings: { apiBaseUrl: string; apiToken: string }): void;
   onReload(): Promise<void>;
 }) {
@@ -28,7 +28,7 @@ export function SettingsPage({
           </button>
         }
       >
-        Current source: {source}
+        Current source: {source === "api" ? "local API" : source === "sample" ? "sample preview (not saved)" : "not connected"}
       </PageHeader>
 
       <section className="editor-grid narrow">

@@ -1,52 +1,63 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FormEvent } from "react";
+import { AuditLogList, sortAuditLogs } from "../components/AuditLogList.js";
 import { PageHeader } from "../components/PageHeader.js";
 import { RelationshipTrail } from "../components/RelationshipTrail.js";
 import { EmptyState, ErrorState } from "../components/StateBlock.js";
 import { StatusPill } from "../components/StatusPill.js";
-import type { ContentAsset, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
+import type { ContentAsset, NewCandidateInput, PostCandidate, PublishJob, WorkspaceData } from "../types.js";
 import {
   accountLabel,
   boardGroups,
+  canRunJob,
   conceptLabel,
   formatDate,
   getAccount,
   getConcept,
+  jobResultText,
   jobsByCandidate,
   mapCandidateToBoardGroup
 } from "../utils.js";
 
-type CandidateAction = "approve" | "reject" | "regenerate" | "schedule" | "retry";
+type CandidateAction = "create" | "approve" | "reject" | "regenerate" | "schedule" | "run" | "refresh";
 
 export function CandidatesPage({
   data,
   selectedCandidateId,
+  refreshing,
+  onCreate,
   onApprove,
   onReject,
   onRequestRegeneration,
   onSchedule,
-  onRetryJob
+  onRunJob,
+  onRefresh
 }: {
   data: WorkspaceData;
   selectedCandidateId?: string;
+  refreshing: boolean;
+  onCreate(input: NewCandidateInput): Promise<void>;
   onApprove(id: string): Promise<void>;
   onReject(id: string, reason?: string): Promise<void>;
   onRequestRegeneration(id: string): Promise<void>;
   onSchedule(id: string, scheduledAt: string): Promise<void>;
-  onRetryJob(id: string): Promise<void>;
+  onRunJob(id: string): Promise<void>;
+  onRefresh(): Promise<void>;
 }) {
   const [actionError, setActionError] = useState<string>();
   const [busyAction, setBusyAction] = useState<CandidateAction>();
   const selectedCandidate = selectedCandidateId ? data.candidates.find((candidate) => candidate.id === selectedCandidateId) : undefined;
   const needsReview = data.candidates.filter((candidate) => candidate.status === "ready_for_review" || candidate.status === "changes_requested");
 
-  async function runAction(action: CandidateAction, task: () => Promise<void>) {
+  async function runAction(action: CandidateAction, task: () => Promise<void>): Promise<boolean> {
     setActionError(undefined);
     setBusyAction(action);
 
     try {
       await task();
+      return true;
     } catch (error) {
       setActionError(error instanceof Error ? error.message : String(error));
+      return false;
     } finally {
       setBusyAction(undefined);
     }
@@ -54,11 +65,21 @@ export function CandidatesPage({
 
   return (
     <main className="content-area candidates-page">
-      <PageHeader eyebrow="Candidates" title="Post pipeline">
+      <PageHeader
+        eyebrow="Candidates"
+        title="Post pipeline"
+        actions={
+          <button className="small-button secondary" disabled={refreshing} onClick={() => void runAction("refresh", onRefresh)} type="button">
+            {refreshing ? "Refreshing..." : "Refresh"}
+          </button>
+        }
+      >
         Review generated candidates, make a decision, schedule approved work, and inspect publish job state.
       </PageHeader>
 
       {actionError ? <ErrorState message={actionError} /> : null}
+
+      <NewCandidateForm busy={busyAction === "create"} data={data} onCreate={(input) => runAction("create", () => onCreate(input))} />
 
       {data.candidates.length === 0 ? (
         <EmptyState title="No post candidates yet" detail="Generated candidates will appear here for review before scheduling." />
@@ -118,7 +139,7 @@ export function CandidatesPage({
             onApprove={(id) => runAction("approve", () => onApprove(id))}
             onReject={(id, reason) => runAction("reject", () => onReject(id, reason))}
             onRequestRegeneration={(id) => runAction("regenerate", () => onRequestRegeneration(id))}
-            onRetryJob={(id) => runAction("retry", () => onRetryJob(id))}
+            onRunJob={(id) => runAction("run", () => onRunJob(id))}
             onSchedule={(id, scheduledAt) => runAction("schedule", () => onSchedule(id, scheduledAt))}
           />
         </section>
@@ -170,7 +191,7 @@ function CandidateDetailPanel({
   onReject,
   onRequestRegeneration,
   onSchedule,
-  onRetryJob
+  onRunJob
 }: {
   candidate?: PostCandidate;
   data: WorkspaceData;
@@ -180,7 +201,7 @@ function CandidateDetailPanel({
   onReject(id: string, reason: string): void;
   onRequestRegeneration(id: string): void;
   onSchedule(id: string, scheduledAt: string): void;
-  onRetryJob(id: string): void;
+  onRunJob(id: string): void;
 }) {
   const [rejectReason, setRejectReason] = useState("Needs revision before this can be scheduled.");
   const [scheduledAt, setScheduledAt] = useState(() => toDateTimeLocal(defaultScheduleDate()));
@@ -209,7 +230,8 @@ function CandidateDetailPanel({
 
   const currentCandidate = candidate;
   const primaryJob = jobs[0];
-  const retryableJob = jobs.find((job) => job.status === "retry_scheduled" && job.attempt < job.maxAttempts);
+  const jobIds = new Set(jobs.map((job) => job.id));
+  const auditTrail = sortAuditLogs(data.auditLogs.filter((entry) => entry.entityId === candidate.id || jobIds.has(entry.entityId)));
   const scheduleHint =
     currentCandidate.status === "approved"
       ? "Choose a publish time, then schedule this approved candidate."
@@ -352,11 +374,18 @@ function CandidateDetailPanel({
         ) : (
           <div className="job-stack">
             {jobs.map((job) => (
-              <JobSummary job={job} key={job.id} onRetryJob={onRetryJob} retryable={job.id === retryableJob?.id} />
+              <JobSummary busy={busyAction === "run"} job={job} key={job.id} onRunJob={onRunJob} />
             ))}
           </div>
         )}
-        {primaryJob?.lastError ? <p className="error-copy">{primaryJob.lastError.message}</p> : null}
+        {primaryJob && canRunJob(primaryJob) ? (
+          <p className="muted-copy">Run now hands the job to the local worker (mock publisher). Refresh to see the result.</p>
+        ) : null}
+      </section>
+
+      <section className="detail-section">
+        <h3>Audit trail</h3>
+        <AuditLogList entries={auditTrail} emptyText="No audit entries for this candidate yet." />
       </section>
     </aside>
   );
@@ -387,30 +416,103 @@ function AssetChip({ asset }: { asset: ContentAsset }) {
   );
 }
 
-function JobSummary({
-  job,
-  retryable,
-  onRetryJob
-}: {
-  job: PublishJob;
-  retryable: boolean;
-  onRetryJob(id: string): void;
-}) {
+function JobSummary({ job, busy, onRunJob }: { job: PublishJob; busy: boolean; onRunJob(id: string): void }) {
+  const result = jobResultText(job);
+
   return (
-    <div className="job-summary">
+    <div className="job-summary" data-job-id={job.id}>
       <div>
         <strong>{job.id}</strong>
         <span>
           {formatDate(job.scheduledAt)} / attempt {job.attempt} of {job.maxAttempts}
         </span>
+        {result ? <span className={job.lastError && job.status !== "succeeded" ? "error-copy" : undefined}>{result}</span> : null}
       </div>
       <StatusPill value={job.status} />
-      {retryable ? (
-        <button className="small-button" onClick={() => onRetryJob(job.id)} type="button">
-          Retry
+      {canRunJob(job) ? (
+        <button className="small-button" disabled={busy} onClick={() => onRunJob(job.id)} type="button">
+          {job.status === "retry_scheduled" ? "Retry now" : "Run now"}
         </button>
       ) : null}
     </div>
+  );
+}
+
+function NewCandidateForm({
+  data,
+  busy,
+  onCreate
+}: {
+  data: WorkspaceData;
+  busy: boolean;
+  onCreate(input: NewCandidateInput): Promise<boolean>;
+}) {
+  const [accountId, setAccountId] = useState(() => data.accounts[0]?.id ?? "");
+  const concepts = data.concepts.filter((concept) => concept.accountId === accountId);
+  const [conceptId, setConceptId] = useState(() => concepts[0]?.id ?? "");
+  const [format, setFormat] = useState("feed_image");
+  const [caption, setCaption] = useState("");
+  const selectedConceptId = concepts.some((concept) => concept.id === conceptId) ? conceptId : (concepts[0]?.id ?? "");
+  const selectedAccountId = data.accounts.some((account) => account.id === accountId) ? accountId : (data.accounts[0]?.id ?? "");
+
+  if (data.accounts.length === 0) {
+    return null;
+  }
+
+  async function submit(event: FormEvent) {
+    event.preventDefault();
+
+    if (!selectedAccountId || !selectedConceptId || !caption.trim()) {
+      return;
+    }
+
+    const created = await onCreate({ accountId: selectedAccountId, conceptId: selectedConceptId, format: format.trim() || "feed_image", caption: caption.trim() });
+
+    if (created) {
+      setCaption("");
+    }
+  }
+
+  return (
+    <details className="panel prepare-panel">
+      <summary>Prepare a candidate</summary>
+      <form className="prepare-form" onSubmit={(event) => void submit(event)}>
+        <label>
+          Account
+          <select onChange={(event) => setAccountId(event.target.value)} value={selectedAccountId}>
+            {data.accounts.map((account) => (
+              <option key={account.id} value={account.id}>
+                {accountLabel(account)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Concept
+          <select onChange={(event) => setConceptId(event.target.value)} value={selectedConceptId}>
+            {concepts.map((concept) => (
+              <option key={concept.id} value={concept.id}>
+                {concept.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Format
+          <input onChange={(event) => setFormat(event.target.value)} value={format} />
+        </label>
+        <label className="prepare-caption">
+          Caption
+          <textarea maxLength={10000} onChange={(event) => setCaption(event.target.value)} required value={caption} />
+        </label>
+        <div className="action-row">
+          <button className="primary-button" disabled={busy || !selectedConceptId || !caption.trim()} type="submit">
+            {busy ? "Adding..." : "Add to review queue"}
+          </button>
+        </div>
+        {concepts.length === 0 ? <p className="muted-copy">This account has no concepts yet.</p> : null}
+      </form>
+    </details>
   );
 }
 

@@ -1,15 +1,23 @@
 import type { WorkspaceData } from "../types.js";
 
+/**
+ * SAMPLE DATA: an in-browser preview only.
+ *
+ * It is never written to the local API or SQLite, is shown only after the user
+ * explicitly opens the sample preview, and must never be substituted for real
+ * workspace data when the API fails. Persisted starter content is the *seed*
+ * (`packages/db/src/seed-data.ts`, loaded via `POST /workspace/seed`).
+ */
+
 const now = "2026-05-31T00:00:00.000Z";
 
-export const mockWorkspaceData: WorkspaceData = {
+export const sampleWorkspaceData: WorkspaceData = {
   accounts: [
     {
       id: "account_studio",
       platform: {
         id: "instagram",
         displayName: "Instagram",
-        officialApiBaseUrl: "https://graph.facebook.com",
         metadata: {}
       },
       externalAccountId: "external_studio",

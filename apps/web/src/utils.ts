@@ -74,3 +74,41 @@ export function metadataText(value: unknown): string {
 export function metadataBoolean(value: unknown): boolean {
   return value === true;
 }
+
+export interface JobRunRequest {
+  requestedAt: string;
+  requestedBy?: string;
+}
+
+export function jobRunRequest(job: PublishJob): JobRunRequest | undefined {
+  const request = job.metadata.runRequest;
+
+  if (request && typeof request === "object" && typeof (request as JobRunRequest).requestedAt === "string") {
+    return request as JobRunRequest;
+  }
+
+  return undefined;
+}
+
+/** A job the worker can still pick up: waiting and with attempts left. */
+export function canRunJob(job: PublishJob): boolean {
+  return (job.status === "queued" || job.status === "retry_scheduled") && job.attempt < job.maxAttempts;
+}
+
+export function jobResultText(job: PublishJob): string {
+  if (job.status === "succeeded") {
+    return job.result?.externalPostId ? `Published (mock id ${job.result.externalPostId})` : "Published";
+  }
+
+  if (job.lastError) {
+    return job.lastError.message;
+  }
+
+  const request = jobRunRequest(job);
+
+  if (request && canRunJob(job)) {
+    return "Run requested: waiting for the local worker";
+  }
+
+  return "";
+}

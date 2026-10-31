@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageHeader } from "../components/PageHeader.js";
-import { EmptyState } from "../components/StateBlock.js";
+import { EmptyState, ErrorState } from "../components/StateBlock.js";
 import type { Concept, WorkspaceData } from "../types.js";
 import { accountLabel, getAccount, metadataBoolean, metadataText } from "../utils.js";
 
@@ -31,6 +31,7 @@ export function ConceptEditorPage({
   const concept = data.concepts.find((item) => item.id === conceptId);
   const [draft, setDraft] = useState<ConceptDraft | undefined>();
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string>();
 
   useEffect(() => {
     if (!concept) return;
@@ -66,6 +67,18 @@ export function ConceptEditorPage({
 
   async function save() {
     setSaving(true);
+    setSaveError(undefined);
+
+    try {
+      await saveDraft();
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function saveDraft() {
     await onSave(currentConcept.id, {
       name: currentDraft.name,
       description: currentDraft.description,
@@ -90,7 +103,6 @@ export function ConceptEditorPage({
         }
       }
     });
-    setSaving(false);
   }
 
   return (
@@ -106,6 +118,8 @@ export function ConceptEditorPage({
       >
         {concept.description}
       </PageHeader>
+
+      {saveError ? <ErrorState message={saveError} /> : null}
 
       <section className="editor-grid">
         <div className="panel">
