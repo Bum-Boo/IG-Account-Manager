@@ -30,6 +30,12 @@ export interface PublishJobRepository {
   create(job: PublishJob): PublishJob | Promise<PublishJob>;
   getById(id: string): PublishJob | undefined | Promise<PublishJob | undefined>;
   update(job: PublishJob): PublishJob | Promise<PublishJob>;
+  /**
+   * Writes `job` only if the stored row still matches `previous` (status,
+   * attempt, updatedAt). The API and the worker are separate processes on
+   * one database, so state transitions use this to avoid stale overwrites.
+   */
+  updateIfUnchanged?(job: PublishJob, previous: PublishJob): boolean | Promise<boolean>;
   getScheduledJobsDueBefore(timestamp: string): PublishJob[] | Promise<PublishJob[]>;
 }
 

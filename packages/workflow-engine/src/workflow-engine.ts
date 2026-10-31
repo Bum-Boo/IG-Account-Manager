@@ -378,7 +378,7 @@ export class WorkflowEngine {
     // unless auto-publish is enabled for the job.
     const { runRequest: _consumed, ...metadata } = job.metadata;
     const runningJob = startPublishJob(runRequest ? { ...job, metadata } : job, now);
-    await this.repositories.publishJobs.update(runningJob);
+    await this.writeJobTransition(runningJob, job);
 
     const event = createDomainEvent(
       "PublishJobStarted",
@@ -522,7 +522,8 @@ export class WorkflowEngine {
     const now = isoNow(command.now);
     const requested = PublishJobSchema.parse({
       ...job,
-      scheduledAt: job.status === "queued" && Date.parse(job.scheduledAt) > Date.parse(now) ? now : job.scheduledAt,
+      scheduledAt:
+        job.status === "queued" && Date.parse(job.scheduledAt) > Date.parse(now) ? now : normalizeIsoTimestamp(job.scheduledAt),
       retryAfter: job.status === "retry_scheduled" ? now : job.retryAfter,
       metadata: {
         ...job.metadata,
@@ -534,7 +535,7 @@ export class WorkflowEngine {
       },
       updatedAt: now
     });
-    await this.repositories.publishJobs.update(requested);
+    await this.writeJobTransition(requested, job);
 
     const event = createDomainEvent(
       "PublishJobRunRequested",
@@ -589,6 +590,19 @@ export class WorkflowEngine {
     await this.emit(event);
 
     return { data: retried, events: [event], auditLogs: [auditLog] };
+  }
+
+  private async writeJobTransition(next: PublishJob, previous: PublishJob): Promise<void> {
+    const publishJobs = this.repositories.publishJobs;
+
+    if (!publishJobs.updateIfUnchanged) {
+      await publishJobs.update(next);
+      return;
+    }
+
+    if (!(await publishJobs.updateIfUnchanged(next, previous))) {
+      throw new WorkflowRuleViolationError("The publish job was changed by another process. Refresh and try again.");
+    }
   }
 
   private async filterAutoPublishJobs(jobs: PublishJob[]): Promise<PublishJob[]> {

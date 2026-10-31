@@ -46,6 +46,23 @@ export class PublishJobRepository {
     return job;
   }
 
+  updateIfUnchanged(job: PublishJob, previous: PublishJob): boolean {
+    const result = this.db
+      .update(publishJobs)
+      .set(toPublishJobRow(job))
+      .where(
+        and(
+          eq(publishJobs.id, job.id),
+          eq(publishJobs.status, previous.status),
+          eq(publishJobs.attempt, previous.attempt),
+          eq(publishJobs.updatedAt, previous.updatedAt)
+        )
+      )
+      .run();
+
+    return result.changes === 1;
+  }
+
   delete(id: string): void {
     this.db.delete(publishJobs).where(eq(publishJobs.id, id)).run();
   }

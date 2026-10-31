@@ -256,6 +256,62 @@ describe("WorkflowEngine", () => {
     ).rejects.toBeInstanceOf(WorkflowRuleViolationError);
   });
 
+  it("does not overwrite a job another process started while a run request was being recorded", async () => {
+    const scheduled = await createScheduledCandidateWithJob("candidate_race", "publish_job_race");
+    const repositories = createMemoryRepositories(store);
+    const racingEngine = new WorkflowEngine({
+      repositories: {
+        ...repositories,
+        plugins: {
+          // Runs after requestPublishJobRun has read the job: simulate the
+          // worker process starting it in between.
+          getById: (id) => {
+            const job = store.publishJobs.get("publish_job_race")!;
+            if (job.status === "queued") {
+              store.publishJobs.set(job.id, { ...job, status: "running", attempt: 1, updatedAt: "2026-05-31T00:00:05.000Z" });
+            }
+            return store.plugins.get(id);
+          }
+        }
+      },
+      events: { emit: () => undefined }
+    });
+
+    await expect(
+      racingEngine.requestPublishJobRun({ publishJobId: scheduled.publishJob.id, actorId: "reviewer", now: fixedNow })
+    ).rejects.toBeInstanceOf(WorkflowRuleViolationError);
+    expect(store.publishJobs.get("publish_job_race")).toMatchObject({ status: "running", attempt: 1 });
+  });
+
+  it("normalizes a legacy offset scheduledAt when a run is requested", async () => {
+    const scheduled = await createScheduledCandidateWithJob("candidate_legacy", "publish_job_legacy");
+    // Stored before scheduledAt was normalized; already in the past at fixedNow.
+    store.publishJobs.set(scheduled.publishJob.id, { ...scheduled.publishJob, scheduledAt: "2026-05-31T08:00:00+09:00" });
+
+    const requested = await engine.requestPublishJobRun({ publishJobId: scheduled.publishJob.id, actorId: "reviewer", now: fixedNow });
+
+    expect(requested.data.scheduledAt).toBe("2026-05-30T23:00:00.000Z");
+    const due = await engine.enqueueDuePublishJobs({ dueBefore: fixedNow.toISOString(), actorId: "worker", trigger: "auto" });
+    expect(due.data.jobs.map((job) => job.id)).toEqual([scheduled.publishJob.id]);
+  });
+
+  it("lets only one runner start a job", async () => {
+    const scheduled = await createScheduledCandidateWithJob("candidate_double", "publish_job_double");
+    const job = store.publishJobs.get(scheduled.publishJob.id)!;
+    const repositories = createMemoryRepositories(store);
+    const staleEngine = new WorkflowEngine({
+      repositories: { ...repositories, publishJobs: { ...repositories.publishJobs, getById: () => job } },
+      events: { emit: () => undefined },
+      publisherPlugins: { getPublisher: () => mockPublisherPlugin }
+    });
+
+    await engine.runPublishJob({ publishJobId: job.id, actorId: "worker-a", now: fixedNow });
+    await expect(staleEngine.runPublishJob({ publishJobId: job.id, actorId: "worker-b", now: fixedNow })).rejects.toBeInstanceOf(
+      WorkflowRuleViolationError
+    );
+    expect(store.publishJobs.get(job.id)?.attempt).toBe(1);
+  });
+
   it("audit logs are written", async () => {
     const candidate = await createReadyCandidate();
     await engine.approveCandidate({
@@ -436,6 +492,14 @@ function createMemoryRepositories(store: MemoryStore): WorkflowRepositories {
       update: (job) => {
         store.publishJobs.set(job.id, job);
         return job;
+      },
+      updateIfUnchanged: (job, previous) => {
+        const current = store.publishJobs.get(job.id);
+        if (!current || current.status !== previous.status || current.attempt !== previous.attempt || current.updatedAt !== previous.updatedAt) {
+          return false;
+        }
+        store.publishJobs.set(job.id, job);
+        return true;
       },
       getScheduledJobsDueBefore: (timestamp) =>
         [...store.publishJobs.values()].filter(

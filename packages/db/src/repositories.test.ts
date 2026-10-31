@@ -211,6 +211,16 @@ describe("repositories", () => {
     expect(repos.publishJobs.getById(job.id)?.status).toBe(status);
   });
 
+  it("updates a publish job only if it is unchanged since it was read", () => {
+    const job = repos.publishJobs.getById("job_due")!;
+    const running = { ...job, status: "running" as const, attempt: 1, updatedAt: "2026-06-01T10:00:01.000Z" };
+
+    expect(repos.publishJobs.updateIfUnchanged(running, job)).toBe(true);
+    // A second writer holding the same stale snapshot must not win.
+    expect(repos.publishJobs.updateIfUnchanged({ ...job, metadata: { stale: true } }, job)).toBe(false);
+    expect(repos.publishJobs.getById("job_due")).toMatchObject({ status: "running", attempt: 1 });
+  });
+
   it("gets assets compatible with a concept", () => {
     const assets = repos.assets.getAssetsCompatibleWithConcept("concept_workflow");
 
