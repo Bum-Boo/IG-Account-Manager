@@ -24,6 +24,7 @@ import { registerHealthRoutes } from "./routes/health.js";
 import { registerPluginRoutes } from "./routes/plugins.js";
 import { registerPublishJobRoutes } from "./routes/publish-jobs.js";
 import { registerRecipeRoutes } from "./routes/recipes.js";
+import { registerWorkspaceRoutes } from "./routes/workspace.js";
 
 export interface CreateApiServerOptions extends FastifyServerOptions {
   databaseHandle?: DatabaseHandle;
@@ -80,6 +81,7 @@ export function createApiServer(options: CreateApiServerOptions = {}) {
     await registerPublishJobRoutes(routes, context);
     await registerPluginRoutes(routes, context);
     await registerAuditLogRoutes(routes, context);
+    await registerWorkspaceRoutes(routes, context);
   });
 
   server.addHook("onClose", async () => {

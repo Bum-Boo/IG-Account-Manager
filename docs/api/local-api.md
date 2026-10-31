@@ -14,7 +14,7 @@ Environment variables:
 
 - `API_HOST`: bind host. Defaults to `0.0.0.0`.
 - `API_PORT`: bind port. Defaults to `3001`.
-- `API_DATABASE_URL`: SQLite file path. Defaults to `./data/ig-manager.sqlite`.
+- `API_DATABASE_URL`: SQLite file path. Defaults to `<workspace root>/data/ig-manager.sqlite`, the same file the worker and the `db` seed/migrate scripts use. Relative paths are resolved against the directory the process starts in (for `pnpm --filter` that is the package directory), so prefer absolute paths when overriding.
 - `DATABASE_URL`: fallback SQLite path when `API_DATABASE_URL` is not set.
 - `IG_MANAGER_LOCAL_TOKEN`: optional bearer token for local API access.
 - `API_ACTOR_ID`: audit actor label. Defaults to `local-api`.
@@ -97,7 +97,12 @@ Publish jobs:
 - `GET /publish-jobs`
 - `GET /publish-jobs?status=queued`
 - `GET /publish-jobs?dueBefore=2026-06-01T10:00:00.000Z`
+- `POST /publish-jobs/:id/run`
 - `POST /publish-jobs/:id/retry`
+
+Workspace:
+
+- `POST /workspace/seed` loads the synthetic starter workspace (`metadata.seed = "starter-v1"`) into an empty workspace. Returns `409 workspace_not_empty` when any account exists.
 
 Plugins:
 
@@ -120,7 +125,10 @@ These routes call the workflow engine and emit workflow events plus audit logs:
 - `POST /candidates/:id/approve`
 - `POST /candidates/:id/reject`
 - `POST /candidates/:id/schedule`
+- `POST /publish-jobs/:id/run`
 - `POST /publish-jobs/:id/retry`
+
+`run` and `retry` never publish from the API process. They record a run request (`metadata.runRequest`, audit action `publish_job.run_requested`) and make a queued or retry-scheduled job due immediately. The local worker picks it up on its next poll and runs it as a manual trigger, so review-first jobs do not need auto-publish. One request authorizes one attempt. Jobs that are running, succeeded or failed return `409`.
 
 Scheduling still requires a publisher plugin registration. The local API binds enabled publisher registrations to a mock publisher contract for validation only. It does not implement real Instagram OAuth or publishing.
 

@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import { WorkspaceNotEmptyError } from "@ig-manager/db";
 import { DomainValidationError, InvalidStateTransitionError } from "@ig-manager/domain";
 import { WorkflowNotFoundError, WorkflowRuleViolationError } from "@ig-manager/workflow-engine";
 
@@ -35,6 +36,15 @@ export function registerErrorHandler(server: FastifyInstance): void {
       return reply.code(409).send({
         error: {
           code: "workflow_rule_violation",
+          message: error.message
+        }
+      });
+    }
+
+    if (error instanceof WorkspaceNotEmptyError) {
+      return reply.code(409).send({
+        error: {
+          code: "workspace_not_empty",
           message: error.message
         }
       });

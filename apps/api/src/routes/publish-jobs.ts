@@ -11,7 +11,7 @@ const PublishJobQuerySchema = z
   })
   .strict();
 
-const RetryBodySchema = z
+const RunBodySchema = z
   .object({
     actorId: z.string().trim().min(1).max(120).optional()
   })
@@ -35,18 +35,24 @@ export async function registerPublishJobRoutes(server: FastifyInstance, context:
     }
   );
 
-  server.post<{ Params: unknown; Body: unknown; Reply: ApiDataResponse<PublishJob> }>(
-    "/publish-jobs/:id/retry",
-    { schema: { tags: ["publish jobs"], security: [{ localToken: [] }] } },
-    async (request) => {
-      const { id } = parseParams(IdParamSchema, request.params);
-      const body = parseBody(RetryBodySchema, request.body ?? {});
-      const retried = await context.workflow.retryPublishJob({
-        publishJobId: id,
-        actorId: body.actorId ?? context.actorId
-      });
+  // The API never publishes. "Run now" and "retry" both record a run request
+  // that makes the job due immediately; the local worker executes it on its
+  // next poll. (Retry used to move the job to "running" here, which left it
+  // stuck because no process would ever finish that attempt.)
+  for (const action of ["run", "retry"] as const) {
+    server.post<{ Params: unknown; Body: unknown; Reply: ApiDataResponse<PublishJob> }>(
+      `/publish-jobs/:id/${action}`,
+      { schema: { tags: ["publish jobs"], security: [{ localToken: [] }] } },
+      async (request) => {
+        const { id } = parseParams(IdParamSchema, request.params);
+        const body = parseBody(RunBodySchema, request.body ?? {});
+        const requested = await context.workflow.requestPublishJobRun({
+          publishJobId: id,
+          actorId: body.actorId ?? context.actorId
+        });
 
-      return { data: retried.data };
-    }
-  );
+        return { data: requested.data };
+      }
+    );
+  }
 }

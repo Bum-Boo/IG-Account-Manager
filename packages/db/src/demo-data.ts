@@ -17,6 +17,8 @@ import {
   type PublishJob
 } from "@ig-manager/domain";
 
+// Repository test fixture. Runtime seeding uses seed-data.ts (persisted starter
+// workspace); the browser-only preview uses apps/web/src/api/sampleData.ts.
 export interface DemoData {
   accounts: Account[];
   concepts: Concept[];
