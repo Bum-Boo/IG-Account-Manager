@@ -1,6 +1,7 @@
 node_modules/
 dist/
 coverage/
+apps/web/e2e/output/
 .turbo/
 data/
 *.log

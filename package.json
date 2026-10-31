@@ -11,7 +11,8 @@
     "lint": "turbo lint",
     "test": "turbo test",
     "seed": "pnpm --filter @ig-manager/db seed",
-    "worker:once": "pnpm --filter @ig-manager/worker once"
+    "worker:once": "pnpm --filter @ig-manager/worker once",
+    "test:e2e": "node --test --test-concurrency=1 apps/web/e2e/review-loop.e2e.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
